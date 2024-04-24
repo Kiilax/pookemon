@@ -1,12 +1,12 @@
 import java.util.Stack;
 
 public class Deck {
-    private Stack<Pokemoon> m_pokemons;
+    private Stack<Pokemoon> m_pokemons = new Stack<>();
 
     public Deck(int deckSize)/*le constructeur remplie m_pokemons avec 20 ou 21 pokemons aléatoires */ {
-        m_pokemons = new Stack<>();
-        Pokemoon roro = new Pokemoon("Pikachu");
-        m_pokemons.push(roro);
+        for(int i = 0; i<deckSize; i++) {
+            m_pokemons.push(new Pokemoon());
+        }
     }
     public Pokemoon takePokemoons() {
         return m_pokemons.pop();
