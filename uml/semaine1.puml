@@ -35,36 +35,61 @@ class Discard{
     +addPokemoon():
 }
 
-class Pokemoon{
-    -m_name: String
-    -m_life: Integer
-    -m_fight: Integer
-    +«create»Pokemoon()
-    +toString(): String
-    +getName(): String
-    +fight(other: Pokemoon)
-}
+package pokemoon{
+    enum Element{
+        -m_type: String
+        -m_avantage: String
+        -m_desavantage: String
+        EAU
+        TERRE
+        FEU
+        AIR
+        -«create»Element(type: String, avantage: String, desavantage: String)
+        +toString(): String
+        +getAvantage(): String
+        +getDesavantage(): String
+    }
 
-class ListPokemoon{
-    -{static}m_NamePokemoonAvailable: String[0..*]
-    -{static}m_NamePokemoonTaken: String[0..*]
-    +{static}toString(): String
-    +{static}getName(): String
-    +{static}reset(): String
-}
+    class ListPokemoon{
+        -m_namePokemoonAvailable: String[0..21]
+        -m_namePokemoonTaken: String[0..21]
+        +{static}toStringStat(): String
+        -getRandomIndex(): Integer
+        +getName(): String
+        +reset():
+    }
 
+    class PokeLife{
+        -m_pv: Integer
+        -m_pvMax: Integer
+        ~«create»PokeLife(pv: Integer)
+        ~getPV(): Integer
+        ~getPvMax(): Integer
+        ~takeDamage(attack: Integer): Integer
+    }
 
-enum Element{
-    -m_avantage: String
-    -m_desavantage: String
-    EAU
-    TERRE
-    FEU
-    AIR
-    -«create»Element()
-    +toString(): String
-    +getAvantage():String
-    +getDesavantage():String
+    class PokePower{
+        -m_power: Integer
+        ~«create»PokePower(power: Integer)
+        ~getAttackPower(element: Element, elementEnemi: Element): Integer
+        ~getPower(): Integer
+    }
+
+    class Pokemoon{
+        -m_name: String
+        +«create»Pokemoon()
+        +toString(): String
+        +getName(): String
+        +getPower(): Integer
+        +getLife(): Integer
+        +getLifeMax(): Integer
+        +fight(other: Pokemoon):
+    }
+
+    Pokemoon "1" *-> "m_life\n1" PokeLife : a
+    Pokemoon "1" *-> "m_power\n1" PokePower : a
+    Pokemoon "0..*" *-> "m_affinite\n1" Element : est du type
+
 }
 
 
@@ -74,7 +99,6 @@ Player "1" ---> "-m_discard\n1" Discard: defausse
 Player "2" ---> "-m_playground\n1"Playground : joue sur
 Playground "1"---> "-m_pokemoonJ1\n[3]\n\n-m_pokemoonJ2[3]"Pokemoon : en jeux
 Pokemoon -[dashed]--> ListPokemoon : uses
-Pokemoon "[0..*]"---> "-m_element\n1"Element : est du type
 Hand "1"--->"-m_pokemoon\n[0..5]" Pokemoon : est faite
 Deck "1"---> "-m_pokemoon\n[0..21]"Pokemoon : est fait 
 Discard "1"--->"-m_pokemoon\n[0..*]"Pokemoon: est fait
