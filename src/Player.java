@@ -34,7 +34,7 @@ public class Player {
         return m_discard;
     }*/
     public String toString() {
-        Pokemoon p = m_deck.takePokemoons();
+        Pokemoon p = m_deck.takePokemoon();
         String res = "Le joueur "+m_nom+" possède "+p.getNom()+" !";
         return res;
     }
