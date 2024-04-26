@@ -1,4 +1,7 @@
+package player;
 import java.util.Stack;
+
+import pokemoon.Pokemoon;
 
 public class Deck {
     private Stack<Pokemoon> m_pokemoons = new Stack<Pokemoon>();

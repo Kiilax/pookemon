@@ -1,7 +1,10 @@
+package player;
+import pokemoon.*;
+
 public class Player {
     private Deck m_deck;
     private Hand m_hand;
-    //private Playground m_playground;
+    private Playground m_playground;
     //private Discard m_discard;
     private boolean m_firstPlayer;
     private String m_nom;
@@ -15,7 +18,7 @@ public class Player {
         else m_deck = new Deck(21);
 
         m_hand = new Hand(m_deck);
-        //m_playground = new Playground();
+        m_playground = new Playground(m_hand);
         //m_discard = new Discard();
     }
     public boolean getRole() {
@@ -27,15 +30,18 @@ public class Player {
     public Hand getHand() {
         return m_hand;
     }
+    public void choose(String pokemoon) {
+
+    }
     /*public Playground getPlayground() {
         return m_playground;
     }
     public Discard getDiscard() {
         return m_discard;
     }*/
-    public String toString() {
+    /*public String toString() {
         Pokemoon p = m_deck.takePokemoon();
-        String res = "Le joueur "+m_nom+" possède "+p.getNom()+" !";
+        String res = "Le joueur "+m_nom+" possède  !";
         return res;
-    }
+    }*/
 }

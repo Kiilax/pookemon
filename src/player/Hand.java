@@ -1,4 +1,7 @@
+package player;
 import java.util.ArrayList;
+
+import pokemoon.*;
 
 public class Hand {
     private ArrayList<Pokemoon> m_pokemoons = new ArrayList<Pokemoon>();
@@ -6,9 +9,7 @@ public class Hand {
 
     public Hand(Deck deck) {
         m_deck = deck;
-        for(int i = 0; i<5; i++) {
-            addPokemoon();
-        }
+        addPokemoon();
     }
     public void addPokemoon() {
         while(m_pokemoons.size()<5 && !m_deck.isDeckEmpty()) {
@@ -19,6 +20,7 @@ public class Hand {
     public ArrayList<Pokemoon> getPokemoon() {
         return m_pokemoons;
     }
+    
     public String toString() {
         return "Dans ma main j'ai "+m_pokemoons.size()+" pokemoons !";
     }

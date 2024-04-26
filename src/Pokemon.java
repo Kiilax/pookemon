@@ -1,3 +1,4 @@
+import player.*;
 import pokemoon.*;
 
 public class Pokemon
@@ -14,7 +15,6 @@ public class Pokemon
     System.out.println(j2.getDeck().toString());
     System.out.println(j2.getHand().toString());
 
-    //System.out.println(j1.toString());
 
     Pokemoon poke = new Pokemoon();
     Pokemoon poke2 = new Pokemoon();
