@@ -1,3 +1,5 @@
+
+import pokemoon.Pokemoon;
 import java.util.Stack;
 
 public class Deck {
@@ -8,12 +10,15 @@ public class Deck {
             m_pokemoons.push(new Pokemoon());
         }
     }
+
     public Pokemoon takePokemoon() {
         return m_pokemoons.pop();
     }
+
     public boolean isDeckEmpty() {
         return m_pokemoons.empty();
     }
+    
     public String toString() {
         return "Dans mon deck il y a "+m_pokemoons.size()+" pokémoons !";
     }

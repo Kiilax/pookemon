@@ -1,7 +1,7 @@
 package pokemoon;
 
 class AttackPower extends PokePower {
-    public AttackPower(int power){
+    AttackPower(int power){
         super(power);
     }
 
