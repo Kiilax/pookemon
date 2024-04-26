@@ -71,8 +71,12 @@ package pokemoon{
     class PokePower{
         -m_power: Integer
         ~«create»PokePower(power: Integer)
-        ~getAttackPower(element: Element, elementEnemi: Element): Integer
         ~getPower(): Integer
+    }
+
+    class AttackPower extends PokePower{
+        ~«create»AttackPower(power: Integer)
+        ~getAttackPower(element: Element, elementEnemi: Element): Integer
     }
 
     class Pokemoon{

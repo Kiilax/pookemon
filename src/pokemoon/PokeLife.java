@@ -5,7 +5,7 @@ package pokemoon;
  * m_pvMax la vie maximum du pokemoon
  */
 
-public class PokeLife {
+ class PokeLife {
     private int m_pv;
     private int m_pvMax;
 

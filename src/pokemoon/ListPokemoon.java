@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class ListPokemoon {
+class ListPokemoon {
     private static ArrayList<String> m_namePokemoonAvailable = new ArrayList<String>(Arrays.asList("sam","oce","sim","roro"));
     private static ArrayList<String> m_namePokemoonTaken = new ArrayList<String>();
 
