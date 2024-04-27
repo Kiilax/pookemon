@@ -1,26 +1,43 @@
 import player.*;
-import pokemoon.*;
 
 public class Pokemon
 {
   public static void main(String args[])
   {
-    double rd = Math.random();
-    boolean rdb = rd<0.5;
+    // simulation du premier tour
 
-    Player j1 = new Player("j1", rdb);
-    Player j2 = new Player("j2", !rdb);
-    System.out.println(j1.getDeck().toString());
-    System.out.println(j1.getHand().toString());
-    System.out.println(j2.getDeck().toString());
-    System.out.println(j2.getHand().toString());
+    // créer joueur
+    Player p1 = new Player();
+    Player p2 = new Player();
+
+    // rempli les main
+    p1.fillHand();
+    p2.fillHand();
 
 
-    Pokemoon poke = new Pokemoon();
-    Pokemoon poke2 = new Pokemoon();
-    System.out.println("Lancement du jeu ...\n");
-    System.out.println(poke.toString()+"\n\n"+poke2.toString());
-    poke.fight(poke2);
-    System.out.println("\noh non il y a eu une attaque\n\n"+poke2.toString());
+    //joue autant de poke qu'il n'y a de mort
+    for(int i=0; i<p1.cleanPlayground();i++){
+      p1.choosePoke("");
+    }
+    for(int i=0; i<p2.cleanPlayground();i++){
+      p2.choosePoke("");
+    }
+    //ici on en met que 1 pcq flemme
+    for(int i=0; i<3; i++){
+      p1.choosePoke("");
+      p2.choosePoke("");
+
+    }
+
+    System.out.println(p1);
+    System.out.println(p2);
+    
+    //p1 attaque p2
+    p1.attack(p2, "", "");
+
+    System.out.println(p1);
+    System.out.println(p2);
+
+
   }
 }

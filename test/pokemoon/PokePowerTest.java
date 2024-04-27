@@ -5,13 +5,13 @@ import org.junit.Test;
 
 public class PokePowerTest {
     @Test
-    public void TestInit(){
+    public void testInit(){
         PokePower power = new PokePower(10);
         assertTrue(power.getPower() == 10);
     }
 
     @Test
-    public void TestGetAttackPowerAvantage(){
+    public void testPokePower(){
         PokePower power = new PokePower(10);
         Element eau = Element.EAU;
         Element feu = Element.FEU;
@@ -19,7 +19,7 @@ public class PokePowerTest {
     }
 
     @Test
-    public void TestGetAttackPowerDesavantage(){
+    public void testGetAttackPowerDesavantage(){
         PokePower power = new PokePower(10);
         Element eau = Element.EAU;
         Element terre = Element.TERRE;

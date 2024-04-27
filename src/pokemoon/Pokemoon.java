@@ -5,7 +5,7 @@ import java.util.Random;
 public class Pokemoon {
     private String m_name;
     private PokeLife m_life;
-    private AttackPower m_powerAtt;
+    private PokePower m_powerAtt;
     private Element m_affinite;
 
     public Pokemoon(){
@@ -13,7 +13,7 @@ public class Pokemoon {
         Element[] tabElement = {Element.AIR,Element.EAU,Element.FEU,Element.TERRE};
         m_name = ListPokemoon.getName();
         m_life = new PokeLife(10*rd.nextInt(10,20));
-        m_powerAtt = new AttackPower(10 * rd.nextInt(1,4));
+        m_powerAtt = new PokePower(10 * rd.nextInt(1,4));
         m_affinite = tabElement[rd.nextInt(0,3)];
     }
 
@@ -36,6 +36,14 @@ public class Pokemoon {
 
     public int getLifeMax(){
         return m_life.getPvMax();
+    }
+
+    public String getElement(){
+        return m_affinite.name();
+    }
+
+    public String getDesavantage(){
+        return m_affinite.getDesavantage();
     }
 
     /**

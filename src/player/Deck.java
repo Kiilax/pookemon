@@ -1,22 +1,32 @@
 package player;
-import java.util.Stack;
 
+import java.util.Stack;
 import pokemoon.Pokemoon;
 
 public class Deck {
-    private Stack<Pokemoon> m_pokemoons = new Stack<Pokemoon>();
+    private Stack<Pokemoon> m_pokemoons;
 
-    public Deck(int deckSize)/*le constructeur remplie m_pokemons avec 20 ou 21 pokemons aléatoires */ {
+    /*le constructeur remplie m_pokemons avec 20 ou 21 pokemons aléatoires */
+    Deck(int deckSize){
+        m_pokemoons = new Stack<Pokemoon>();
         for(int i = 0; i<deckSize; i++) {
             m_pokemoons.push(new Pokemoon());
         }
     }
-    public Pokemoon takePokemoon() {
+
+    Pokemoon takePokemoon() {
         return m_pokemoons.pop();
     }
-    public boolean isDeckEmpty() {
+
+    boolean isEmpty() {
         return m_pokemoons.empty();
     }
+
+    int getSize(){
+        return m_pokemoons.size();
+    }
+
+    @Override
     public String toString() {
         return "Dans mon deck il y a "+m_pokemoons.size()+" pokémoons !";
     }

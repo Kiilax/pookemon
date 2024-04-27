@@ -1,6 +1,6 @@
 package pokemoon;
 
-public enum Element {
+enum Element {
     EAU("eau","feu","terre"),
     FEU("feu","air","eau"),
     TERRE("terre","eau","air"),
@@ -21,11 +21,11 @@ public enum Element {
         return m_type;
     }
 
-    public String getAvantage(){
+    String getAvantage(){
         return new String(m_avantage);
     }
 
-    public String getDesavantage(){
+    String getDesavantage(){
         return new String(m_desavantage);
     }
 }

@@ -1,27 +1,62 @@
 package player;
 import java.util.ArrayList;
 
-import pokemoon.*;
+import pokemoon.Pokemoon;
 
 public class Hand {
-    private ArrayList<Pokemoon> m_pokemoons = new ArrayList<Pokemoon>();
-    private Deck m_deck;
+    private ArrayList<Pokemoon> m_pokemoons;
 
-    public Hand(Deck deck) {
-        m_deck = deck;
-        addPokemoon();
+    Hand() {
+        m_pokemoons = new ArrayList<Pokemoon>();
     }
-    public void addPokemoon() {
-        while(m_pokemoons.size()<5 && !m_deck.isDeckEmpty()) {
-            m_pokemoons.add(m_deck.takePokemoon());
+
+    boolean addPokemoon(Pokemoon poke) {
+        if(m_pokemoons.size()<5){
+            m_pokemoons.add(poke);
+            return true;
         }
-        
+        return false;
     }
-    public ArrayList<Pokemoon> getPokemoon() {
-        return m_pokemoons;
+
+    /**
+     * trouve un pokemon grace a son index
+     * @param index l'index du poke que l'on veut
+     * @return le pokemon qui se trouve a cette index
+     * /!\ si l'index n'est pas dans les bornes on retourne null
+     */
+    Pokemoon getPokemoonByIndex(int index) {
+        if(index < m_pokemoons.size()){
+            return m_pokemoons.get(index);
+        }
+        return null;
+    }
+
+    /**
+     * trouve un pokemon grace a son nom
+     * @param nomPoke le nom du pokemon que l'on veut
+     * @return le pokemon qui a se nom
+     * /!\ si le nom est faux on retourne null
+     */
+    Pokemoon getPokemoonByName(String nomPoke) {
+        int i=0;
+        for(Pokemoon poke : m_pokemoons){
+            if(poke.getName().equals(nomPoke)){
+                return m_pokemoons.remove(i);
+            }
+        }
+        return null;
     }
     
+    int getSize(){
+        return m_pokemoons.size();
+    }
+
+    @Override
     public String toString() {
-        return "Dans ma main j'ai "+m_pokemoons.size()+" pokemoons !";
+        String listePoke = "";
+        for(Pokemoon poke : m_pokemoons){
+            listePoke += poke.getName() + ", ";
+        }
+        return listePoke.substring(0,listePoke.length()-2);
     }
 }
