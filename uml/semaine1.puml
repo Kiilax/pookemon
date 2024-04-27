@@ -3,10 +3,6 @@
 package player{
 
    class Player{
-       -m_deck: Deck
-       -m_hand: Hand
-       -m_playground: Playground
-       -m_discard: Discard
        -{static}m_firstPlayer: boolean
        +«create»Player()
        +fillHand(): void
@@ -21,7 +17,6 @@ package player{
    }
 
    class Playground{
-          -m_pokemoons: ArrayList<Pokemoon>
           ~«create»Playground()
           ~addPokemoon(pokemoon: Pokemoon): void
           ~getPokemoonByIndex(index: Integer): Pokemoon
@@ -32,7 +27,6 @@ package player{
    }
 
    class Hand{
-       -m_pokemoons: ArrayList<Pokemoon>
        ~«create»Hand()
        ~addPokemoon(poke: Pokemoon): boolean
        ~getPokemoonByIndex(index: Integer): Pokemoon
@@ -42,7 +36,6 @@ package player{
    }
 
    class Deck{
-       -m_pokemoons: Stack<Pokemoon>
        ~«create»Deck(size: Integer)
        ~takePokemoon(): Pokemoon
        ~isEmpty(): boolean
@@ -51,7 +44,6 @@ package player{
    }
 
    class Discard{
-       -m_pokemoons: Stack<Pokemoon>
        ~«create»Discard()
        ~addPokemoon(poke: Pokemoon): void
        ~getSize(): Integer
@@ -101,9 +93,6 @@ package pokemoon{
 
     class Pokemoon{
         -m_name: String
-        -m_life: PokeLife
-        -m_powerAtt: PokePower
-        -m_affinite: Element
         +«create»Pokemoon()
         +toString(): String
         +getName(): String
