@@ -12,9 +12,9 @@ public class Pokemoon {
         Random rd = new Random();
         Element[] tabElement = {Element.AIR,Element.EAU,Element.FEU,Element.TERRE};
         m_name = ListPokemoon.getName();
-        m_life = new PokeLife(10*rd.nextInt(10,20));
-        m_powerAtt = new PokePower(10 * rd.nextInt(1,4));
-        m_affinite = tabElement[rd.nextInt(0,3)];
+        m_life = new PokeLife(10*(10 + rd.nextInt(10)));
+        m_powerAtt = new PokePower(10 * (1 + rd.nextInt(3)));
+        m_affinite = tabElement[rd.nextInt(4)];
     }
 
     @Override
