@@ -57,6 +57,12 @@ public class Playground {
 
     @Override
     public String toString(){
-        return m_pokemoons.get(0).toString() + "\n" + m_pokemoons.get(1).toString() + "\n" + m_pokemoons.get(2).toString();
+        return "----------------------------------\n"+
+        m_pokemoons.get(0).toString()+
+        "----------------------------------\n"+
+        m_pokemoons.get(1).toString() +
+        "----------------------------------\n"+
+        m_pokemoons.get(2).toString()+
+        "----------------------------------\n";
     }
 }
