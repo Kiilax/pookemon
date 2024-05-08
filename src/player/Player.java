@@ -4,23 +4,26 @@ import java.util.ArrayList;
 import pokemoon.Pokemoon;
 
 public class Player {
-    private Deck m_deck;
-    private Hand m_hand;
-    private Playground m_playground;
-    private Discard m_discard;
-    private static boolean m_firstPlayer = true;
+    protected String m_nom;
+    protected Deck m_deck;
+    protected Hand m_hand;
+    protected Playground m_playground;
+    protected Discard m_discard;
+    protected static boolean m_firstPlayer;
 
-    public Player() {
+    public Player(String nom, boolean firstPlayer) {
+        m_firstPlayer = firstPlayer;
         if(m_firstPlayer) {
-            m_firstPlayer = false;
-            m_deck = new Deck(5);
+            m_deck = new Deck(10);
         }
         else {
-            m_deck = new Deck(6);
+            m_deck = new Deck(11);
         }
+        m_nom = nom;
         m_hand = new Hand();
         m_playground = new Playground();
         m_discard = new Discard();
+        fillHand();
     }
 
     /**
@@ -31,69 +34,12 @@ public class Player {
             m_hand.addPokemoon(m_deck.takePokemoon());
         }
     }
-
     /**
      * ajoute un pokemon au playground
-     * @param namePoke le nom du pokemon 
-     * /!\ si le nom est vide alors choix automatique
+     * @param index l'index du pokemon
      */
-    public void choosePoke(String namePoke){
-        if(namePoke.isEmpty()){
-            m_playground.addPokemoon(m_hand.getPokemoonByIndex(0));
-        }
-        else{
-            m_playground.addPokemoon(m_hand.getPokemoonByName(namePoke));
-        }
-    }
-
-    /**
-     * permet d'attaquer un pokemon d'un autre joueur (si on veut jouer a plus de deux)
-     * @param other le joueur que l'on veut embête
-     * @param namePoke le nom de poke que l'on veut éliminer
-     * @return Retourne true si le pokemon a été attaque, false sinon
-     * /!\ le champ other ne peut pas être null
-     * /!\ le champ namePoke vide veut dire que l'on attaque un pokemon sur lequel on a un avantage
-     */
-    public boolean attack(Player other, String namePokeAttack, String namePokeOther){
-        // tes l'adversaire
-        if(other == null){
-            return false;
-        }
-
-        //trouve le poke que je veux utiliser pour attaquer et test si null
-        Pokemoon pokeAttack;
-        if(namePokeAttack.isEmpty()){ //si vido on prend le 1er
-            pokeAttack = m_playground.getPokemoonByIndex(0);
-        }
-        else{
-            pokeAttack = m_playground.getPokemoonByName(namePokeAttack);
-        }
-        if(pokeAttack == null){
-            return false;
-        }
-
-        // trouve le pokemon que je veux attaquer et test si null
-        Pokemoon pokeOther;
-        if(namePokeOther.isEmpty()){
-            if((pokeOther = other.m_playground.getPokemoonByIndex(0))==null){
-                return false;
-            }
-            String element = pokeAttack.getElement();
-            for(int i=1; i<3; i++){
-                if(other.m_playground.getPokemoonByIndex(i).getDesavantage() == element){
-                    pokeOther = other.m_playground.getPokemoonByIndex(i);
-                }
-            }
-        }
-        else{
-            pokeOther = other.m_playground.getPokemoonByName(namePokeOther);
-        }
-        if(pokeOther == null){
-            return false;
-        }
-
-        pokeAttack.fight(pokeOther);
-        return true;
+    public void choosePoke(int index) {
+        m_playground.addPokemoon(m_hand.getPokemoonByIndex(index));
     }
 
     /**
@@ -115,6 +61,10 @@ public class Player {
         return m_playground.toString();
     }
 
+    public int getPlaygroundSize() {
+        return m_playground.getSize();
+    }
+
     public int getDeckSize(){
         return m_deck.getSize();
     }
@@ -123,7 +73,14 @@ public class Player {
         return m_discard.getSize();
     }
 
+    public String getPlayerName() {
+        return m_nom;
+    }
+    public boolean getFirstPlayer() {
+        return m_firstPlayer;
+    }
     public String toString() {
         return m_playground.toString();
-    } 
+    }
+    
 }
