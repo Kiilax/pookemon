@@ -19,7 +19,11 @@ public class Pokemoon {
 
     @Override
     public String toString(){
-        return "nom : "+m_name+"\nvie : "+m_life.getPV()+"\npuissance : "+m_powerAtt.getPower()+"\ntype : "+m_affinite.toString();
+        return m_name+
+        "\n| Points de vie : "+m_life.getPV()+"/"+m_life.getPvMax()+
+        "\n| Puissance : "+m_powerAtt.getPower()+
+        "\n| Type : "+m_affinite.toString()+
+        "\n| Affinité : "+m_affinite.getAvantage()+"\n";
     }
 
     public String getName(){
@@ -39,7 +43,7 @@ public class Pokemoon {
     }
 
     public String getElement(){
-        return m_affinite.name();
+        return m_affinite.toString();
     }
 
     public String getDesavantage(){
