@@ -53,10 +53,20 @@ public class Hand {
 
     @Override
     public String toString() {
-        String listePoke = "";
-        for(Pokemoon poke : m_pokemoons){
-            listePoke += poke.getName() + ", ";
+        if(!m_pokemoons.isEmpty()) {
+            String listePoke = "Pokémoon(s) dans la main :\n\n";
+            int i = 1;
+            for(Pokemoon poke : m_pokemoons){
+                listePoke += 
+                "Pokemoon n°"+i+" : "+poke.getName()+
+                " | Points de vie : "+poke.getLife()+"/"+poke.getLifeMax()+
+                " | Puissance : "+poke.getPower()+
+                " | Type : "+poke.getElement()+
+                " | Affinité : "+poke.getDesavantage()+"\n";
+                i++;
+            }  
+            return listePoke.substring(0,listePoke.length()-6);
         }
-        return listePoke.substring(0,listePoke.length()-2);
+        else return "Main vide";
     }
 }
