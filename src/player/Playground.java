@@ -57,12 +57,13 @@ public class Playground {
 
     @Override
     public String toString(){
-        return "----------------------------------\n"+
-        m_pokemoons.get(0).toString()+
-        "----------------------------------\n"+
-        m_pokemoons.get(1).toString() +
-        "----------------------------------\n"+
-        m_pokemoons.get(2).toString()+
-        "----------------------------------\n";
+        int i = 1;
+        String res ="";
+        for (Pokemoon pokemoon : m_pokemoons) {
+            res += "POKEMON "+i+"--------------------------\n\n"+
+            pokemoon.toString();
+            i++;
+        }
+        return res;
     }
 }

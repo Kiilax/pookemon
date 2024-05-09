@@ -10,10 +10,11 @@ public class Bot extends Player {
         super(nom, firstPlayer);
     }
 
-    public boolean botAttack(Player other, int myPokeIndex) {
+    public String botAttack(Player other, int myPokeIndex) {
         Pokemoon myPoke = m_playground.getPokemoonByIndex(myPokeIndex);
         ArrayList<Pokemoon> otherAffin = new ArrayList<Pokemoon>();
         String element = myPoke.getElement();
+        String res;
         for(int i=0; i<3; i++){
             if(other.m_playground.getPokemoonByIndex(i).getDesavantage().equals(element)){
                 otherAffin.add(other.m_playground.getPokemoonByIndex(i));
@@ -26,8 +27,7 @@ public class Bot extends Player {
                     target = p;
                 }
             }
-            myPoke.fight(target);
-            return true;
+            res = myPoke.fight(target);
         }
         else {
             ArrayList<Pokemoon> alivePokemons = new ArrayList<Pokemoon>();
@@ -53,12 +53,12 @@ public class Bot extends Player {
                 Random random = new Random();
                 target = candidates.get(random.nextInt(candidates.size()));
             
-                myPoke.fight(target);
-                return true;
+                res = myPoke.fight(target);
             }
             else {
-                return false;
+                res = "Aucun pokemon à attaquer";
             }
         }
+        return res;
     }
 }

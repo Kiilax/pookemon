@@ -14,14 +14,12 @@ public class User extends Player {
      * /!\ le champ other ne peut pas être null
      * /!\ le champ namePoke vide veut dire que l'on attaque un pokemon sur lequel on a un avantage
      */
-    public boolean userAttack(Player other, int myPokeIndex, int otherPokeIndex) {
+    public String userAttack(Player other, int myPokeIndex, int otherPokeIndex) {
         //trouve le poke que je veux utiliser pour attaquer et test si null
         Pokemoon myPoke = m_playground.getPokemoonByIndex(myPokeIndex);
         // trouve le pokemon que je veux attaquer et test si null
         Pokemoon otherPoke = other.m_playground.getPokemoonByIndex(otherPokeIndex);
-
         
-        myPoke.fight(otherPoke);
-        return true;
+        return myPoke.fight(otherPoke);
     }
 }

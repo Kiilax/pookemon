@@ -23,7 +23,7 @@ public class Pokemoon {
         "\n| Points de vie : "+m_life.getPV()+"/"+m_life.getPvMax()+
         "\n| Puissance : "+m_powerAtt.getPower()+
         "\n| Type : "+m_affinite.toString()+
-        "\n| Affinité : "+m_affinite.getAvantage()+"\n";
+        "\n| Affinité : "+m_affinite.getAvantage()+"\n\n";
     }
 
     public String getName(){
@@ -53,8 +53,9 @@ public class Pokemoon {
     /**
      * @param other le pokemoon qui est attaquer
      */
-    public void fight(Pokemoon other){
+    public String fight(Pokemoon other){
         int powerAttack = m_powerAtt.getAttackPower(m_affinite, other.m_affinite);
         other.m_life.takeDamage(powerAttack);
+        return "\n"+m_name+" inflige "+powerAttack+" à "+other.m_name+"\n";
     }
 }

@@ -14,10 +14,10 @@ public class Player {
     public Player(String nom, boolean firstPlayer) {
         m_firstPlayer = firstPlayer;
         if(m_firstPlayer) {
-            m_deck = new Deck(10);
+            m_deck = new Deck(20);
         }
         else {
-            m_deck = new Deck(11);
+            m_deck = new Deck(21);
         }
         m_nom = nom;
         m_hand = new Hand();
@@ -55,6 +55,9 @@ public class Player {
     }
     public String getHand(){
         return m_hand.toString();
+    }
+    public int getHandSize(){
+        return m_hand.getSize();
     }
 
     public String getPlayground(){

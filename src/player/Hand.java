@@ -65,7 +65,7 @@ public class Hand {
                 " | Affinité : "+poke.getDesavantage()+"\n";
                 i++;
             }  
-            return listePoke.substring(0,listePoke.length()-6);
+            return listePoke;
         }
         else return "Main vide";
     }
