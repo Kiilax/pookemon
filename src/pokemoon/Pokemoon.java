@@ -56,6 +56,6 @@ public class Pokemoon {
     public String fight(Pokemoon other){
         int powerAttack = m_powerAtt.getAttackPower(m_affinite, other.m_affinite);
         other.m_life.takeDamage(powerAttack);
-        return "\n"+m_name+" inflige "+powerAttack+" à "+other.m_name+"\n";
+        return m_name+" inflige "+powerAttack+" à "+other.m_name;
     }
 }
