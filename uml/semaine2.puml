@@ -1,0 +1,164 @@
+@startuml semaine2
+
+package partie{
+    class Deroulement{
+        -m_scanf: Scanner
+        -m_titre: String
+        -m_separation: String
+        +remplirPlaygroundPlayer(): void
+        +remplirPlaygroundBot(): void
+        +clearScreen(): void
+        +continuer(): void
+        +createPlayer(): void
+        +botAttackUser(): void
+        +userAttackBot(): void
+        +getTitre(): void
+        +getDeck(player: Player): String
+        +getDiscard(player: Player): String
+        +getProfile(player: Player): void
+        +getPlayground(player: Player): void
+        +isBotFirst(): boolean
+        +gameEnd(): void
+
+
+    }
+}
+package player{
+
+   class Player{
+       -{static}m_firstPlayer: boolean
+       +«create»Player(nom: String, firstPlayer: boolean)
+       +fillHand(): void
+       +choosePoke(index: Integer): void
+       +cleanPlayground(): Integer
+       +getHand(): String
+       +getHandSize(): Integer
+       +getPlayground(): String
+       +getPlaygroundSize(): Integer
+       +getDeckSize(): Integer
+       +getDiscardSize(): Integer
+       +getPlayerName(): String
+       +getFirstPlayer(): boolean
+       +toString(): String
+   }
+   class Bot{
+        +<<create>>Bot(nom: String, firstPlayer: boolean)
+        +botAttack(other: Player, myPokeIndex: Integer): String
+   }
+
+   class User{
+        +<<create>>User(nom: String, firstPlayer: boolean)
+        +userAttack(other: Player, myPokeIndex: Integer, otherPokeIndex: Integer): String
+   }
+
+   class Playground{
+          ~«create»Playground()
+          ~addPokemoon(pokemoon: Pokemoon): void
+          ~getPokemoonByIndex(index: Integer): Pokemoon
+          ~getPokemoonByName(nomPoke: String): Pokemoon
+          ~tcheck(): ArrayList<Pokemoon>
+          ~getSize(): Integer
+          +toString(): String
+   }
+
+   class Hand{
+       ~«create»Hand()
+       ~addPokemoon(poke: Pokemoon): boolean
+       ~getPokemoonByIndex(index: Integer): Pokemoon
+       ~getPokemoonByName(nomPoke: String): Pokemoon
+       ~getSize(): Integer
+       +toString(): String
+   }
+
+   class Deck{
+       ~«create»Deck(size: Integer)
+       ~takePokemoon(): Pokemoon
+       ~isEmpty(): boolean
+       ~getSize(): Integer
+       +toString(): String
+   }
+
+   class Discard{
+       ~«create»Discard()
+       ~addPokemoon(poke: Pokemoon): void
+       ~getSize(): Integer
+       +toString(): String
+   }
+}
+
+package pokemoon{
+    enum Element{
+        -m_type: String
+        -m_avantage: String
+        -m_desavantage: String
+        EAU
+        TERRE
+        FEU
+        AIR
+        -«create»Element(type: String, avantage: String, desavantage: String)
+        +toString(): String
+        ~getAvantage(): String
+        ~getDesavantage(): String
+    }
+
+    class ListPokemoon{
+        -{static}m_namePokemoonAvailable: String[0..21]
+        -{static}m_namePokemoonTaken: String[0..21]
+        +{static}toStringStat(): String
+        -{static}getRandomIndex(): Integer
+        +{static}getName(): String
+        +{static}reset():
+    }
+
+    class PokeLife{
+        -m_pv: Integer
+        -m_pvMax: Integer
+        ~«create»PokeLife(pv: Integer)
+        ~getPV(): Integer
+        ~getPvMax(): Integer
+        ~takeDamage(attack: Integer): Integer
+    }
+
+    class PokePower{
+        -m_power: Integer
+        ~«create»PokePower(power: Integer)
+        ~getPower(): Integer
+        ~getAttackPower(element: Element, elementEnemi: Element): Integer
+    }
+
+    class Pokemoon{
+        -m_name: String
+        +«create»Pokemoon()
+        +toString(): String
+        +getName(): String
+        +getPower(): Integer
+        +getLife(): Integer
+        +getLifeMax(): Integer
+        +getElement(): String
+        +getDesavantage(): String
+        +fight(other: Pokemoon): void
+    }
+
+    Pokemoon "1" *-> "m_life\n1" PokeLife : a
+    Pokemoon "1" *-> "m_power\n1" PokePower : a
+    Pokemoon "0..*" *-> "m_affinite\n1" Element : est du type
+
+}
+User -up-|> Player
+Bot -up-|> Player
+Bot -[dashed]-->"attack"User
+User -[dashed]-->"attack"Bot
+Player "1" *---> "-m_deck\n1"Deck : possède
+Player "1" *---> "-m_hand\n1" Hand : possède
+Player "1" *---> "-m_discard\n1" Discard: possède
+Player "1" *---> "-m_playground\n1"Playground : possède
+Playground "3" o---> "-m_pokemoon\n[3]"Pokemoon : est constitué de
+Pokemoon -[dashed]--> ListPokemoon : uses
+Hand "1" o--->"-m_pokemoon\n[0..5]" Pokemoon : est constituée de
+Deck "1" o---> "-m_pokemoon\n[0..21]"Pokemoon : est constitué de
+Discard "1" o--->"-m_pokemoon\n[0..21]"Pokemoon: contient
+Deroulement "1" *---> "-m_bot\n1"Bot : possède
+Deroulement "1" *---> "-m_user\n1"User : possède
+Deroulement -[dashed]-->"uses"Player
+
+@enduml

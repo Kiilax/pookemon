@@ -10,7 +10,7 @@ public class Bot extends Player {
         super(nom, firstPlayer);
     }
 
-    public String botAttack(Player other, int myPokeIndex) {
+    public String botAttack(User other, int myPokeIndex) {
         Pokemoon myPoke = m_playground.getPokemoonByIndex(myPokeIndex);
         ArrayList<Pokemoon> otherAffin = new ArrayList<Pokemoon>();
         String element = myPoke.getElement();
