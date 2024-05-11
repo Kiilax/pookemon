@@ -12,7 +12,7 @@ import player.User;
 public class Deroulement {
     private User m_user;
     private Bot m_bot;
-    private Scanner scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
+    private Scanner m_scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
     private String m_titre = "\r\n" + //
         "PPPPPPPPPPPPPPPPP                   kkkkkkkk                                                                                                        \r\n" + //
         "P::::::::::::::::P                  k::::::k                                                                                                        \r\n" + //
@@ -50,7 +50,7 @@ public class Deroulement {
                 
         while (!indexValide) {
             try {
-            indexDemande = Integer.parseInt(scanf.nextLine()) - 1; // Ne soustrayez pas 1 ici
+            indexDemande = Integer.parseInt(m_scanf.nextLine()) - 1; // Ne soustrayez pas 1 ici
                     
             if (indexDemande >= 0 && indexDemande < m_user.getHandSize() && !indexesChoisis[indexDemande]) {
                 m_user.choosePoke(indexDemande);
@@ -90,7 +90,7 @@ public class Deroulement {
     */
     public void continuer() {
         System.out.print("Appuye sur Enter pour continuer -");
-        scanf.nextLine();
+        m_scanf.nextLine();
         clearScreen();
     }
     /**
@@ -100,7 +100,7 @@ public class Deroulement {
         System.out.print("Choisie ton pseudo : ");
         Random rd = new Random();
         boolean rdb = rd.nextBoolean();
-        m_user = new User(scanf.nextLine(), rdb);
+        m_user = new User(m_scanf.nextLine(), rdb);
         m_bot = new Bot("L'ordinateur", !rdb);
         System.out.println("Bienvenue "+m_user.getPlayerName().toUpperCase()+" dans notre jeu !");
         if(!m_bot.getFirstPlayer()) {
@@ -144,13 +144,13 @@ public class Deroulement {
           getPlayground(m_user);
           System.out.print("Choisis le numéro du Pokémon que tu veux JOUER : ");
           try {
-            indexMyPoke = Integer.parseInt(scanf.nextLine()) - 1;
+            indexMyPoke = Integer.parseInt(m_scanf.nextLine()) - 1;
                 
             if (indexMyPoke >= 0 && indexMyPoke < m_user.getPlaygroundSize() && !indexsPokeJoues.contains(indexMyPoke)) {
               clearScreen();
               getPlayground(m_bot);
               System.out.print("Choisis le numéro du Pokémon que tu veux ATTAQUER : ");
-              indexBotPoke = Integer.parseInt(scanf.nextLine()) - 1;
+              indexBotPoke = Integer.parseInt(m_scanf.nextLine()) - 1;
                     
               if (indexBotPoke >= 0 && indexBotPoke < m_bot.getPlaygroundSize()) {
                 clearScreen();
@@ -220,6 +220,6 @@ public class Deroulement {
         else return false;
     }
     public void gameEnd() {
-        scanf.close();
+        m_scanf.close();
     }
 }
