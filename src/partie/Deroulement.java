@@ -5,13 +5,12 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-import player.Bot;
 import player.Player;
 import player.User;
 
 public class Deroulement {
     private User m_user;
-    private Bot m_bot;
+    private Player m_bot;
     private Scanner m_scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
     private String m_titre = "\r\n" + //
         "PPPPPPPPPPPPPPPPP                   kkkkkkkk                                                                                                        \r\n" + //
@@ -101,7 +100,7 @@ public class Deroulement {
         Random rd = new Random();
         boolean rdb = rd.nextBoolean();
         m_user = new User(m_scanf.nextLine(), rdb);
-        m_bot = new Bot("L'ordinateur", !rdb);
+        m_bot = new Player("L'ordinateur", !rdb);
         System.out.println("Bienvenue "+m_user.getPlayerName().toUpperCase()+" dans notre jeu !");
         if(!m_bot.getFirstPlayer()) {
           System.out.println("C'est toi qui va commencer !");
@@ -122,7 +121,7 @@ public class Deroulement {
         continuer();
         System.out.println("Attaque de "+m_bot.getPlayerName()+"\n"+m_separation);
         for(int i = 0; i<m_bot.getPlaygroundSize(); i++) {
-          System.out.println(m_bot.botAttack(m_user, i));
+          System.out.println(m_bot.autoAttack(m_user, i));
         }
         getPlayground(m_user);
     }
