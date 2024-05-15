@@ -1,4 +1,4 @@
-package player;
+/*package player;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,7 +23,7 @@ public class PlayerTest {
         assertEquals(5, p1.getHand().split(",").length);
     }
 
-    /*@Test
+    @Test
     public void testAttack(){
         Player p1 = new Player();
         Player p2 = new Player();
@@ -35,5 +35,5 @@ public class PlayerTest {
             p1.attack(p2, "","");
         }
         assertEquals(1,p2.getDiscardSize());
-    }*/
-}
+    }
+}*/

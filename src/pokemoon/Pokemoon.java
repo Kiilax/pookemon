@@ -17,6 +17,12 @@ public class Pokemoon {
         m_affinite = tabElement[rd.nextInt(4)];
     }
 
+    public Pokemoon(String name, int life, int power, Element affinite){
+        m_name = name;
+        m_life = new PokeLife(life);
+        m_powerAtt = new PokePower(power);
+        m_affinite = affinite;
+    }
     @Override
     public String toString(){
         return m_name+
