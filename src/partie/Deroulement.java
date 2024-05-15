@@ -13,24 +13,14 @@ public class Deroulement {
     private Player m_bot;
     private Scanner m_scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
     private String m_titre = "\r\n" + //
-        "PPPPPPPPPPPPPPPPP                   kkkkkkkk                                                                                                        \r\n" + //
-        "P::::::::::::::::P                  k::::::k                                                                                                        \r\n" + //
-        "P::::::PPPPPP:::::P                 k::::::k                                                                                                        \r\n" + //
-        "PP:::::P     P:::::P                k::::::k                                                                                                        \r\n" + //
-        "  P::::P     P:::::P  ooooooooooo    k:::::k    kkkkkkk eeeeeeeeeeee       mmmmmmm    mmmmmmm      ooooooooooo      ooooooooooo   nnnn  nnnnnnnn    \r\n" + //
-        "  P::::P     P:::::Poo:::::::::::oo  k:::::k   k:::::kee::::::::::::ee   mm:::::::m  m:::::::mm  oo:::::::::::oo  oo:::::::::::oo n:::nn::::::::nn  \r\n" + //
-        "  P::::PPPPPP:::::Po:::::::::::::::o k:::::k  k:::::ke::::::eeeee:::::eem::::::::::mm::::::::::mo:::::::::::::::oo:::::::::::::::on::::::::::::::nn \r\n" + //
-        "  P:::::::::::::PP o:::::ooooo:::::o k:::::k k:::::ke::::::e     e:::::em::::::::::::::::::::::mo:::::ooooo:::::oo:::::ooooo:::::onn:::::::::::::::n\r\n" + //
-        "  P::::PPPPPPPPP   o::::o     o::::o k::::::k:::::k e:::::::eeeee::::::em:::::mmm::::::mmm:::::mo::::o     o::::oo::::o     o::::o  n:::::nnnn:::::n\r\n" + //
-        "  P::::P           o::::o     o::::o k:::::::::::k  e:::::::::::::::::e m::::m   m::::m   m::::mo::::o     o::::oo::::o     o::::o  n::::n    n::::n\r\n" + //
-        "  P::::P           o::::o     o::::o k:::::::::::k  e::::::eeeeeeeeeee  m::::m   m::::m   m::::mo::::o     o::::oo::::o     o::::o  n::::n    n::::n\r\n" + //
-        "  P::::P           o::::o     o::::o k::::::k:::::k e:::::::e           m::::m   m::::m   m::::mo::::o     o::::oo::::o     o::::o  n::::n    n::::n\r\n" + //
-        "PP::::::PP         o:::::ooooo:::::ok::::::k k:::::ke::::::::e          m::::m   m::::m   m::::mo:::::ooooo:::::oo:::::ooooo:::::o  n::::n    n::::n\r\n" + //
-        "P::::::::P         o:::::::::::::::ok::::::k  k:::::ke::::::::eeeeeeee  m::::m   m::::m   m::::mo:::::::::::::::oo:::::::::::::::o  n::::n    n::::n\r\n" + //
-        "P::::::::P          oo:::::::::::oo k::::::k   k:::::kee:::::::::::::e  m::::m   m::::m   m::::m oo:::::::::::oo  oo:::::::::::oo   n::::n    n::::n\r\n" + //
-        "PPPPPPPPPP            ooooooooooo   kkkkkkkk    kkkkkkk eeeeeeeeeeeeee  mmmmmm   mmmmmm   mmmmmm   ooooooooooo      ooooooooooo     nnnnnn    nnnnnn\r\n" + //
-        "                                                                                                                                                    \r\n" + //
-        "";
+            "██████╗  ██████╗ ██╗  ██╗███████╗███╗   ███╗ ██████╗  ██████╗ ███╗   ██╗\r\n" + //
+            "██╔══██╗██╔═══██╗██║ ██╔╝██╔════╝████╗ ████║██╔═══██╗██╔═══██╗████╗  ██║\r\n" + //
+            "██████╔╝██║   ██║█████╔╝ █████╗  ██╔████╔██║██║   ██║██║   ██║██╔██╗ ██║\r\n" + //
+            "██╔═══╝ ██║   ██║██╔═██╗ ██╔══╝  ██║╚██╔╝██║██║   ██║██║   ██║██║╚██╗██║\r\n" + //
+            "██║     ╚██████╔╝██║  ██╗███████╗██║ ╚═╝ ██║╚██████╔╝╚██████╔╝██║ ╚████║\r\n" + //
+            "╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝\r\n" + //
+            "                                                                        \r\n" + //
+            "";
     private String m_separation = "----------------------------------------------------------------------------------------------------------------------------------------------------\n";
 
     /**
@@ -76,6 +66,7 @@ public class Deroulement {
         }
         System.out.println("Le bot a rempli son terrain !\n"+m_separation);
         continuer();
+        getPlayground(m_bot);
     }
     /**
      * Reinitialise le terminal
@@ -138,8 +129,8 @@ public class Deroulement {
         int indexBotPoke;
         String res ="";
         
-        getPlayground(m_bot);
         getPlayground(m_user);
+        getPlayground(m_bot);
         // Boucle pour permettre à l'utilisateur d'attaquer autant de fois que nécessaire
         for(int i = 0; i < m_bot.getPlaygroundSize(); i++) {
           System.out.print("Choisis le numéro du Pokémon que tu veux JOUER : ");
@@ -166,7 +157,9 @@ public class Deroulement {
             i--; // Permet de redemander à l'utilisateur de choisir les Pokémon pour la même position
           }
         }
+        clearScreen();
         System.out.println(res+m_separation);
+        getPlayground(m_user);
         getPlayground(m_bot);
     }
       /**
@@ -195,7 +188,7 @@ public class Deroulement {
        * affiche les toutes les infos d'un joueur à part le playground
        * @param player
        */
-    public void getProfile(Player player) {
+    private void getProfile(Player player) {
         System.out.println("PROFIL DE "+player.getPlayerName().toUpperCase()+" :\n\n"+
         getDeck(player)+
         getDiscard(player)+"\n"+
@@ -205,7 +198,7 @@ public class Deroulement {
        * affiche le playground d'un joueur
        * @param player
        */
-    public void getPlayground(Player player) {
+    private void getPlayground(Player player) {
         System.out.println("\nTERRAIN DE "+player.getPlayerName().toUpperCase()+" :\n\n"+
         player.getPlayground()+"\n"+m_separation);
     }
