@@ -5,13 +5,12 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-import player.Bot;
 import player.Player;
 import player.User;
 
 public class Deroulement {
     private User m_user;
-    private Bot m_bot;
+    private Player m_bot;
     private Scanner m_scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
     private String m_titre = "\r\n" + //
         "PPPPPPPPPPPPPPPPP                   kkkkkkkk                                                                                                        \r\n" + //
@@ -101,7 +100,7 @@ public class Deroulement {
         Random rd = new Random();
         boolean rdb = rd.nextBoolean();
         m_user = new User(m_scanf.nextLine(), rdb);
-        m_bot = new Bot("L'ordinateur", !rdb);
+        m_bot = new Player("L'ordinateur", !rdb);
         System.out.println("Bienvenue "+m_user.getPlayerName().toUpperCase()+" dans notre jeu !");
         if(!m_bot.getFirstPlayer()) {
           System.out.println("C'est toi qui va commencer !");
@@ -122,7 +121,7 @@ public class Deroulement {
         continuer();
         System.out.println("Attaque de "+m_bot.getPlayerName()+"\n"+m_separation);
         for(int i = 0; i<m_bot.getPlaygroundSize(); i++) {
-          System.out.println(m_bot.botAttack(m_user, i));
+          System.out.println(m_bot.autoAttack(m_user, i));
         }
         getPlayground(m_user);
     }
@@ -139,35 +138,30 @@ public class Deroulement {
         int indexBotPoke;
         String res ="";
         
+        getPlayground(m_bot);
+        getPlayground(m_user);
         // Boucle pour permettre à l'utilisateur d'attaquer autant de fois que nécessaire
         for(int i = 0; i < m_bot.getPlaygroundSize(); i++) {
-          getPlayground(m_user);
           System.out.print("Choisis le numéro du Pokémon que tu veux JOUER : ");
           try {
             indexMyPoke = Integer.parseInt(m_scanf.nextLine()) - 1;
                 
             if (indexMyPoke >= 0 && indexMyPoke < m_user.getPlaygroundSize() && !indexsPokeJoues.contains(indexMyPoke)) {
-              clearScreen();
-              getPlayground(m_bot);
               System.out.print("Choisis le numéro du Pokémon que tu veux ATTAQUER : ");
               indexBotPoke = Integer.parseInt(m_scanf.nextLine()) - 1;
                     
               if (indexBotPoke >= 0 && indexBotPoke < m_bot.getPlaygroundSize()) {
-                clearScreen();
                 res +=m_user.userAttack(m_bot, indexMyPoke, indexBotPoke)+"\n";
                 indexsPokeJoues.add(indexMyPoke);// Ajoute l'index du Pokémon joué à l'ensemble
               } else {
-                clearScreen();
                 System.out.println("Index du Pokémon à attaquer invalide.");
                 i--; // Permet de redemander à l'utilisateur de choisir le Pokémon à attaquer pour la même position
               }
             } else {
-              clearScreen();
               System.out.println("Index du Pokémon à jouer invalide ou déjà joué.");
               i--; // Permet de redemander à l'utilisateur de choisir le Pokémon à jouer pour la même position
             }
           } catch (NumberFormatException e) {
-            clearScreen();
             System.out.println("Veuillez entrer un numéro valide.");
             i--; // Permet de redemander à l'utilisateur de choisir les Pokémon pour la même position
           }
