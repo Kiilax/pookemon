@@ -25,8 +25,11 @@ public class Hand {
      * /!\ si l'index n'est pas dans les bornes on retourne null
      */
     Pokemoon getPokemoonByIndex(int index) {
+        Pokemoon res;
         if(index < m_pokemoons.size()){
-            return m_pokemoons.get(index);
+            res = m_pokemoons.get(index);
+            m_pokemoons.remove(index);
+            return res;
         }
         return null;
     }

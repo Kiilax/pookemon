@@ -21,85 +21,91 @@ public class Deroulement {
             "╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝\r\n" + //
             "                                                                        \r\n" + //
             "";
-    private String m_separation = "----------------------------------------------------------------------------------------------------------------------------------------------------\n";
+    private String m_separation = "----------------------------------------------------------------------------------------------------------\n";
 
     /**
     * Affiche la main du m_user et demande quelles cartes il veut mettre sur son terrain
     */
     public void remplirPlaygroundPlayer() {
+      if(m_user.getPlaygroundSize() !=3) {
         boolean[] indexesChoisis = new boolean[m_user.getHandSize()]; // Tableau de taille 3 pour stocker les index choisis
         getProfile(m_user);
         System.out.println("Donne le numéro de chaque pokemon que tu veux pour remplir ton terrain :");
 
         // Boucle pour remplir le terrain du m_user
         for (int i = m_user.getPlaygroundSize(); i < 3; i++) {
-        System.out.print((i + 1) + "/3 : ");
-        int indexDemande;
-        boolean indexValide = false;
+          System.out.print((i + 1) + "/3 : ");
+          int indexDemande;
+          boolean indexValide = false;
                 
-        while (!indexValide) {
+          while (!indexValide) {
             try {
-            indexDemande = Integer.parseInt(m_scanf.nextLine()) - 1; // Ne soustrayez pas 1 ici
+              indexDemande = Integer.parseInt(m_scanf.nextLine()) - 1; // Ne soustrayez pas 1 ici
                     
-            if (indexDemande >= 0 && indexDemande < m_user.getHandSize() && !indexesChoisis[indexDemande]) {
+              if (indexDemande >= 0 && indexDemande < m_user.getHandSize() && !indexesChoisis[indexDemande]) {
                 m_user.choosePoke(indexDemande);
                 indexesChoisis[indexDemande] = true; // Marque l'index comme choisi
                 indexValide = true;
-            } else if (indexDemande >= 0 && indexDemande < m_user.getHandSize()) {
+              } else if (indexDemande >= 0 && indexDemande < m_user.getHandSize()) {
                 System.out.print("Vous avez déjà choisi ce Pokémon. Veuillez choisir un autre numéro.\n" + (i + 1) + "/3 : ");
-            } else {
+              } else {
                 System.out.print("Index invalide. Veuillez choisir un numéro valide.\n" + (i + 1) + "/3 : ");
-            }
+              }
             } catch (NumberFormatException e) {
-            System.out.print("Veuillez entrer un numéro valide.\n"+(i + 1) + "/3 : ");
+              System.out.print("Veuillez entrer un numéro valide.\n"+(i + 1) + "/3 : ");
             }
-        }
+          }
         }
         clearScreen();
+        m_user.fillHand();
+      }
     }
     /**
     * Rempli automatiquement le terrain de l'ordinateur dans l'ordre de sa main et affiche l'action
     */
     public void remplirPlaygroundBot() {
+      if(m_bot.getPlaygroundSize() != 3) {
         for(int i = m_bot.getPlaygroundSize(); i<3; i++) {
-        m_bot.choosePoke(i);
+          m_bot.choosePoke(i);
         }
         System.out.println("Le bot a rempli son terrain !\n"+m_separation);
         continuer();
         getPlayground(m_bot);
+        m_bot.fillHand();
+      }
     }
     /**
      * Reinitialise le terminal
      */
     public void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+      System.out.print("\033[H\033[2J");
+      System.out.flush();
     }
     /**
     * Demande d'appuyer sur Enter pour continuer (pour mettre des temps de pause dans le jeu)
     */
     public void continuer() {
-        System.out.print("Appuye sur Enter pour continuer -");
-        m_scanf.nextLine();
-        clearScreen();
+      System.out.print("Appuye sur Enter pour continuer -");
+      m_scanf.nextLine();
+      clearScreen();
     }
     /**
      * Crée les deux joueurs en demandant à l'utilisateur son pseudo et en définissant aléatoirement qui commencera à jouer
      */
     public void createPlayer() {
-        System.out.print("Choisie ton pseudo : ");
-        Random rd = new Random();
-        boolean rdb = rd.nextBoolean();
-        m_user = new User(m_scanf.nextLine(), rdb);
-        m_bot = new Player("L'ordinateur", !rdb);
-        System.out.println("Bienvenue "+m_user.getPlayerName().toUpperCase()+" dans notre jeu !");
-        if(!m_bot.getFirstPlayer()) {
-          System.out.println("C'est toi qui va commencer !");
-        }
-        else {
-          System.out.println("C'est l'ordinateur qui va commencer !");
-        }
-        continuer();
+      System.out.print("Choisie ton pseudo : ");
+      Random rd = new Random();
+      boolean rdb = rd.nextBoolean();
+      m_user = new User(m_scanf.nextLine(), rdb);
+      m_bot = new Player("L'ordinateur", !rdb);
+      System.out.println("Bienvenue "+m_user.getPlayerName().toUpperCase()+" dans notre jeu !");
+      if(!m_bot.getFirstPlayer()) {
+        System.out.println("C'est toi qui va commencer !");
+      }
+      else {
+        System.out.println("C'est l'ordinateur qui va commencer !");
+      }
+      continuer();
     }
     
       /**
@@ -108,13 +114,13 @@ public class Deroulement {
        * A la fin, affiche le terrain de l'utilisateur
        */
     public void botAttackUser() {
-        System.out.println("L'ordinateur va attaquer !\n");
-        continuer();
-        System.out.println("Attaque de "+m_bot.getPlayerName()+"\n"+m_separation);
-        for(int i = 0; i<m_bot.getPlaygroundSize(); i++) {
-          System.out.println(m_bot.autoAttack(m_user, i));
-        }
-        getPlayground(m_user);
+      System.out.println("L'ordinateur va attaquer !\n");
+      continuer();
+      System.out.println("Attaque de "+m_bot.getPlayerName()+"\n"+m_separation);
+      for(int i = 0; i<m_bot.getPlaygroundSize(); i++) {
+        System.out.println(m_bot.autoAttack(m_user, i));
+      }
+      getPlayground(m_user);
     }
     
       /**
@@ -207,6 +213,8 @@ public class Deroulement {
         else return false;
     }
     public void gameEnd() {
-        m_scanf.close();
+      getProfile(m_bot);
+      getProfile(m_user);
+      m_scanf.close();
     }
 }
