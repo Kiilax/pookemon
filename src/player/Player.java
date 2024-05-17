@@ -10,17 +10,18 @@ public class Player {
     protected Hand m_hand;
     protected Playground m_playground;
     protected Discard m_discard;
-    protected static boolean m_firstPlayer;
+    protected static boolean m_firstPlayer = true;
 
-    public Player(String nom, boolean firstPlayer) {
-        m_firstPlayer = firstPlayer;
+    public Player() {
+        //m_firstPlayer = firstPlayer;
         if(m_firstPlayer) {
             m_deck = new Deck(20);
+            m_firstPlayer = false;
         }
         else {
             m_deck = new Deck(21);
         }
-        m_nom = nom;
+        //m_nom = nom;
         m_hand = new Hand();
         m_playground = new Playground();
         m_discard = new Discard();
@@ -35,12 +36,21 @@ public class Player {
             m_hand.addPokemoon(m_deck.takePokemoon());
         }
     }
+
     /**
      * ajoute un pokemon au playground
      * @param index l'index du pokemon
      */
     public void choosePoke(int index) {
         m_playground.addPokemoon(m_hand.getPokemoonByIndex(index));
+    }
+
+    /**
+     * Rempli le terrain toujours avec les mêmes poke (pour test le fonctionnement d'un tour automatique)
+     * @return
+     */
+    void fillPlayground(Pokemoon poke){
+        m_playground.addPokemoon(poke);
     }
 
     /**
