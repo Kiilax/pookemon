@@ -52,6 +52,10 @@ public class Pokemoon {
         return m_affinite.toString();
     }
 
+    public String getAvantage() {
+        return m_affinite.getAvantage();
+    }
+
     public String getDesavantage(){
         return m_affinite.getDesavantage();
     }

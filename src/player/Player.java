@@ -32,7 +32,7 @@ public class Player {
      * Permet de remplir la main (action a faire en début de tour)
      */
     public void fillHand(){
-        while(m_hand.getSize()<5){
+        while(m_hand.getSize()<5 && !m_deck.isEmpty()){
             m_hand.addPokemoon(m_deck.takePokemoon());
         }
     }
@@ -70,7 +70,7 @@ public class Player {
      * @param myPokeIndex l'index du pokemon qui est en train d'attaquer
      * @return chaine de caractères qui résume l'attaque réalisé
      */
-    public String autoAttack(User other, int myPokeIndex) {
+    public String autoAttack(Player other, int myPokeIndex) {
         Pokemoon myPoke = m_playground.getPokemoonByIndex(myPokeIndex);
         ArrayList<Pokemoon> otherAffin = new ArrayList<Pokemoon>();
         String element = myPoke.getElement();

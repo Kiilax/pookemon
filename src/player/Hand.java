@@ -25,8 +25,11 @@ public class Hand {
      * /!\ si l'index n'est pas dans les bornes on retourne null
      */
     Pokemoon getPokemoonByIndex(int index) {
+        Pokemoon res;
         if(index < m_pokemoons.size()){
-            return m_pokemoons.get(index);
+            res = m_pokemoons.get(index);
+            m_pokemoons.remove(index);
+            return res;
         }
         return null;
     }
@@ -59,10 +62,10 @@ public class Hand {
             for(Pokemoon poke : m_pokemoons){
                 listePoke += 
                 "Pokemoon n°"+i+" : "+poke.getName()+
-                " | Points de vie : "+poke.getLife()+"/"+poke.getLifeMax()+
-                " | Puissance : "+poke.getPower()+
-                " | Type : "+poke.getElement()+
-                " | Affinité : "+poke.getDesavantage()+"\n";
+                "\t| Points de vie : "+poke.getLife()+"/"+poke.getLifeMax()+
+                "\t| Puissance : "+poke.getPower()+
+                "\t| Type : "+poke.getElement()+
+                "\t| Affinité : "+poke.getDesavantage()+"\n";
                 i++;
             }  
             return listePoke;
