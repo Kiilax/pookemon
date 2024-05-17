@@ -12,16 +12,6 @@ public class Deroulement {
     private User m_user;
     private Player m_bot;
     private Scanner m_scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
-    private String m_titre = "\r\n" + //
-            "██████╗  ██████╗ ██╗  ██╗███████╗███╗   ███╗ ██████╗  ██████╗ ███╗   ██╗\r\n" + //
-            "██╔══██╗██╔═══██╗██║ ██╔╝██╔════╝████╗ ████║██╔═══██╗██╔═══██╗████╗  ██║\r\n" + //
-            "██████╔╝██║   ██║█████╔╝ █████╗  ██╔████╔██║██║   ██║██║   ██║██╔██╗ ██║\r\n" + //
-            "██╔═══╝ ██║   ██║██╔═██╗ ██╔══╝  ██║╚██╔╝██║██║   ██║██║   ██║██║╚██╗██║\r\n" + //
-            "██║     ╚██████╔╝██║  ██╗███████╗██║ ╚═╝ ██║╚██████╔╝╚██████╔╝██║ ╚████║\r\n" + //
-            "╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝\r\n" + //
-            "                                                                        \r\n" + //
-            "";
-    private String m_separation = "----------------------------------------------------------------------------------------------------------\n";
 
     /**
     * Affiche la main du m_user et demande quelles cartes il veut mettre sur son terrain
@@ -74,21 +64,9 @@ public class Deroulement {
         m_bot.fillHand();
       }
     }
-    /**
-     * Reinitialise le terminal
-     */
-    public void clearScreen() {
-      System.out.print("\033[H\033[2J");
-      System.out.flush();
-    }
-    /**
-    * Demande d'appuyer sur Enter pour continuer (pour mettre des temps de pause dans le jeu)
-    */
-    public void continuer() {
-      System.out.print("Appuye sur Enter pour continuer -");
-      m_scanf.nextLine();
-      clearScreen();
-    }
+    
+    
+    
     /**
      * Crée les deux joueurs en demandant à l'utilisateur son pseudo et en définissant aléatoirement qui commencera à jouer
      */
