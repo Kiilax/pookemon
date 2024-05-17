@@ -27,7 +27,7 @@ public class Deroulement {
     * Affiche la main du m_user et demande quelles cartes il veut mettre sur son terrain
     */
     public void remplirPlaygroundPlayer() {
-      if(m_user.getPlaygroundSize() !=3) {
+      if(m_user.getPlaygroundSize() !=3 && m_user.getHandSize() > 0) {
         boolean[] indexesChoisis = new boolean[m_user.getHandSize()]; // Tableau de taille 3 pour stocker les index choisis
         getProfile(m_user);
         System.out.println("Donne le numéro de chaque pokemon que tu veux pour remplir ton terrain :");
@@ -120,6 +120,8 @@ public class Deroulement {
       for(int i = 0; i<m_bot.getPlaygroundSize(); i++) {
         System.out.println(m_bot.autoAttack(m_user, i));
       }
+      m_user.cleanPlayground();
+      remplirPlaygroundPlayer();
       getPlayground(m_user);
     }
     
@@ -165,6 +167,8 @@ public class Deroulement {
         }
         clearScreen();
         System.out.println(res+m_separation);
+        m_bot.cleanPlayground();
+        remplirPlaygroundBot();
         getPlayground(m_user);
         getPlayground(m_bot);
     }
@@ -211,6 +215,15 @@ public class Deroulement {
     public boolean isBotFirst() {
         if(m_bot.getFirstPlayer()) return true;
         else return false;
+    }
+    public boolean gameOver() {
+      if((m_bot.getFirstPlayer() && m_bot.getDiscardSize() == 20) || (!m_bot.getFirstPlayer() && m_bot.getDiscardSize() == 21)) {
+        return true;
+      }
+      else if((m_user.getFirstPlayer() && m_user.getDiscardSize() == 20) || (!m_user.getFirstPlayer() && m_user.getDiscardSize() == 21)) {
+        return true;
+      }
+      else return false;
     }
     public void gameEnd() {
       getProfile(m_bot);
