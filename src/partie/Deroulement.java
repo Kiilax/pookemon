@@ -12,14 +12,14 @@ public class Deroulement {
     private User m_user;
     private Player m_bot;
     private Scanner m_scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
-
+    private Affichage af = new Affichage();
     /**
     * Affiche la main du m_user et demande quelles cartes il veut mettre sur son terrain
     */
     public void remplirPlaygroundPlayer() {
       if(m_user.getPlaygroundSize() !=3 && m_user.getHandSize() > 0) {
         boolean[] indexesChoisis = new boolean[m_user.getHandSize()]; // Tableau de taille 3 pour stocker les index choisis
-        getProfile(m_user);
+        af.getProfile(m_user);
         System.out.println("Donne le numéro de chaque pokemon que tu veux pour remplir ton terrain :");
 
         // Boucle pour remplir le terrain du m_user
@@ -30,7 +30,7 @@ public class Deroulement {
                 
           while (!indexValide) {
             try {
-              indexDemande = Integer.parseInt(m_scanf.nextLine()) - 1; // Ne soustrayez pas 1 ici
+              indexDemande = Integer.parseInt(m_scanf.nextLine()) - 1;
                     
               if (indexDemande >= 0 && indexDemande < m_user.getHandSize() && !indexesChoisis[indexDemande]) {
                 m_user.choosePoke(indexDemande);
@@ -46,7 +46,7 @@ public class Deroulement {
             }
           }
         }
-        clearScreen();
+        af.clearScreen();
         m_user.fillHand();
       }
     }
@@ -58,9 +58,9 @@ public class Deroulement {
         for(int i = m_bot.getPlaygroundSize(); i<3; i++) {
           m_bot.choosePoke(i);
         }
-        System.out.println("Le bot a rempli son terrain !\n"+m_separation);
-        continuer();
-        getPlayground(m_bot);
+        System.out.println("Le bot a rempli son terrain !");
+        af.continuer();
+        af.getPlayground(m_bot);
         m_bot.fillHand();
       }
     }
@@ -83,7 +83,7 @@ public class Deroulement {
       else {
         System.out.println("C'est l'ordinateur qui va commencer !");
       }
-      continuer();
+      af.continuer();
     }
     
       /**
@@ -93,14 +93,14 @@ public class Deroulement {
        */
     public void botAttackUser() {
       System.out.println("L'ordinateur va attaquer !\n");
-      continuer();
-      System.out.println("Attaque de "+m_bot.getPlayerName()+"\n"+m_separation);
+      af.continuer();
+      System.out.println("Attaque de "+m_bot.getPlayerName());
       for(int i = 0; i<m_bot.getPlaygroundSize(); i++) {
         System.out.println(m_bot.autoAttack(m_user, i));
       }
       m_user.cleanPlayground();
       remplirPlaygroundPlayer();
-      getPlayground(m_user);
+      af.getPlayground(m_user);
     }
     
       /**
@@ -109,14 +109,14 @@ public class Deroulement {
     public void userAttackBot() {
         Set<Integer> indexsPokeJoues = new HashSet<>();// Ensemble pour stocker les index des Pokémon déjà joués
         System.out.println("A ton tour d'attaquer !\n");
-        continuer();
+        af.continuer();
     
         int indexMyPoke;
         int indexBotPoke;
         String res ="";
         
-        getPlayground(m_user);
-        getPlayground(m_bot);
+        af.getPlayground(m_user);
+        af.getPlayground(m_bot);
         // Boucle pour permettre à l'utilisateur d'attaquer autant de fois que nécessaire
         for(int i = 0; i < m_bot.getPlaygroundSize(); i++) {
           System.out.print("Choisis le numéro du Pokémon que tu veux JOUER : ");
@@ -143,52 +143,12 @@ public class Deroulement {
             i--; // Permet de redemander à l'utilisateur de choisir les Pokémon pour la même position
           }
         }
-        clearScreen();
-        System.out.println(res+m_separation);
+        af.clearScreen();
+        System.out.println(res);
         m_bot.cleanPlayground();
         remplirPlaygroundBot();
-        getPlayground(m_user);
-        getPlayground(m_bot);
-    }
-      /**
-       * Affiche le titre du jeu
-       */
-    public void getTitre() {
-        System.out.println(m_titre+m_separation);
-    }
-      /**
-       * donne la taille du deck
-       * @param player
-       * @return taille du deck
-       */  
-    public String getDeck(Player player) {
-        return "Taille du Deck : "+player.getDeckSize()+" Pokémoons\n";
-    }
-      /**
-       * donne la taille de la défausse
-       * @param player
-       * @return taille défausse
-       */
-    public String getDiscard(Player player) {
-        return "Taille de la défausse : "+player.getDiscardSize()+" Pokémoons\n";
-    }
-      /**
-       * affiche les toutes les infos d'un joueur à part le playground
-       * @param player
-       */
-    private void getProfile(Player player) {
-        System.out.println("PROFIL DE "+player.getPlayerName().toUpperCase()+" :\n\n"+
-        getDeck(player)+
-        getDiscard(player)+"\n"+
-        player.getHand()+"\n"+m_separation);
-    }
-      /**
-       * affiche le playground d'un joueur
-       * @param player
-       */
-    private void getPlayground(Player player) {
-        System.out.println("\nTERRAIN DE "+player.getPlayerName().toUpperCase()+" :\n\n"+
-        player.getPlayground()+"\n"+m_separation);
+        af.getPlayground(m_user);
+        af.getPlayground(m_bot);
     }
     public boolean isBotFirst() {
         if(m_bot.getFirstPlayer()) return true;
@@ -204,8 +164,8 @@ public class Deroulement {
       else return false;
     }
     public void gameEnd() {
-      getProfile(m_bot);
-      getProfile(m_user);
+      af.getProfile(m_bot);
+      af.getProfile(m_user);
       m_scanf.close();
     }
 }

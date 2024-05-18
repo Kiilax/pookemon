@@ -1,13 +1,13 @@
-import partie.Deroulement;
-
+import partie.*;
 public class Main
 {
   public static void main(String args[])
   {
     //INTRODUCTION DU JEU
     Deroulement partie = new Deroulement();
-    partie.clearScreen();
-    partie.getTitre();
+    Affichage af = new Affichage();
+    af.clearScreen();
+    af.getTitre();
     partie.createPlayer();
     boolean loop = true;
     //REMPLISSAGE DES TERRAINS
@@ -15,14 +15,14 @@ public class Main
       if(partie.isBotFirst()) {
         partie.remplirPlaygroundBot();
         partie.remplirPlaygroundPlayer();
-        partie.clearScreen();
+        af.clearScreen();
         partie.botAttackUser();
         partie.userAttackBot();
       }
       else {
         partie.remplirPlaygroundPlayer();
         partie.remplirPlaygroundBot();
-        partie.clearScreen();
+        af.clearScreen();
         partie.userAttackBot();
         partie.botAttackUser();
       }
