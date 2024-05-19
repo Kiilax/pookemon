@@ -2,7 +2,7 @@ package player;
 import java.util.ArrayList;
 import pokemoon.*;
 
-public class Playground {
+class Playground {
     private ArrayList<Pokemoon> m_pokemoons;
 
     Playground() {
@@ -36,6 +36,10 @@ public class Playground {
         return null;
     }
 
+    /**
+     * nétoie le terrain (si y a des pokemoon mort on les enlèves)
+     * @return la liste des pokemoon mort
+     */
     ArrayList<Pokemoon> tcheck(){
         ArrayList<Pokemoon> pokeDead = new ArrayList<Pokemoon>();
         // ajoute les pokes à la liste des morts
@@ -56,7 +60,52 @@ public class Playground {
     }
 
     @Override
-    public String toString(){
-        return m_pokemoons.get(0).toString() + "\n" + m_pokemoons.get(1).toString() + "\n" + m_pokemoons.get(2).toString();
+    public String toString() {
+        String res = "";
+
+        // Entête des colonnes
+        for (int i = 0; i < 3; i++) {
+            res += "POKEMON " + (i + 1) + "---------\t\t";
+        }
+        res += "\n";
+
+        // Lignes des noms
+        for (int i = 0; i < 3; i++) {
+            String name = m_pokemoons.get(i).getName();
+            res += "| Nom : " + name;
+            for(int y = name.length(); y<10; y++) {
+                res+=" ";
+            }
+            res+="\t\t";
+        }
+        res += "\n";
+
+        // Lignes de vie
+        for (int i = 0; i < 3; i++) {
+            res += "| Vie : " + m_pokemoons.get(i).getLife() + "/" + m_pokemoons.get(i).getLifeMax() + "   \t\t";
+        }
+        res += "\n";
+
+        // Lignes de dégats
+        for (int i = 0; i < 3; i++) {
+            res += "| Dégats : " + m_pokemoons.get(i).getPower() + "     \t\t";
+        }
+        res += "\n";
+
+        // Lignes de type
+        for (int i = 0; i < 3; i++) {
+            String element = m_pokemoons.get(i).getElement();
+            res += "| Type : " + element+"      \t\t";
+        }
+        res += "\n";
+
+        // Lignes d'affinité
+        for (int i = 0; i < 3; i++) {
+            String advantage = m_pokemoons.get(i).getAvantage();
+            res += "| Affinité : " + advantage+"  \t\t";
+        }
+        res += "\n";
+
+        return res;
     }
 }
