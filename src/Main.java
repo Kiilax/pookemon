@@ -18,7 +18,6 @@ public class Main
         System.out.println("le joueur commence");
         partie.userFillPlayground(nbPokeMortUser);
         partie.botFillPlayground(nbPokeMortBot);
-        af.clearScreen();
         nbPokeMortBot = partie.userAttack();
         nbPokeMortUser = partie.botAttack();
       }
@@ -26,7 +25,6 @@ public class Main
         System.out.println("albert commence");
         partie.botFillPlayground(nbPokeMortBot);
         partie.userFillPlayground(nbPokeMortUser);
-        af.clearScreen();
         nbPokeMortUser = partie.botAttack();
         nbPokeMortBot = partie.userAttack();
       }
