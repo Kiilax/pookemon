@@ -1,16 +1,23 @@
-/*package player;
+package player;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Random;
 
 import org.junit.Test;
 
 public class PlayerTest {
     @Test
     public void testInit(){
+        Random rd = new Random();
+        if(rd.nextBoolean()){
+            
+        }
         Player p1 = new Player();
         Player p2 = new Player();
-        assertEquals(5,p1.getDeckSize());
-        assertEquals(6,p2.getDeckSize());
+        assertEquals(p1.getDeckSize(), 15);
+        assertEquals(p2.getDeckSize(), 21);
     }
 
     @Test
@@ -36,4 +43,4 @@ public class PlayerTest {
         }
         assertEquals(1,p2.getDiscardSize());
     }
-}*/
+}

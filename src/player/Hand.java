@@ -10,12 +10,12 @@ public class Hand {
         m_pokemoons = new ArrayList<Pokemoon>();
     }
 
-    boolean addPokemoon(Pokemoon poke) {
-        if(m_pokemoons.size()<5){
-            m_pokemoons.add(poke);
-            return true;
-        }
-        return false;
+    /**
+     * ajoute un pokemoon a la main
+     * @param poke le poke que l'on veut ajouté
+     */
+    void addPokemoon(Pokemoon poke) {
+        m_pokemoons.add(poke);
     }
 
     /**
@@ -57,15 +57,11 @@ public class Hand {
     @Override
     public String toString() {
         if(!m_pokemoons.isEmpty()) {
-            String listePoke = "Pokémoon(s) dans la main :\n\n";
+            String listePoke = "Pokémoon(s) dans la main :\n";
             int i = 1;
             for(Pokemoon poke : m_pokemoons){
                 listePoke += 
-                "Pokemoon n°"+i+" : "+poke.getName()+
-                "\t| Points de vie : "+poke.getLife()+"/"+poke.getLifeMax()+
-                "\t| Puissance : "+poke.getPower()+
-                "\t| Type : "+poke.getElement()+
-                "\t| Affinité : "+poke.getDesavantage()+"\n";
+                "Pokemoon n°"+i+" : "+poke.toString();
                 i++;
             }  
             return listePoke;

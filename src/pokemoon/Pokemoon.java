@@ -17,19 +17,13 @@ public class Pokemoon {
         m_affinite = tabElement[rd.nextInt(4)];
     }
 
-    public Pokemoon(String name, int life, int power, Element affinite){
-        m_name = name;
-        m_life = new PokeLife(life);
-        m_powerAtt = new PokePower(power);
-        m_affinite = affinite;
-    }
     @Override
     public String toString(){
         return m_name+
-        "\n| Points de vie : "+m_life.getPV()+"/"+m_life.getPvMax()+
-        "\n| Puissance : "+m_powerAtt.getPower()+
-        "\n| Type : "+m_affinite.toString()+
-        "\n| Affinité : "+m_affinite.getAvantage()+"\n\n";
+        " | Points de vie : "+m_life.getPV()+"/"+m_life.getPvMax()+
+        " | Puissance : "+m_powerAtt.getPower()+
+        " | Type : "+m_affinite.toString()+
+        " | Affinité : "+m_affinite.getAvantage()+"\n";
     }
 
     public String getName(){

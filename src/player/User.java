@@ -2,8 +2,9 @@ package player;
 import pokemoon.*;
 
 public class User extends Player {
-    public User(String nom, boolean firstPlayer) {
-        super(nom, firstPlayer);
+
+    public User(String nom) {
+        super(nom);
     }
 
     /**

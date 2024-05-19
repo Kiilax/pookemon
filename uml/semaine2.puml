@@ -1,36 +1,29 @@
 @startuml semaine2
 
 package partie{
+
     class Deroulement{
-        -m_scanf: Scanner
-        -m_titre: String
-        -m_separation: String
-        +remplirPlaygroundPlayer(): void
-        +remplirPlaygroundBot(): void
-        +clearScreen(): void
-        +continuer(): void
-        +createPlayer(): void
-        +botAttackUser(): void
-        +userAttackBot(): void
-        +getTitre(): void
-        +getDeck(player: Player): String
-        +getDiscard(player: Player): String
-        +getProfile(player: Player): void
-        +getPlayground(player: Player): void
-        +isBotFirst(): boolean
-        +gameEnd(): void
-
-
+        +createPlayer(): 
+        +getIndexValide(size: Integer): Integer
+        +userFillPlayground(nbPoke: Integer): 
+        +botFillPlayground(nbPoke: Integer): 
+        +userAttack(): Integer
+        +botAttack(): Integer
+        +gameOver(): Player
+        +playerIsFirst(): Boolean
+        +gameEnd(): 
     }
 }
 package player{
 
    class Player{
-       -{static}m_firstPlayer: boolean
-       +«create»Player(nom: String, firstPlayer: boolean)
-       +fillHand(): void
-       +choosePoke(index: Integer): void
+        -m_nom: String
+        -{static}m_firstPlayer: boolean
+        +«create»Player(nom: String)
+       +fillHand():
+       +choosePoke(index: Integer):
        +cleanPlayground(): Integer
+       +autoAttack(other: Player, myPokeIndex: Integer)
        +getHand(): String
        +getHandSize(): Integer
        +getPlayground(): String
@@ -38,22 +31,20 @@ package player{
        +getDeckSize(): Integer
        +getDiscardSize(): Integer
        +getPlayerName(): String
+       +getPokeAlive(): Integer
+       +getNbPoke(): Integer
        +getFirstPlayer(): boolean
        +toString(): String
    }
-   class Bot{
-        +<<create>>Bot(nom: String, firstPlayer: boolean)
-        +botAttack(other: Player, myPokeIndex: Integer): String
-   }
 
    class User{
-        +<<create>>User(nom: String, firstPlayer: boolean)
+        +<<create>>User(nom: String)
         +userAttack(other: Player, myPokeIndex: Integer, otherPokeIndex: Integer): String
    }
 
    class Playground{
           ~«create»Playground()
-          ~addPokemoon(pokemoon: Pokemoon): void
+          ~addPokemoon(pokemoon: Pokemoon): 
           ~getPokemoonByIndex(index: Integer): Pokemoon
           ~getPokemoonByName(nomPoke: String): Pokemoon
           ~tcheck(): ArrayList<Pokemoon>
@@ -63,7 +54,7 @@ package player{
 
    class Hand{
        ~«create»Hand()
-       ~addPokemoon(poke: Pokemoon): boolean
+       ~addPokemoon(poke: Pokemoon): 
        ~getPokemoonByIndex(index: Integer): Pokemoon
        ~getPokemoonByName(nomPoke: String): Pokemoon
        ~getSize(): Integer
@@ -71,7 +62,7 @@ package player{
    }
 
    class Deck{
-       ~«create»Deck(size: Integer)
+       ~«create»Deck(deckSize: Integer)
        ~takePokemoon(): Pokemoon
        ~isEmpty(): boolean
        ~getSize(): Integer
@@ -80,7 +71,7 @@ package player{
 
    class Discard{
        ~«create»Discard()
-       ~addPokemoon(poke: Pokemoon): void
+       ~addPokemoon(poke: Pokemoon): 
        ~getSize(): Integer
        +toString(): String
    }
@@ -145,20 +136,26 @@ package pokemoon{
 
 }
 User -up-|> Player
-Bot -up-|> Player
-Bot -[dashed]-->"attack"User
 User -[dashed]-->"attack"Bot
+
 Player "1" *---> "-m_deck\n1"Deck : possède
 Player "1" *---> "-m_hand\n1" Hand : possède
 Player "1" *---> "-m_discard\n1" Discard: possède
 Player "1" *---> "-m_playground\n1"Playground : possède
-Playground "3" o---> "-m_pokemoon\n[3]"Pokemoon : est constitué de
+
+Playground "3" o---> "-m_pokemoon\n[0..3]"Pokemoon : est constitué de
+
 Pokemoon -[dashed]--> ListPokemoon : uses
+
 Hand "1" o--->"-m_pokemoon\n[0..5]" Pokemoon : est constituée de
+
 Deck "1" o---> "-m_pokemoon\n[0..21]"Pokemoon : est constitué de
+
 Discard "1" o--->"-m_pokemoon\n[0..21]"Pokemoon: contient
+
 Deroulement "1" *---> "-m_bot\n1"Bot : possède
 Deroulement "1" *---> "-m_user\n1"User : possède
-Deroulement -[dashed]-->"uses"Player
+Deroulement -[dashed]-->"uses"Random
+Deroulement *-> "1\nm_scanf"Scanner : use
 
 @enduml

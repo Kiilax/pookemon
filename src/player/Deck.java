@@ -14,6 +14,7 @@ public class Deck {
         }
     }
 
+    // /!\ attention ne fait pas attention ne gère pas les pilles vide
     Pokemoon takePokemoon() {
         return m_pokemoons.pop();
     }

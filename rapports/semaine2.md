@@ -3,10 +3,14 @@ Le déroulement de la partie n'est disponible que dans la classe Deroulement. Ce
 
 FAIT :
 
-Actuellement, un joueur peut démarrer une partie en donnant son pseudo, remplir son terrain. Il peut effectuer une attaque sur 3 pokemons de l'ordinateur (ceux de son choix) avec chaque pokemon de son terrain (c'est lui qui choisit l'ordre). Il peut se faire attaquer une fois par le bot (selon l'algorithme du ReadMe avec les affinités etc). Le premier joueur est déjà définit aléatoirement.
+Actuellement, un joueur peut démarrer une partie en donnant son pseudo
+La boucle principale du jeux est faite :
+- Le joueur qui commence commence par remplir son terrain avec le nombre de poke mort (initialement 3)
+- ensuite il peut attaquer l'autre joeur (il attaque et a chaque fin d'attaque on regarde si il a tué un poke pour l'enlevé et ainsi être sur qu'il ne va pas le réataquer)
+- et on recommence en remplissant avec le nombre de mort ...
 
 A FAIRE :
 
-Il faut encore coder dans déroulement la possibilité pour un pokemon de mourrir et donc de le mettre dans la défausse et donc de rajouter un nouveau pokemon au terrain et à la main. Il faudra ensuite créer une boucle dans le Main qui va permettre au jeu de continuer jusqu'à ce que l'un des joueurs ai tous ses pokemons dans la défausse.
-Il faudra surement réorganiser les classes car actuellement l'héritage entre la classe mère Player et les classes enfants Bot et User n'est pas forcément pertinant.
-Il y a aussi des ajustements à faire au niveau des toString() des différentes classes pour que la classe Deroulement n'est plus besoin de les remodifier.
+Il faut réglé un bug lorsque le bot attaque un joeur car il y a un index trop grand donné ce qui créer une référence a un poke null ce qui génère une erreur
+Il faudra surement réorganiser les classes Player et user car actuellement l'héritage entre la classe mère Player et les classes enfants User n'est pas forcément pertinant.
+

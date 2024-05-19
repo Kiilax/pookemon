@@ -2,7 +2,7 @@ package player;
 import java.util.ArrayList;
 import pokemoon.*;
 
-public class Playground {
+class Playground {
     private ArrayList<Pokemoon> m_pokemoons;
 
     Playground() {
@@ -36,6 +36,10 @@ public class Playground {
         return null;
     }
 
+    /**
+     * nétoie le terrain (si y a des pokemoon mort on les enlèves)
+     * @return la liste des pokemoon mort
+     */
     ArrayList<Pokemoon> tcheck(){
         ArrayList<Pokemoon> pokeDead = new ArrayList<Pokemoon>();
         // ajoute les pokes à la liste des morts

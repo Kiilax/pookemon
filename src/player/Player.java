@@ -5,14 +5,14 @@ import java.util.Random;
 import pokemoon.Pokemoon;
 
 public class Player {
-    protected String m_nom;
-    protected Deck m_deck;
-    protected Hand m_hand;
+    private Deck m_deck;
+    private Hand m_hand;
     protected Playground m_playground;
-    protected Discard m_discard;
-    protected static boolean m_firstPlayer = true;
+    private Discard m_discard;
+    private String m_nom;
+    private static boolean m_firstPlayer = true;
 
-    public Player() {
+    public Player(String nom) {
         //m_firstPlayer = firstPlayer;
         if(m_firstPlayer) {
             m_deck = new Deck(20);
@@ -25,6 +25,7 @@ public class Player {
         m_hand = new Hand();
         m_playground = new Playground();
         m_discard = new Discard();
+        m_nom = nom;
         fillHand();
     }
 
@@ -38,19 +39,11 @@ public class Player {
     }
 
     /**
-     * ajoute un pokemon au playground
+     * ajoute un pokemon au playground et le retire de la main
      * @param index l'index du pokemon
      */
     public void choosePoke(int index) {
         m_playground.addPokemoon(m_hand.getPokemoonByIndex(index));
-    }
-
-    /**
-     * Rempli le terrain toujours avec les mêmes poke (pour test le fonctionnement d'un tour automatique)
-     * @return
-     */
-    void fillPlayground(Pokemoon poke){
-        m_playground.addPokemoon(poke);
     }
 
     /**
@@ -64,6 +57,7 @@ public class Player {
         }
         return pokedead.size();
     }
+
     /**
      * Attaque un pokemon de du joueur d'en face en fonction de l'affinité de son pokemon et de la vie des pokemons adverses
      * @param other le joueur à attaquer
@@ -121,9 +115,11 @@ public class Player {
         }
         return res;
     }
+
     public String getHand(){
         return m_hand.toString();
     }
+    
     public int getHandSize(){
         return m_hand.getSize();
     }
@@ -147,9 +143,16 @@ public class Player {
     public String getPlayerName() {
         return m_nom;
     }
-    public boolean getFirstPlayer() {
-        return m_firstPlayer;
+
+    public int getPokeAlive(){
+        return getDeckSize()+getHandSize();
     }
+
+    public int getNbPoke(){
+        return getDeckSize()+getHandSize()+getDiscardSize();
+    }
+
+
     public String toString() {
         return m_playground.toString();
     }
