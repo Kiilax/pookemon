@@ -17,13 +17,13 @@ package partie{
 package player{
 
    class Player{
-        -m_nom: String
-        -{static}m_firstPlayer: boolean
-        +«create»Player(nom: String)
-       +fillHand():
-       +choosePoke(index: Integer):
+       -m_nom: String
+       -{static}m_firstPlayer: boolean
+       +«create»Player(nom: String, firstPlayer: boolean)
+       +fillHand(): void
+       +choosePoke(index: Integer): void
        +cleanPlayground(): Integer
-       +autoAttack(other: Player, myPokeIndex: Integer)
+       +autoAttack(other: Player, indexPoke: Integer): String
        +getHand(): String
        +getHandSize(): Integer
        +getPlayground(): String
@@ -130,31 +130,29 @@ package pokemoon{
         +fight(other: Pokemoon): void
     }
 
-    Pokemoon "1" *-> "m_life\n1" PokeLife : a
-    Pokemoon "1" *-> "m_power\n1" PokePower : a
-    Pokemoon "0..*" *-> "m_affinite\n1" Element : est du type
+    Pokemoon "1" *-> "m_life\n1" PokeLife : a >
+    Pokemoon "1" *-> "m_power\n1" PokePower : a >
+    Pokemoon "0..*" *-> "m_affinite\n1" Element : est du type >
 
 }
 User -up-|> Player
-User -[dashed]-->"attack"Bot
+Player "1" *---> "-m_deck\n1"Deck : possède >
+Player "1" *---> "-m_hand\n1" Hand : possède >
+Player "1" *---> "-m_discard\n1" Discard: possède >
+Player "1" *---> "-m_playground\n1"Playground : possède >
 
-Player "1" *---> "-m_deck\n1"Deck : possède
-Player "1" *---> "-m_hand\n1" Hand : possède
-Player "1" *---> "-m_discard\n1" Discard: possède
-Player "1" *---> "-m_playground\n1"Playground : possède
+Playground "3" o---> "-m_pokemoon\n[0..3]"Pokemoon : est constitué de >
 
-Playground "3" o---> "-m_pokemoon\n[0..3]"Pokemoon : est constitué de
+Pokemoon -[dashed]--> ListPokemoon : <<uses>>
 
-Pokemoon -[dashed]--> ListPokemoon : uses
+Hand "1" o--->"-m_pokemoon\n[0..5]" Pokemoon : est constituée de >
 
-Hand "1" o--->"-m_pokemoon\n[0..5]" Pokemoon : est constituée de
+Deck "1" o---> "-m_pokemoon\n[0..21]"Pokemoon : est constitué de >
 
-Deck "1" o---> "-m_pokemoon\n[0..21]"Pokemoon : est constitué de
+Discard "1" o--->"-m_pokemoon\n[0..21]"Pokemoon: contient >
 
-Discard "1" o--->"-m_pokemoon\n[0..21]"Pokemoon: contient
-
-Deroulement "1" *---> "-m_bot\n1"Bot : possède
-Deroulement "1" *---> "-m_user\n1"User : possède
+Deroulement "1" *---> "-m_user\n1"User : possède >
+Deroulement "1" *---> "-m_bot\n1"Player : possède >
 Deroulement -[dashed]-->"uses"Random
 Deroulement *-> "1\nm_scanf"Scanner : use
 
