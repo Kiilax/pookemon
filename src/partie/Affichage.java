@@ -43,7 +43,7 @@ public class Affichage {
        * @param player
        * @return taille du deck
        */  
-    public String getDeck(Player player) {
+    private String getDeck(Player player) {
         return "Taille du Deck : "+player.getDeckSize()+" Pokémoons\n";
     }
       /**
@@ -51,7 +51,7 @@ public class Affichage {
        * @param player
        * @return taille défausse
        */
-    public String getDiscard(Player player) {
+    private String getDiscard(Player player) {
         return "Taille de la défausse : "+player.getDiscardSize()+" Pokémoons\n";
     }
       /**

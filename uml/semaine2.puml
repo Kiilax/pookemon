@@ -13,6 +13,17 @@ package partie{
         +playerIsFirst(): Boolean
         +gameEnd(): 
     }
+
+    class Affichage {
+        -m_titre: String
+        -m_separation: String
+        +clearScreen():
+        +continuer():
+        -getDeck(player: Player): String
+        -getDiscard(player: Player): String
+        +getProfile(player: Player):
+        +getPlayground(player: Player):
+    }
 }
 package player{
 
@@ -136,6 +147,7 @@ package pokemoon{
 
 }
 User -up-|> Player
+
 Player "1" *---> "-m_deck\n1"Deck : possède >
 Player "1" *---> "-m_hand\n1" Hand : possède >
 Player "1" *---> "-m_discard\n1" Discard: possède >
@@ -153,7 +165,11 @@ Discard "1" o--->"-m_pokemoon\n[0..21]"Pokemoon: contient >
 
 Deroulement "1" *---> "-m_user\n1"User : possède >
 Deroulement "1" *---> "-m_bot\n1"Player : possède >
-Deroulement -[dashed]-->"uses"Random
-Deroulement *-> "1\nm_scanf"Scanner : use
+Deroulement -[dashed]-->Random : <<uses>>
+Deroulement o-> "1\nm_scanf"Scanner : uses
+Deroulement o-> "1\nm_affiche"Affichage : uses
+
+Affichage -[dashed]->Player : <<uses>>
+Affichage o-> "1\nm_scanf"Scanner : uses
 
 @enduml
