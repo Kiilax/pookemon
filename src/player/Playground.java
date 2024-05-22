@@ -64,13 +64,13 @@ class Playground {
         String res = "";
 
         // Entête des colonnes
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < getSize(); i++) {
             res += "POKEMON " + (i + 1) + "---------\t\t";
         }
         res += "\n";
 
         // Lignes des noms
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < getSize(); i++) {
             String name = m_pokemoons.get(i).getName();
             res += "| Nom : " + name;
             for(int y = name.length(); y<10; y++) {
@@ -81,26 +81,26 @@ class Playground {
         res += "\n";
 
         // Lignes de vie
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < getSize(); i++) {
             res += "| Vie : " + m_pokemoons.get(i).getLife() + "/" + m_pokemoons.get(i).getLifeMax() + "   \t\t";
         }
         res += "\n";
 
         // Lignes de dégats
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < getSize(); i++) {
             res += "| Dégats : " + m_pokemoons.get(i).getPower() + "     \t\t";
         }
         res += "\n";
 
         // Lignes de type
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < getSize(); i++) {
             String element = m_pokemoons.get(i).getElement();
             res += "| Type : " + element+"      \t\t";
         }
         res += "\n";
 
         // Lignes d'affinité
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < getSize(); i++) {
             String advantage = m_pokemoons.get(i).getAvantage();
             res += "| Affinité : " + advantage+"  \t\t";
         }

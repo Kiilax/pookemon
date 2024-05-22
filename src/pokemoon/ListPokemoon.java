@@ -10,8 +10,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 class ListPokemoon {
-    private static ArrayList<String> m_namePokemoonAvailable = new ArrayList<String>(Arrays.asList("Aquali", "Araqua","Balbuto","Bulbizarre","Chamallot","Chenipan","Dracaufeu","Doduo","Évoli","Empiflor","Flamiaou","Fouinette","Gruikui","Galifeu","Herbizarre","Hoopa","Insécateur","Iguolta","Joliflor","Jirachi","Kirlia","Krabby","Lippoutou","Larvibule","M.Mime","Maganon","Noctali","Nidorina\r\n" + //
-                "","Onix","Oratoria","Pikachu","Palkia","Qwilfish","Quartermac","Rattatac","Ramoloss","Salamèche","Smogo","Tortank","Tartard","Ursaring","Victini","Voltali","Wattouat","Wailord","Xatu","Xerneas","Yanma","Yveltal","Zorua","Zekrom"));
+    private static ArrayList<String> m_namePokemoonAvailable = new ArrayList<String>(Arrays.asList("Aquali", "Araqua","Balbuto","Bulbizarre","Chamallot","Chenipan","Dracaufeu","Doduo","Évoli","Empiflor","Flamiaou","Fouinette","Gruikui","Galifeu","Herbizarre","Hoopa","Insécateur","Iguolta","Joliflor","Jirachi","Kirlia","Krabby","Lippoutou","Larvibule","M.Mime","Maganon","Noctali","Nidorina","Onix","Oratoria","Pikachu","Palkia","Qwilfish","Quartermac","Rattatac","Ramoloss","Salamèche","Smogo","Tortank","Tartard","Ursaring","Victini","Voltali","Wattouat","Wailord","Xatu","Xerneas","Yanma","Yveltal","Zorua","Zekrom"));
     private static ArrayList<String> m_namePokemoonTaken = new ArrayList<String>();
 
     public static String toStringStat(){
