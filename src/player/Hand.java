@@ -10,12 +10,12 @@ public class Hand {
         m_pokemoons = new ArrayList<Pokemoon>();
     }
 
-    boolean addPokemoon(Pokemoon poke) {
-        if(m_pokemoons.size()<5){
-            m_pokemoons.add(poke);
-            return true;
-        }
-        return false;
+    /**
+     * ajoute un pokemoon a la main
+     * @param poke le poke que l'on veut ajouté
+     */
+    void addPokemoon(Pokemoon poke) {
+        m_pokemoons.add(poke);
     }
 
     /**
@@ -25,8 +25,11 @@ public class Hand {
      * /!\ si l'index n'est pas dans les bornes on retourne null
      */
     Pokemoon getPokemoonByIndex(int index) {
+        Pokemoon res;
         if(index < m_pokemoons.size()){
-            return m_pokemoons.get(index);
+            res = m_pokemoons.get(index);
+            m_pokemoons.remove(index);
+            return res;
         }
         return null;
     }
@@ -53,10 +56,16 @@ public class Hand {
 
     @Override
     public String toString() {
-        String listePoke = "";
-        for(Pokemoon poke : m_pokemoons){
-            listePoke += poke.getName() + ", ";
+        if(!m_pokemoons.isEmpty()) {
+            String listePoke = "Pokémoon(s) dans la main :\n";
+            int i = 1;
+            for(Pokemoon poke : m_pokemoons){
+                listePoke += 
+                "Pokemoon n°"+i+" : "+poke.toString();
+                i++;
+            }  
+            return listePoke;
         }
-        return listePoke.substring(0,listePoke.length()-2);
+        else return "Main vide";
     }
 }

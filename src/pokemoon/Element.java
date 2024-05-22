@@ -1,10 +1,10 @@
 package pokemoon;
 
 enum Element {
-    EAU("eau","feu","terre"),
-    FEU("feu","air","eau"),
-    TERRE("terre","eau","air"),
-    AIR("air","terre","feu");
+    EAU("EAU","FEU","TERRE"),
+    FEU("FEU","AIR","EAU"),
+    TERRE("TERRE","EAU","AIR"),
+    AIR("AIR","TERRE","FEU");
 
     private String m_type;
     private String m_avantage;
