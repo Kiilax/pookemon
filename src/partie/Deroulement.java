@@ -10,6 +10,7 @@ public class Deroulement {
     private User m_user;
     private Player m_bot;
     private Scanner m_scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
+    private boolean m_gameOver = false;
 
 
     // 1 - créer joueur et choisi joeur 1 
@@ -37,7 +38,7 @@ public class Deroulement {
 
     /**
      * S'assure que l'index choisi est valide et prend en compte les erreurs de l'utilisateur
-     * @param indexesChoisis
+     * @param size
      * @return l'index chois par l'utilisateur
      */
     private int getIndexValide(int size){
@@ -64,12 +65,43 @@ public class Deroulement {
     }
 
     /**
+     * Permet a l'utilisateur de choisir un index libre et correcte en gérant les erreurs
+     * @param size l'utilisateur peu choisir un nombre entre 0 et size
+     * @param indexUtiliser un tableau qui indique si un index a déjà était utiliser (false = utiliser, true = libre )
+     * @return l'index choisi par l'utilisateur
+     */
+    public int getIndexValideSansRep(int size, boolean[] indexUtiliser){
+      boolean indexValide = false;
+      while(!indexValide){
+        try {
+          int index = Integer.parseInt(m_scanf.nextLine()) - 1; // Ne soustrayez pas 1 ici 
+          if (index >= 0 && index < size && !indexUtiliser[index]) {
+            indexUtiliser[index] = true;
+            return index;
+          }
+          else if (index >= 0 && index < size) {
+            System.out.print("Vous avez déjà choisi ce Pokémon. Veuillez choisir un autre numéro.\n");
+          } 
+          else {
+            System.out.print("Index invalide. Veuillez choisir un numéro valide.\n");
+          }
+        } 
+        catch (NumberFormatException e) {
+          System.out.print("Veuillez entrer un numéro valide.\n");
+        }
+      }
+      return -1; // n'est jamais atteind
+  }
+
+    /**
      * Rempli le plateau du joueur
      * @param nbPoke le nombre de poke que le joeur doit mettre
      */
     public void userFillPlayground(int nbPoke){
       if(nbPoke > 0){
       int i=0;
+      Affichage.clearScreen();
+      System.out.println(Affichage.getPlayground(m_user, m_bot));
       System.out.println(m_user.getHand());
       if(nbPoke == 1){
         System.out.println("Donne nom du poke que tu veux jouer !");
@@ -80,8 +112,11 @@ public class Deroulement {
       while (i<nbPoke && m_user.getHandSize()>0) {
         m_user.choosePoke(getIndexValide(m_user.getHandSize()));
         i++;
+        Affichage.clearScreen();
+        System.out.println(Affichage.getPlayground(m_user, m_bot));
         System.out.println(m_user.getHand());
       }
+      m_user.fillHand();
       }
     }
 
@@ -98,6 +133,7 @@ public class Deroulement {
           i++;
         }
         System.out.println(m_bot.getPlayerName() + " a rempli son plateau");
+        m_bot.fillHand();
       }
     }
 
@@ -109,15 +145,18 @@ public class Deroulement {
      */
     public int userAttack(){
       int nbDeMort = 0;
-      for(int i=0; i<m_user.getHandSize(); i++) {
+      boolean[] indexValide = new boolean[m_user.getPlaygroundSize()];
+      for(int i=0; i<m_user.getPlaygroundSize() && !m_gameOver; i++) {
+        Affichage.clearScreen();
+        Affichage.afficheJeu(m_user,m_bot);
         System.out.println(m_user.getPlayerName() + " ecrit le numéro du pokemoon pour attaque");
         // Pour l'indexe de notre poke
-        int monPoke = getIndexValide(m_user.getPlaygroundSize());
+        int monPoke = getIndexValideSansRep(m_user.getPlaygroundSize(),indexValide);
         System.out.println(m_user.getPlayerName() + " ecrit le numéro du pokemoon a attaque");
         int autrePoke = getIndexValide(m_bot.getPlaygroundSize());
         m_user.userAttack(m_bot,monPoke,autrePoke);
         nbDeMort += m_bot.cleanPlayground();
-        // TODO ajouté l'affichage des deux terrains a chaque fin d'attaque 
+        gameOver();
       }
       return nbDeMort;
       }
@@ -125,11 +164,14 @@ public class Deroulement {
 
     public int botAttack(){
       int nbDeMort = 0;
-      for(int i=0; i<m_bot.getPlaygroundSize(); i++){
+      System.out.println(m_bot.getPlayerName()+ " attaque");
+      for(int i=0; i<m_bot.getPlaygroundSize() && !m_gameOver; i++){
         m_bot.autoAttack(m_user, i);
         nbDeMort += m_user.cleanPlayground();
+        gameOver();
       }
       System.out.println(m_bot.getPlayerName() + " a tuer " + nbDeMort + "de tes poke");
+      Affichage.dodo();
       return nbDeMort;
     }
 
@@ -139,12 +181,18 @@ public class Deroulement {
      */
     public Player gameOver() {
       if(m_bot.getPokeAlive() == 0) {
+        m_gameOver = true;
         return m_user;
       }
       else if(m_user.getPokeAlive() == 0) {
+        m_gameOver = true;
         return m_bot;
       }
       else return null;
+    }
+
+    public boolean getGameOver(){
+      return m_gameOver;
     }
 
     /**

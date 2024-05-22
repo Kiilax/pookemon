@@ -69,7 +69,7 @@ public class Player {
         ArrayList<Pokemoon> otherAffin = new ArrayList<Pokemoon>();
         String element = myPoke.getElement();
         String res;
-        for(int i=0; i<3; i++){
+        for(int i=0; i<other.getPlaygroundSize(); i++){
             if(other.m_playground.getPokemoonByIndex(i).getDesavantage().equals(element)){
                 otherAffin.add(other.m_playground.getPokemoonByIndex(i));
             }
@@ -85,7 +85,7 @@ public class Player {
         }
         else {
             ArrayList<Pokemoon> alivePokemons = new ArrayList<Pokemoon>();
-            for(int i=0; i<3; i++){
+            for(int i=0; i<(other.getPlaygroundSize()); i++){
                 alivePokemons.add(other.m_playground.getPokemoonByIndex(i));
             }
             if (!alivePokemons.isEmpty()) {
@@ -145,11 +145,11 @@ public class Player {
     }
 
     public int getPokeAlive(){
-        return getDeckSize()+getHandSize();
+        return getDeckSize()+getHandSize()+getPlaygroundSize();
     }
 
     public int getNbPoke(){
-        return getDeckSize()+getHandSize()+getDiscardSize();
+        return getDeckSize()+getHandSize()+getDiscardSize()+getPlaygroundSize();
     }
 
 

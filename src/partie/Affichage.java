@@ -4,7 +4,7 @@ import player.*;
 import java.util.Scanner;
 
 public class Affichage {
-    private String m_titre = "\r\n" + //
+    private static String m_titre = "\r\n" + //
             "██████╗  ██████╗ ██╗  ██╗███████╗███╗   ███╗ ██████╗  ██████╗ ███╗   ██╗\r\n" + //
             "██╔══██╗██╔═══██╗██║ ██╔╝██╔════╝████╗ ████║██╔═══██╗██╔═══██╗████╗  ██║\r\n" + //
             "██████╔╝██║   ██║█████╔╝ █████╗  ██╔████╔██║██║   ██║██║   ██║██╔██╗ ██║\r\n" + //
@@ -13,13 +13,21 @@ public class Affichage {
             "╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝\r\n" + //
             "                                                                        \r\n" + //
             "";
-    private String m_separation = "----------------------------------------------------------------------------------------------------------\n";
+    private static String m_separation = "----------------------------------------------------------------------------------------------------------\n";
     private Scanner m_scanf = new Scanner(System.in);
 
+    public static void dodo(){
+      try {
+        Thread.sleep(2000);
+      } 
+      catch (InterruptedException ie) {
+        System.out.println(ie.getMessage());
+      }
+    }
     /**
      * Reinitialise le terminal
      */
-    public void clearScreen() {
+    public static void clearScreen() {
       System.out.print("\033[H\033[2J");
       System.out.flush();
     }
@@ -35,41 +43,49 @@ public class Affichage {
       /**
        * Affiche le titre du jeu
        */
-    public void getTitre() {
+    public static void getTitre() {
         System.out.println(m_titre+m_separation);
-    }
+      }
       /**
        * donne la taille du deck
        * @param player
        * @return taille du deck
        */  
-    private String getDeck(Player player) {
-        return "Taille du Deck : "+player.getDeckSize()+" Pokémoons\n";
+    private static String getDeck(Player player) {
+        return "Nombre de carte dans le deck : "+player.getDeckSize()+" Pokémoons\n";
     }
+
       /**
        * donne la taille de la défausse
        * @param player
        * @return taille défausse
        */
-    private String getDiscard(Player player) {
-        return "Taille de la défausse : "+player.getDiscardSize()+" Pokémoons\n";
+    private static String getDiscard(Player player) {
+        return "Nombre de carte dans la défausse : "+player.getDiscardSize()+" Pokémoons\n";
     }
-      /**
-       * affiche les toutes les infos d'un joueur à part le playground
-       * @param player
-       */
-    public void getProfile(Player player) {
-        System.out.println("PROFIL DE "+player.getPlayerName().toUpperCase()+" :\n\n"+
-        getDeck(player)+
-        getDiscard(player)+"\n"+
-        player.getHand()+"\n"+m_separation);
+
+    private static String getHand(Player player) {
+      return "Nombre de carte dans la main : "+player.getHandSize()+" Pokémoons\n";
     }
+
     /**
      * affiche le playground d'un joueur
      * @param player
     */
-    public void getPlayground(Player player) {
-        System.out.println("\nTERRAIN DE "+player.getPlayerName().toUpperCase()+" :\n\n"+
-        player.getPlayground()+"\n"+m_separation);
+    static String getPlayground(Player p1, Player p2) {
+        return "TERRAIN DE "+p1.getPlayerName().toUpperCase()+" :\n\n"+
+        p1.getPlayground()+"\n"+m_separation+p2.getPlayground()+"\n\nTERRAIN DE "+p2.getPlayerName()+"\n";
+    }
+
+    public static void afficheJeu(Player p1, Player p2){
+      System.out.println("Infos de " + p1.getPlayerName().toUpperCase() + " :\n"+
+      getDeck(p1)+getDiscard(p1)+getHand(p1)+
+      getPlayground(p1, p2)+
+      getHand(p2)+getDiscard(p2)+getDeck(p2)+
+      "Infos de " + p2.getPlayerName().toLowerCase());
+    }
+
+    public static void afficheFinJeu(Player p){
+      System.out.println("\t\t\t"+ p.getPlayerName().toUpperCase() + " EST LE GRAND GAGNAN");
     }
 }

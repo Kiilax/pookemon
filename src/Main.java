@@ -5,32 +5,41 @@ public class Main
   {
     //INTRODUCTION DU JEU
     Deroulement partie = new Deroulement();
-    Affichage af = new Affichage();
-    af.clearScreen();
-    af.getTitre();
+    Affichage.clearScreen();
+    Affichage.getTitre();
     partie.createPlayer();
-    boolean loop = true;
     int nbPokeMortUser = 3;
     int nbPokeMortBot = 3;
+    if(partie.playerIsFirst()) {
+      System.out.println("le joueur commence");
+      partie.userFillPlayground(nbPokeMortUser);
+      partie.botFillPlayground(nbPokeMortBot);
+      nbPokeMortBot = partie.userAttack();
+      nbPokeMortUser = partie.botAttack();
+    }
+    else {
+      System.out.println("albert commence");
+      partie.botFillPlayground(nbPokeMortBot);
+      partie.userFillPlayground(nbPokeMortUser);
+      nbPokeMortUser = partie.botAttack();
+      nbPokeMortBot = partie.userAttack();
+    }
     //REMPLISSAGE DES TERRAINS
-    while(loop) {
+    while(!partie.getGameOver()) {
       if(partie.playerIsFirst()) {
-        System.out.println("le joueur commence");
         partie.userFillPlayground(nbPokeMortUser);
-        partie.botFillPlayground(nbPokeMortBot);
         nbPokeMortBot = partie.userAttack();
+        partie.botFillPlayground(nbPokeMortBot);
         nbPokeMortUser = partie.botAttack();
       }
       else {
-        System.out.println("albert commence");
         partie.botFillPlayground(nbPokeMortBot);
-        partie.userFillPlayground(nbPokeMortUser);
         nbPokeMortUser = partie.botAttack();
+        partie.userFillPlayground(nbPokeMortUser);
         nbPokeMortBot = partie.userAttack();
       }
-      if(partie.gameOver() != null){
-        loop = false;
-        // TODO fair fct printWiner(Player gagnan)
+      if(partie.getGameOver()){
+        Affichage.afficheFinJeu(partie.gameOver());
       }
     }
     partie.gameEnd();
