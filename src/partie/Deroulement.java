@@ -26,14 +26,9 @@ public class Deroulement {
     public void createPlayer() {
       System.out.print("Choisie ton pseudo : ");
       Random rd = new Random();
-      if(rd.nextBoolean()){
-        m_user = new User(m_scanf.nextLine());
-        m_bot = new Player("Albert");
-      }
-      else{
-        m_bot = new Player("Albert");
-        m_user = new User(m_scanf.nextLine());
-      }
+      boolean rdb = rd.nextBoolean();
+      m_user = new User(m_scanf.nextLine(), rdb);
+      m_bot = new Player("Albert",!rdb);
     }
 
     /**
@@ -99,24 +94,30 @@ public class Deroulement {
      */
     public void userFillPlayground(int nbPoke){
       if(nbPoke > 0){
-      int i=0;
-      Affichage.clearScreen();
-      System.out.println(Affichage.getPlayground(m_user, m_bot));
-      System.out.println(m_user.getHand());
-      if(nbPoke == 1){
-        System.out.println("Donne nom du poke que tu veux jouer !");
-      }
-      else{
-        System.out.println("Donne les noms des "+nbPoke+" poke que tu veux jouer !");
-      }
-      while (i<nbPoke && m_user.getHandSize()>0) {
-        m_user.choosePoke(getIndexValide(m_user.getHandSize()));
-        i++;
-        Affichage.clearScreen();
+        int i=0;
+        Affichage.continuer();
         System.out.println(Affichage.getPlayground(m_user, m_bot));
         System.out.println(m_user.getHand());
-      }
-      m_user.fillHand();
+        if(nbPoke == 1){
+          System.out.print("Donne le numéro du dernier Pokemon à jouer : ");
+        }
+        else{
+          System.out.print("Donne le numéro des "+nbPoke+" Pokemons que tu veux jouer : ");
+        }
+        while (i<nbPoke && m_user.getHandSize()>0) {
+          m_user.choosePoke(getIndexValide(m_user.getHandSize()));
+          i++;
+          Affichage.clearScreen();
+          System.out.println(Affichage.getPlayground(m_user, m_bot));
+          System.out.println(m_user.getHand());
+          if(nbPoke == 1){
+            System.out.print("Donne le numéro du Pokemon que tu veux utiliser jouer : ");
+          }
+          else{
+            System.out.print("Donne le numéro des "+nbPoke+" Pokemons que tu veux utiliser : ");
+          }
+        }
+        m_user.fillHand();
       }
     }
 
@@ -132,7 +133,7 @@ public class Deroulement {
           m_bot.choosePoke(0);
           i++;
         }
-        System.out.println(m_bot.getPlayerName() + " a rempli son plateau");
+        System.out.println(m_bot.getPlayerName() + " a rempli son plateau !\n");
         m_bot.fillHand();
       }
     }
@@ -149,10 +150,10 @@ public class Deroulement {
       for(int i=0; i<m_user.getPlaygroundSize() && !m_gameOver; i++) {
         Affichage.clearScreen();
         Affichage.afficheJeu(m_user,m_bot);
-        System.out.println(m_user.getPlayerName() + " ecrit le numéro du pokemoon pour attaque");
+        System.out.print("Numéro du Pokemoon à jouer : ");
         // Pour l'indexe de notre poke
         int monPoke = getIndexValideSansRep(m_user.getPlaygroundSize(),indexValide);
-        System.out.println(m_user.getPlayerName() + " ecrit le numéro du pokemoon a attaque");
+        System.out.print("Numéro du Pokemoon à attaquer : ");
         int autrePoke = getIndexValide(m_bot.getPlaygroundSize());
         m_user.userAttack(m_bot,monPoke,autrePoke);
         nbDeMort += m_bot.cleanPlayground();
@@ -164,13 +165,14 @@ public class Deroulement {
 
     public int botAttack(){
       int nbDeMort = 0;
-      System.out.println(m_bot.getPlayerName()+ " attaque");
+      Affichage.clearScreen();
+      System.out.println(m_bot.getPlayerName()+ " attaque !");
       for(int i=0; i<m_bot.getPlaygroundSize() && !m_gameOver; i++){
         m_bot.autoAttack(m_user, i);
         nbDeMort += m_user.cleanPlayground();
         gameOver();
       }
-      System.out.println(m_bot.getPlayerName() + " a tuer " + nbDeMort + "de tes poke");
+      System.out.println(m_bot.getPlayerName() + " a tué " + nbDeMort + " de tes Pokemoons !");
       Affichage.dodo();
       return nbDeMort;
     }
@@ -180,11 +182,19 @@ public class Deroulement {
      * @return le joeur qui a gagné ou null
      */
     public Player gameOver() {
-      if(m_bot.getPokeAlive() == 0) {
+      if(m_bot.getFirstPlayer() && m_bot.getDiscardSize()==20) {
         m_gameOver = true;
         return m_user;
       }
-      else if(m_user.getPokeAlive() == 0) {
+      else if(!m_bot.getFirstPlayer() && m_bot.getDiscardSize()==21) {
+        m_gameOver = true;
+        return m_user;
+      }
+      else if(m_user.getFirstPlayer() && m_user.getDiscardSize()==20) {
+        m_gameOver = true;
+        return m_bot;
+      }
+      else if(!m_user.getFirstPlayer() && m_user.getDiscardSize()==21) {
         m_gameOver = true;
         return m_bot;
       }

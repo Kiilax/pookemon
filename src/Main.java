@@ -11,14 +11,14 @@ public class Main
     int nbPokeMortUser = 3;
     int nbPokeMortBot = 3;
     if(partie.playerIsFirst()) {
-      System.out.println("le joueur commence");
+      System.out.println("\nC'est toi qui commence !\n");
       partie.userFillPlayground(nbPokeMortUser);
       partie.botFillPlayground(nbPokeMortBot);
       nbPokeMortBot = partie.userAttack();
       nbPokeMortUser = partie.botAttack();
     }
     else {
-      System.out.println("albert commence");
+      System.out.println("\nAlbert l'ordinateur commence !\n");
       partie.botFillPlayground(nbPokeMortBot);
       partie.userFillPlayground(nbPokeMortUser);
       nbPokeMortUser = partie.botAttack();

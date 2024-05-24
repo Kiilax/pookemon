@@ -6,25 +6,20 @@ import pokemoon.Pokemoon;
 
 public class Player {
     private Deck m_deck;
-    private Hand m_hand;
-    protected Playground m_playground;
-    private Discard m_discard;
+    private Hand m_hand = new Hand();
+    protected Playground m_playground = new Playground();
+    private Discard m_discard = new Discard();
     private String m_nom;
-    private static boolean m_firstPlayer = true;
+    private boolean m_firstPlayer;
 
-    public Player(String nom) {
-        //m_firstPlayer = firstPlayer;
+    public Player(String nom, boolean firstPlayer) {
+        m_firstPlayer = firstPlayer;
         if(m_firstPlayer) {
             m_deck = new Deck(20);
-            m_firstPlayer = false;
         }
         else {
             m_deck = new Deck(21);
         }
-        //m_nom = nom;
-        m_hand = new Hand();
-        m_playground = new Playground();
-        m_discard = new Discard();
         m_nom = nom;
         fillHand();
     }
@@ -144,8 +139,8 @@ public class Player {
         return m_nom;
     }
 
-    public int getPokeAlive(){
-        return getDeckSize()+getHandSize()+getPlaygroundSize();
+    public boolean getFirstPlayer() {
+        return m_firstPlayer;
     }
 
     public int getNbPoke(){
