@@ -10,6 +10,8 @@ public class Main
     partie.createPlayer();
     int nbPokeMortUser = 3;
     int nbPokeMortBot = 3;
+
+    //Debut de la partie en fonction du premier joueur :
     if(partie.playerIsFirst()) {
       System.out.println("\nC'est toi qui commence !\n");
       partie.userFillPlayground(nbPokeMortUser);
@@ -24,7 +26,7 @@ public class Main
       nbPokeMortUser = partie.botAttack();
       nbPokeMortBot = partie.userAttack();
     }
-    //REMPLISSAGE DES TERRAINS
+    //Deroulement du jeu en fonction du premier joueur :
     while(!partie.getGameOver()) {
       if(partie.playerIsFirst()) {
         partie.userFillPlayground(nbPokeMortUser);
