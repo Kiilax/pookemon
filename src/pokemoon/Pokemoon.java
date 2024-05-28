@@ -2,11 +2,14 @@ package pokemoon;
 
 import java.util.Random;
 
+import pouvoir.Pouvoir;
+
 public class Pokemoon {
     private String m_name;
     private PokeLife m_life;
     private PokePower m_powerAtt;
     private Element m_affinite;
+    private Pouvoir m_pouvoir;
 
     public Pokemoon(){
         Random rd = new Random();
@@ -24,6 +27,20 @@ public class Pokemoon {
         " | Puissance : "+m_powerAtt.getPower()+
         " | Type : "+m_affinite.toString()+
         " | Affinité : "+m_affinite.getAvantage()+"\n";
+    }
+
+    public void heal(int heal) {
+        m_life.takeHeal(heal);
+    }
+
+    public Pouvoir noPouvoir() {
+        Pouvoir ciao = m_pouvoir;
+        m_pouvoir = null;
+        return ciao;
+    }
+
+    public void newPouvoir(Pouvoir newPouv) {
+        m_pouvoir = newPouv;
     }
 
     public String getName(){

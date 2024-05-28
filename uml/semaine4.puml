@@ -1,4 +1,4 @@
-@startuml semaine3
+@startuml semaine4
 
 package partie{
 
@@ -172,10 +172,10 @@ Discard "1" o--->"-m_pokemoon\n[0..21]"Pokemoon: contient >
 Deroulement "1" *---> "-m_user\n1"User : possède >
 Deroulement "1" *---> "-m_bot\n1"Player : possède >
 Deroulement -[dashed]-->Random : <<uses>>
-Deroulement o-> "1\nm_scanf"Scanner : uses
+Deroulement o-> "1\nm_scanf"Scanner
 Deroulement -[dashed]-->Affichage : <<uses>>
 
 Affichage -[dashed]->Player : <<uses>>
-Affichage o-> "1\nm_scanf"Scanner : uses
+Affichage o-> "1\nm_scanf"Scanner
 
 @enduml

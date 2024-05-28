@@ -24,6 +24,7 @@ public class Player {
         fillHand();
     }
 
+
     /**
      * Permet de remplir la main (action a faire en début de tour)
      */

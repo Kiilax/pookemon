@@ -30,7 +30,14 @@ package pokemoon;
         m_pv -= attack;
         if(m_pv<0){
             m_pv=0;
-            return m_pv;
+        }
+        return m_pv;
+    }
+
+    int takeHeal(int heal) {
+        m_pv += heal;
+        if(m_pv>m_pvMax) {
+            m_pv = m_pvMax;
         }
         return m_pv;
     }
