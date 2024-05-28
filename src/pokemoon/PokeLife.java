@@ -8,6 +8,7 @@ package pokemoon;
  class PokeLife {
     private int m_pv;
     private int m_pvMax;
+    private int m_protection = 0;
 
     PokeLife(int pv){
         m_pv = pv;
@@ -22,12 +23,16 @@ package pokemoon;
         return m_pvMax;
     }
 
+    void setProtec(int protec){
+        m_protection = protec;
+    }
+
     /**
      * @param attack la puissance de l'attaque reçut
      * @return le nombre de pv restant
      */
     int takeDamage(int attack){
-        m_pv -= attack;
+        m_pv -= (attack-m_protection);
         if(m_pv<0){
             m_pv=0;
             return m_pv;

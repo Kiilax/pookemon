@@ -1,6 +1,8 @@
 package player;
 
 import java.util.Stack;
+import java.util.Collections;
+
 import pokemoon.Pokemoon;
 
 public class Deck {
@@ -12,6 +14,14 @@ public class Deck {
         for(int i = 0; i<deckSize; i++) {
             m_pokemoons.push(new Pokemoon());
         }
+    }
+
+    void add(Pokemoon poke){
+        m_pokemoons.push(poke);
+    }
+
+    void melange(){
+        Collections.shuffle(m_pokemoons);
     }
 
     // /!\ attention ne fait pas attention ne gère pas les pilles vide

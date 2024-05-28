@@ -1,0 +1,192 @@
+@startuml
+
+package partie{
+
+    class Deroulement{
+        -m_gameOver: Boolean
+        +createPlayer(): 
+        -getIndexValide(size: Integer): Integer
+        +getIndexValideSansRep(size: Integer, indexUser: Boolean[]): Integer
+        +userFillPlayground(nbPoke: Integer): 
+        +botFillPlayground(nbPoke: Integer): 
+        +userAttack(): Integer
+        +botAttack(): Integer
+        +gameOver(): Player
+        +getGameOver(): Boolean
+        +playerIsFirst(): Boolean
+        +gameEnd(): 
+    }
+
+    class Affichage {
+        -{static}m_titre: String
+        -{static}m_separation: String
+        +{static}dodo():
+        +{static}clearScreen():
+        +{static}continuer():
+        -{static}getTitre()
+        -{static}getDeck(player: Player): String
+        -{static}getDiscard(player: Player): String
+        ~{static}getPlayground(player1: Player, player2: Player): String
+        +{static}afficherJeu(p1: Player, p2: Player):
+        +{static}afficherFinJeu(player: Player):
+    }
+}
+package player{
+
+   class Player{
+       -m_nom: String
+       -{static}m_firstPlayer: boolean
+       +«create»Player(nom: String, firstPlayer: boolean)
+       +fillHand(): void
+       +choosePoke(index: Integer): void
+       +cleanPlayground(): Integer
+       +autoAttack(other: Player, indexPoke: Integer): String
+       +getHand(): String
+       +getHandSize(): Integer
+       +getPlayground(): String
+       +getPlaygroundSize(): Integer
+       +getDeckSize(): Integer
+       +getDiscardSize(): Integer
+       +getPlayerName(): String
+       +getPokeAlive(): Integer
+       +getNbPoke(): Integer
+       +getFirstPlayer(): boolean
+       +toString(): String
+   }
+
+   class User{
+        +<<create>>User(nom: String)
+        +userAttack(other: Player, myPokeIndex: Integer, otherPokeIndex: Integer): String
+   }
+
+   class Playground{
+          ~«create»Playground()
+          ~addPokemoon(pokemoon: Pokemoon): 
+          ~getPokemoonByIndex(index: Integer): Pokemoon
+          ~getPokemoonByName(nomPoke: String): Pokemoon
+          ~tcheck(): ArrayList<Pokemoon>
+          ~getSize(): Integer
+          +toString(): String
+   }
+
+   class Hand{
+       ~«create»Hand()
+       ~addPokemoon(poke: Pokemoon): 
+       ~getPokemoonByIndex(index: Integer): Pokemoon
+       ~getPokemoonByName(nomPoke: String): Pokemoon
+       ~getSize(): Integer
+       +toString(): String
+   }
+
+   class Deck{
+       ~«create»Deck(deckSize: Integer)
+       ~takePokemoon(): Pokemoon
+       ~isEmpty(): boolean
+       ~getSize(): Integer
+       +toString(): String
+   }
+
+   class Discard{
+       ~«create»Discard()
+       ~addPokemoon(poke: Pokemoon): 
+       ~getSize(): Integer
+       +toString(): String
+   }
+}
+
+package pokemoon{
+    enum Element{
+        -m_type: String
+        -m_avantage: String
+        -m_desavantage: String
+        EAU
+        TERRE
+        FEU
+        AIR
+        -«create»Element(type: String, avantage: String, desavantage: String)
+        +toString(): String
+        ~getAvantage(): String
+        ~getDesavantage(): String
+    }
+
+    class ListPokemoon{
+        -{static}m_namePokemoonAvailable: String[0..21]
+        -{static}m_namePokemoonTaken: String[0..21]
+        +{static}toStringStat(): String
+        -{static}getRandomIndex(): Integer
+        +{static}getName(): String
+        +{static}reset():
+    }
+
+    class PokeLife{
+        -m_pv: Integer
+        -m_pvMax: Integer
+        ~«create»PokeLife(pv: Integer)
+        ~getPV(): Integer
+        ~getPvMax(): Integer
+        ~takeDamage(attack: Integer): Integer
+    }
+
+    class PokePower{
+        -m_power: Integer
+        ~«create»PokePower(power: Integer)
+        ~getPower(): Integer
+        ~getAttackPower(element: Element, elementEnemi: Element): Integer
+    }
+
+    class Pokemoon{
+        -m_name: String
+        +«create»Pokemoon()
+        +toString(): String
+        +getName(): String
+        +getPower(): Integer
+        +getLife(): Integer
+        +getLifeMax(): Integer
+        +getElement(): String
+        +getDesavantage(): String
+        +fight(other: Pokemoon): void
+    }
+
+    Pokemoon "1" *-> "m_life\n1" PokeLife : a >
+    Pokemoon "1" *-> "m_power\n1" PokePower : a >
+    Pokemoon "0..*" *-> "m_affinite\n1" Element : est du type >
+
+}
+
+class Pouvoir{
+    -m_nom: String
+    -m_desc: String
+    -m_unique: Boolean
+    #«create»Pouvoir(nom: String, desc: String, unique: Boolean)
+    +getNom(): String
+    +getDesc(): String
+    +getUnique(): Boolean
+}
+
+User -up--|> Player
+
+Player "1" *---> "-m_deck\n1"Deck : possède >
+Player "1" *---> "-m_hand\n1" Hand : possède >
+Player "1" *---> "-m_discard\n1" Discard: possède >
+Player "1" *---> "-m_playground\n1"Playground : possède >
+
+Playground "3" o---> "-m_pokemoon\n[0..3]"Pokemoon : est constitué de >
+
+Pokemoon -[dashed]--> ListPokemoon : <<uses>>
+
+Hand "1" o--->"-m_pokemoon\n[0..5]" Pokemoon : est constituée de >
+
+Deck "1" o---> "-m_pokemoon\n[0..21]"Pokemoon : est constitué de >
+
+Discard "1" o--->"-m_pokemoon\n[0..21]"Pokemoon: contient >
+
+Deroulement "1" *---> "-m_user\n1"User : possède >
+Deroulement "1" *---> "-m_bot\n1"Player : possède >
+Deroulement -[dashed]-->Random : <<uses>>
+Deroulement o-> "1\nm_scanf"Scanner : uses
+Deroulement -[dashed]-->Affichage : <<uses>>
+
+Affichage -[dashed]->Player : <<uses>>
+Affichage o-> "1\nm_scanf"Scanner : uses
+
+@enduml

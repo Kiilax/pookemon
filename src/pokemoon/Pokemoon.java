@@ -1,12 +1,14 @@
 package pokemoon;
 
 import java.util.Random;
+import pouvoir.Pouvoir;
 
 public class Pokemoon {
     private String m_name;
     private PokeLife m_life;
     private PokePower m_powerAtt;
     private Element m_affinite;
+    private Pouvoir m_pouv;
 
     public Pokemoon(){
         Random rd = new Random();
@@ -61,5 +63,24 @@ public class Pokemoon {
         int powerAttack = m_powerAtt.getAttackPower(m_affinite, other.m_affinite);
         other.m_life.takeDamage(powerAttack);
         return m_name+" inflige "+powerAttack+" à "+other.m_name;
+    }
+
+    void protec(int protec){
+        m_life.setProtec(protec);
+    }
+
+    void increasePower(int increase){
+        m_powerAtt.increasePower(increase);
+    }
+
+    boolean utilise(Object obj){
+        if(m_pouv != null){
+            m_pouv.utiliser(this, obj);
+            if(m_pouv.getUnique()){
+                m_pouv = null;
+            }
+            return true;
+        }
+        return false;
     }
 }

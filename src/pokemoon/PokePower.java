@@ -7,6 +7,10 @@ class PokePower {
         m_power = power;
     }
 
+    void increasePower(int increase){
+        m_power = m_power + increase;
+    }
+
     int getPower(){
         return m_power;
     }

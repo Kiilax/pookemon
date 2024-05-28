@@ -24,6 +24,11 @@ public class Player {
         fillHand();
     }
 
+    public void removePokeFromHan(int index){
+        Pokemoon poke = m_hand.getPokemoonByIndex(index);
+        m_deck.add(poke);
+    }
+
     /**
      * Permet de remplir la main (action a faire en début de tour)
      */
