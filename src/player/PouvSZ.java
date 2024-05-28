@@ -1,6 +1,5 @@
 package player;
 
-import java.util.ArrayList;
 import pokemoon.Pokemoon;
 import pouvoir.Pouvoir;
 
@@ -9,9 +8,9 @@ public class PouvSZ extends Pouvoir {
         super("Soin de zone", "Soigne 10 points de vie de chaque Pokemon sur son terrain, lui compris. Pouvoir réutilisable.", false);
     }
 
-    void utiliser(ArrayList<Pokemoon> others) {
-        for (Pokemoon poke : others) {
-            poke.heal(10);
-        }
+    @Override
+    public void utiliser(Pokemoon poke, Object obj) {
+        Pokemoon other = (Pokemoon) obj;
+        other.heal(10);
     }
 }

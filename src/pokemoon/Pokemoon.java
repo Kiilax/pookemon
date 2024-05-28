@@ -28,6 +28,20 @@ public class Pokemoon {
         " | Affinité : "+m_affinite.getAvantage()+"\n";
     }
 
+    public void heal(int heal){
+        m_life.takeHeal(heal);
+    }
+
+    public Pouvoir noPouvoir(){
+        Pouvoir ciao = m_pouv;
+        m_pouv = null;
+        return ciao;
+    }
+
+    public void newPouvoir(Pouvoir pouv){
+        m_pouv = pouv;
+    }
+
     public String getName(){
         return new String(m_name);
     }
