@@ -1,7 +1,6 @@
 package player;
 
 import java.util.Stack;
-import java.util.Collections;
 
 import pokemoon.Pokemoon;
 import pokemoon.ListPokemoon;
@@ -17,22 +16,22 @@ public class Deck {
         }
     }
 
-    void add(Pokemoon poke){
+    /*void add(Pokemoon poke){
         m_pokemoons.push(poke);
     }
 
     void melange(){
         Collections.shuffle(m_pokemoons);
-    }
+    } */
 
     // /!\ attention ne fait pas attention ne gère pas les pilles vide
     Pokemoon takePokemoon() {
         return m_pokemoons.pop();
     }
 
-    Pokemoon getPokeByIndex(int index){
+    /*Pokemoon getPokeByIndex(int index){
         return m_pokemoons.elementAt(index);
-    }
+    } */
 
     boolean isEmpty() {
         return m_pokemoons.empty();

@@ -24,10 +24,10 @@ public class Player {
         fillHand();
     }
 
-    public void removePokeFromHan(int index){
+    /*public void removePokeFromHan(int index){
         Pokemoon poke = m_hand.getPokemoonByIndex(index);
         m_deck.add(poke);
-    }
+    }*/
 
     /**
      * Permet de remplir la main (action a faire en début de tour)
@@ -116,8 +116,8 @@ public class Player {
         return res;
     }
 
-    public void usePouv(int poke, Player joeur, Player other){
-        m_playground.getPokemoonByIndex(poke).utilise(joeur, other);
+    public void usePouv(int poke, Player joueur, Player other){
+        m_playground.getPokemoonByIndex(poke).utilise(joueur, other);
     }
 
     public boolean hasPower(int poke){
