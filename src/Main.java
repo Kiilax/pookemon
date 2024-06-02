@@ -1,10 +1,14 @@
 import partie.*;
+import partie.affichage.Affichage;
+import pokemoon.ListPokemoon;
+
 public class Main
 {
   public static void main(String args[])
   {
     //INTRODUCTION DU JEU
     Deroulement partie = new Deroulement();
+    ListPokemoon.creerPoke();
     Affichage.clearScreen();
     Affichage.getTitre();
     partie.createPlayer();
@@ -16,6 +20,7 @@ public class Main
       System.out.println("\nC'est toi qui commence !\n");
       partie.userFillPlayground(nbPokeMortUser);
       partie.botFillPlayground(nbPokeMortBot);
+      partie.usePouvJoueur();
       nbPokeMortBot = partie.userAttack();
       nbPokeMortUser = partie.botAttack();
     }
@@ -24,12 +29,14 @@ public class Main
       partie.botFillPlayground(nbPokeMortBot);
       partie.userFillPlayground(nbPokeMortUser);
       nbPokeMortUser = partie.botAttack();
+      partie.usePouvJoueur();
       nbPokeMortBot = partie.userAttack();
     }
     //Deroulement du jeu en fonction du premier joueur :
     while(!partie.getGameOver()) {
       if(partie.playerIsFirst()) {
         partie.userFillPlayground(nbPokeMortUser);
+        partie.usePouvJoueur();
         nbPokeMortBot = partie.userAttack();
         partie.botFillPlayground(nbPokeMortBot);
         nbPokeMortUser = partie.botAttack();
@@ -38,6 +45,7 @@ public class Main
         partie.botFillPlayground(nbPokeMortBot);
         nbPokeMortUser = partie.botAttack();
         partie.userFillPlayground(nbPokeMortUser);
+        partie.usePouvJoueur();
         nbPokeMortBot = partie.userAttack();
       }
       if(partie.getGameOver()){

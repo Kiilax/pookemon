@@ -1,5 +1,6 @@
 package pouvoir;
 
+import player.Player;
 import pokemoon.Pokemoon;
 
 public abstract class Pouvoir {
@@ -13,7 +14,8 @@ public abstract class Pouvoir {
         m_unique = unique;
     }
 
-    abstract public void utiliser(Pokemoon poke, Object obj);
+    abstract public Pokemoon getPokemoon(Player joeur, Player other);
+    abstract public void utiliser(Pokemoon poke, Pokemoon other, Player joeur);
 
     public String getNom(){
         return m_nom;
@@ -25,5 +27,10 @@ public abstract class Pouvoir {
 
     public boolean getUnique(){
         return m_unique;
+    }
+
+    @Override
+    public String toString(){
+        return m_nom + " " + m_desc;
     }
 }

@@ -4,7 +4,9 @@ enum Element {
     EAU("EAU","FEU","TERRE"),
     FEU("FEU","AIR","EAU"),
     TERRE("TERRE","EAU","AIR"),
-    AIR("AIR","TERRE","FEU");
+    AIR("AIR","TERRE","FEU"),
+    ETHER("ETHER","tous", "rien"),
+    PLOMB("PLOMB","rien","tous");
 
     private String m_type;
     private String m_avantage;

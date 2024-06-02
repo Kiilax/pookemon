@@ -3,13 +3,14 @@ package partie;
 import java.util.Random;
 import java.util.Scanner;
 
+import partie.affichage.Affichage;
 import player.Player;
 import player.User;
 
 public class Deroulement {
     private User m_user;
     private Player m_bot;
-    private Scanner m_scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
+    private static Scanner m_scanf = new Scanner(System.in);//permet de scanner les entrées de l'utilisateur
     private boolean m_gameOver = false;
 
 
@@ -36,7 +37,7 @@ public class Deroulement {
      * @param size
      * @return l'index chois par l'utilisateur
      */
-    private int getIndexValide(int size){
+    public static int getIndexValide(int size){
         boolean indexValide = false;
         while(!indexValide){
           try {
@@ -44,10 +45,7 @@ public class Deroulement {
             if (index >= 0 && index < size) {
               indexValide = true;
               return index;
-            } 
-            else if (index >= 0 && index < size) {
-              System.out.print("Vous avez déjà choisi ce Pokémon. Veuillez choisir un autre numéro.\n");
-            } 
+            }
             else {
               System.out.print("Index invalide. Veuillez choisir un numéro valide.\n");
             }
@@ -93,8 +91,7 @@ public class Deroulement {
      * @param nbPoke le nombre de poke que le joeur doit mettre
      */
     public void userFillPlayground(int nbPoke){
-      if(nbPoke > 0){
-        int i=0;
+      if(m_user.getPlaygroundSize() != 3){
         Affichage.continuer();
         System.out.println(Affichage.getPlayground(m_user, m_bot));
         System.out.println(m_user.getHand());
@@ -104,9 +101,8 @@ public class Deroulement {
         else{
           System.out.print("Donne le numéro des "+nbPoke+" Pokemons que tu veux jouer : ");
         }
-        while (i<nbPoke && m_user.getHandSize()>0) {
+        while (m_user.getPlaygroundSize()<3 && m_user.getHandSize()>0) {
           m_user.choosePoke(getIndexValide(m_user.getHandSize()));
-          i++;
           Affichage.clearScreen();
           System.out.println(Affichage.getPlayground(m_user, m_bot));
           System.out.println(m_user.getHand());
@@ -127,15 +123,61 @@ public class Deroulement {
      * @param nbPoke le nombre de poke que le bot doit mettre 
      */
     public void botFillPlayground(int nbPoke){
-      if(nbPoke > 0){
-        int i=0;
-        while (i<nbPoke && m_bot.getHandSize()>0) {
+      if(m_bot.getPlaygroundSize() != 3){
+        while (m_bot.getPlaygroundSize() < 3 && m_bot.getHandSize()>0) {
           m_bot.choosePoke(0);
-          i++;
         }
         System.out.println(m_bot.getPlayerName() + " a rempli son plateau !\n");
         m_bot.fillHand();
       }
+    }
+
+    private boolean restePouv(Player p, boolean[] pouv_utiliser){
+      for(int i=0; i<p.getPlaygroundSize(); i++){
+        if(p.hasPower(i) && !pouv_utiliser[i]){
+          return true;
+        }
+      }
+      return false;
+    }
+
+    public void usePouvJoueur(){
+      Affichage.afficheJeu(m_user, m_bot);
+      boolean[] pouv_utiliser = new boolean[3]; // met tout a false
+      //demande le num d'un pouvoir (le poke qui va utiliser son pouv)
+      if(restePouv(m_user, pouv_utiliser)){
+      boolean indexValide = false;
+      int poke = -2;
+      System.out.println("veut tu utiliser un pouv ? (oui 1, non 2)");
+      int rep = getIndexValide(2);
+      while(rep==0){
+        System.out.println("choisi le poke qui a le pouvoir que tu veux jouer");
+        indexValide = false;
+        while (!indexValide) {
+          poke = getIndexValide(m_user.getPlaygroundSize());
+          // regarde si le pouvoir n'est pas nul
+          if(m_user.hasPower(poke)){
+            indexValide = true;
+            pouv_utiliser[poke] = false;
+          }
+          else{
+            System.out.println("il a pas de pouvoir connard");
+          }
+        }
+        // utilise le pouv du poke
+        m_user.usePouv(poke, m_user, m_bot);
+        if(restePouv(m_user, pouv_utiliser)){
+          System.out.println("tu veut rejouer un pouv?");
+          rep = getIndexValide(2);
+        }
+        else{
+          rep = 1;
+        }
+      }
+    }
+    m_bot.cleanPlayground();
+    m_user.cleanPlayground();
+    Affichage.afficheJeu(m_user, m_bot);
     }
 
     /**

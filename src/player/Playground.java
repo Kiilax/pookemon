@@ -2,7 +2,7 @@ package player;
 import java.util.ArrayList;
 import pokemoon.*;
 
-class Playground {
+public class Playground {
     private ArrayList<Pokemoon> m_pokemoons;
 
     Playground() {
@@ -103,6 +103,11 @@ class Playground {
         for (int i = 0; i < getSize(); i++) {
             String advantage = m_pokemoons.get(i).getAvantage();
             res += "| Affinité : " + advantage+"  \t\t";
+        }
+
+        for (int i = 0; i < getSize(); i++) {
+            String pouv = m_pokemoons.get(i).getPouvoir();
+            res += "| Pouoir : " + pouv +"  \t\t";
         }
         res += "\n";
 

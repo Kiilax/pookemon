@@ -22,9 +22,9 @@ class PokePower {
      * @return la puissance de l'attaque reçut
      */
     int getAttackPower(Element element, Element elementEnemi) {
-        if(element.getAvantage().equals(elementEnemi.toString()))
+        if(element.getAvantage().equals(elementEnemi.toString()) || element.toString().equals("ETHER"))
             return m_power+10;
-        else if(element.getDesavantage().equals(elementEnemi.toString()))
+        else if(element.getDesavantage().equals(elementEnemi.toString()) || element.toString().equals("PLOMB"))
             return m_power-10;
         else
             return m_power;

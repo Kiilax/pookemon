@@ -1,4 +1,4 @@
-package partie;
+package partie.affichage;
 
 import player.*;
 import java.util.Scanner;
@@ -85,7 +85,7 @@ public class Affichage {
      * affiche le playground d'un joueur
      * @param player
     */
-    static String getPlayground(Player p1, Player p2) {
+    public static String getPlayground(Player p1, Player p2) {
         return "TERRAIN DE "+p1.getPlayerName().toUpperCase()+" :\n\n"+
         p1.getPlayground()+"\n"+
         m_separation+

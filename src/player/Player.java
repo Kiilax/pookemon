@@ -116,6 +116,14 @@ public class Player {
         return res;
     }
 
+    public void usePouv(int poke, Player joeur, Player other){
+        m_playground.getPokemoonByIndex(poke).utilise(joeur, other);
+    }
+
+    public boolean hasPower(int poke){
+        return m_playground.getPokemoonByIndex(poke).hasPower();
+    }
+
     public String getHand(){
         return m_hand.toString();
     }

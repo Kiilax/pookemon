@@ -1,6 +1,8 @@
 package pokemoon;
 
 import java.util.Random;
+
+import player.Player;
 import pouvoir.Pouvoir;
 
 public class Pokemoon {
@@ -19,23 +21,42 @@ public class Pokemoon {
         m_affinite = tabElement[rd.nextInt(4)];
     }
 
+    public Pokemoon(Pouvoir pouv){
+        Random rd = new Random();
+        Element[] tabElement = {Element.AIR,Element.EAU,Element.FEU,Element.TERRE};
+        m_name = ListPokemoon.getName();
+        m_life = new PokeLife(10*(10 + rd.nextInt(10)));
+        m_powerAtt = new PokePower(10 * (1 + rd.nextInt(3)));
+        m_affinite = tabElement[rd.nextInt(4)];
+        m_pouv = pouv;
+    }
+
     @Override
     public String toString(){
         return m_name+
         " | Points de vie : "+m_life.getPV()+"/"+m_life.getPvMax()+
         " | Puissance : "+m_powerAtt.getPower()+
         " | Type : "+m_affinite.toString()+
-        " | Affinité : "+m_affinite.getAvantage()+"\n";
+        " | Affinité : "+m_affinite.getAvantage()+
+        " | Pouvoir : "+getPouvoir()+"\n";
     }
 
     public void heal(int heal){
         m_life.takeHeal(heal);
     }
 
+    public void setAffinite(Element type){
+        m_affinite = type;
+    }
+
     public Pouvoir noPouvoir(){
         Pouvoir ciao = m_pouv;
         m_pouv = null;
         return ciao;
+    }
+
+    public boolean hasPower(){
+        return !(m_pouv==null);
     }
 
     public void newPouvoir(Pouvoir pouv){
@@ -70,6 +91,15 @@ public class Pokemoon {
         return m_affinite.getDesavantage();
     }
 
+    public String getPouvoir(){
+        if(m_pouv == null){
+            return "rien";
+        }
+        else{
+            return m_pouv.toString();
+        }
+    }
+
     /**
      * @param other le pokemoon qui est attaquer
      */
@@ -87,10 +117,11 @@ public class Pokemoon {
         m_powerAtt.increasePower(increase);
     }
 
-    boolean utilise(Object obj){
+    public boolean utilise(Player joueur, Player other){
+        Pokemoon poke = m_pouv.getPokemoon(joueur, other);
         if(m_pouv != null){
-            m_pouv.utiliser(this, obj);
-            if(m_pouv.getUnique()){
+            m_pouv.utiliser(this, poke, joueur);
+            if(m_pouv != null && !m_pouv.getUnique()){
                 m_pouv = null;
             }
             return true;
