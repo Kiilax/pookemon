@@ -29,7 +29,7 @@ public class Deroulement {
       Random rd = new Random();
       boolean rdb = rd.nextBoolean();
       m_user = new User(m_scanf.nextLine(), rdb);
-      m_bot = new Player("Albert",!rdb);
+      m_bot = new Player("albert",!rdb);
     }
 
     /**
@@ -96,10 +96,10 @@ public class Deroulement {
         System.out.println(Affichage.getPlayground(m_user, m_bot));
         System.out.println(m_user.getHand());
         if(nbPoke == 1){
-          System.out.print("Donne le numéro du dernier Pokemon à jouer : ");
+          System.out.print("Donne le numéro du dernier Pokemon à prendre : ");
         }
         else{
-          System.out.print("Donne le numéro des "+nbPoke+" Pokemons que tu veux jouer : ");
+          System.out.print("Donne le numéro des "+nbPoke+" Pokemons que tu veux prendre : ");
         }
         while (m_user.getPlaygroundSize()<3 && m_user.getHandSize()>0) {
           m_user.choosePoke(getIndexValide(m_user.getHandSize()));
@@ -107,10 +107,10 @@ public class Deroulement {
           System.out.println(Affichage.getPlayground(m_user, m_bot));
           System.out.println(m_user.getHand());
           if(nbPoke == 1){
-            System.out.print("Donne le numéro du Pokemon que tu veux utiliser jouer : ");
+            System.out.print("Donne le numéro du Pokemon que tu veux prendre : ");
           }
           else{
-            System.out.print("Donne le numéro des "+nbPoke+" Pokemons que tu veux utiliser : ");
+            System.out.print("Donne le numéro des "+nbPoke+" Pokemoons que tu veux prendre : ");
           }
         }
         m_user.fillHand();
@@ -149,19 +149,29 @@ public class Deroulement {
      * le bot peut utiliser un pouvoir par tour si son random le permet.
      */
     public void usePouvBot() {
+      Affichage.clearScreen();
       boolean[] pouv_utiliser = new boolean[3]; // met tout a false
       Random rd = new Random();
+      boolean pouvUtil = false;
       while(restePouv(m_bot, pouv_utiliser)) {
         int index = rd.nextInt(3);
         if(m_bot.hasPower(index)) {
           pouv_utiliser[index] = false;
           m_bot.usePouv(index, m_bot, m_user);
-          System.out.println("Pouvoir utilisé");
+          pouvUtil = true;
+          
         }
         m_bot.cleanPlayground();
         m_user.cleanPlayground();
         Affichage.afficheJeu(m_user, m_bot);
       }
+      if(pouvUtil) {
+        System.out.println("Le bot a utilisé un pouvoir");
+      }
+      else {
+        System.out.println("Le bot n'a pas utilisé de pouvoir");
+      }
+      Affichage.continuer();
     }
 
     /**
@@ -175,10 +185,10 @@ public class Deroulement {
         Affichage.afficheJeu(m_user, m_bot);
         boolean indexValide = false;
         int poke = -2;
-        System.out.println("veut tu utiliser un pouv ? (oui 1, non 2)");
+        System.out.println("Veux-tu utiliser un pouvoir ? [1]oui [2]non");
         int rep = getIndexValide(2);
         while(rep==0){
-          System.out.println("choisi le poke qui a le pouvoir que tu veux jouer");
+          System.out.println("Choisi le pouvoir du pokemoon que tu veux jouer !");
           indexValide = false;
           while (!indexValide) {
             poke = getIndexValide(m_user.getPlaygroundSize());
@@ -188,13 +198,13 @@ public class Deroulement {
               pouv_utiliser[poke] = true;
             }
             else{
-              System.out.println("il a pas de pouvoir connard");
+              System.out.println("Il a pas de pouvoir connard (c sam qui a mis ça)");
             }
           }
           // utilise le pouv du poke
           m_user.usePouv(poke, m_user, m_bot);
           if(restePouv(m_user, pouv_utiliser)){
-            System.out.println("tu veut rejouer un pouv?");
+            System.out.println("Veux-tu utiliser un autre pouvoir ? [1]oui [2]non");
             rep = getIndexValide(2);
           }
           else{
@@ -224,7 +234,7 @@ public class Deroulement {
         int monPoke = getIndexValideSansRep(m_user.getPlaygroundSize(),indexValide);
         System.out.print("Numéro du Pokemoon à attaquer : ");
         int autrePoke = getIndexValide(m_bot.getPlaygroundSize());
-        m_user.userAttack(m_bot,monPoke,autrePoke);
+        System.out.println(m_user.userAttack(m_bot,monPoke,autrePoke));
         nbDeMort += m_bot.cleanPlayground();
         gameOver();
       }
@@ -237,12 +247,12 @@ public class Deroulement {
       Affichage.clearScreen();
       System.out.println(m_bot.getPlayerName()+ " attaque !");
       for(int i=0; i<m_bot.getPlaygroundSize() && !m_gameOver; i++){
-        m_bot.autoAttack(m_user, i);
+        System.out.println(m_bot.autoAttack(m_user, i));
         nbDeMort += m_user.cleanPlayground();
         gameOver();
       }
       System.out.println(m_bot.getPlayerName() + " a tué " + nbDeMort + " de tes Pokemoons !");
-      Affichage.dodo();
+      Affichage.continuer();
       return nbDeMort;
     }
 

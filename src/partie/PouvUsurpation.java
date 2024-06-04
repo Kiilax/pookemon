@@ -16,7 +16,7 @@ public class PouvUsurpation extends Pouvoir {
         if(joueur.getPlayerName().equals("albert")){
             FindPoke find = new FindPoke(other);
             Random rd = new Random();
-            return find.getPoke(rd.nextInt(0,2));  
+            return find.getPoke(rd.nextInt(2));  
         }
         else{
             FindPoke find = new FindPoke(other);

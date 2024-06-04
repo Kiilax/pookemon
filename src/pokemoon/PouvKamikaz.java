@@ -16,7 +16,7 @@ public class PouvKamikaz extends Pouvoir{
         if(joueur.getPlayerName().equals("albert")){
             FindPoke find = new FindPoke(other);
             Random rd = new Random();
-            return find.getPoke(rd.nextInt(0,2));  
+            return find.getPoke(rd.nextInt(2));  
         }
         FindPoke find = new FindPoke(other);
         return find.getPoke("quel poke voulez vous tué ? ");

@@ -8,7 +8,7 @@ import pouvoir.Pouvoir;
 
 public class PouvSoinTotal extends Pouvoir{
     public PouvSoinTotal() {
-        super("Soin total", "Soigne la totalité des points de vie d'un Pokemon allié ou de lui-même. Utilisation unique.", true);
+        super("Soin total", "Soigne la totalité des points de vie d'un Pokemoon allié ou de lui-même. Utilisation unique.", true);
     }
 
     @Override
@@ -16,10 +16,10 @@ public class PouvSoinTotal extends Pouvoir{
         if(joueur.getPlayerName().equals("albert")){
             FindPoke find = new FindPoke(other);
             Random rd = new Random();
-            return find.getPoke(rd.nextInt(0,2));  
+            return find.getPoke(rd.nextInt(2));  
         }
         FindPoke find = new FindPoke(joueur);
-        return find.getPoke("lequel de vos poke voulez vous soigné à fond");
+        return find.getPoke("Lequel de vos pokemoons veux-tu entièrement soigner ?");
     }
 
     @Override

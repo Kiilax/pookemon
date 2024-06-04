@@ -109,7 +109,7 @@ public class Playground {
 
         for (int i = 0; i < getSize(); i++) {
             String pouv = m_pokemoons.get(i).getPouvoir();
-            res += "| Pouoir : " + pouv +"  \t";
+            res += "| Pouvoir : " + pouv +"  \t";
         }
         res += "\n";
 
