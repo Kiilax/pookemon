@@ -105,9 +105,11 @@ public class Playground {
             res += "| Affinité : " + advantage+"  \t\t";
         }
 
+        res += "\n";
+
         for (int i = 0; i < getSize(); i++) {
             String pouv = m_pokemoons.get(i).getPouvoir();
-            res += "| Pouoir : " + pouv +"  \t\t";
+            res += "| Pouoir : " + pouv +"  \t";
         }
         res += "\n";
 
