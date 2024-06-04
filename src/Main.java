@@ -22,12 +22,14 @@ public class Main
       partie.botFillPlayground(nbPokeMortBot);
       partie.usePouvJoueur();
       nbPokeMortBot = partie.userAttack();
+      partie.usePouvJoueur();
       nbPokeMortUser = partie.botAttack();
     }
     else {
       System.out.println("\nAlbert l'ordinateur commence !\n");
       partie.botFillPlayground(nbPokeMortBot);
       partie.userFillPlayground(nbPokeMortUser);
+      partie.usePouvJoueur();
       nbPokeMortUser = partie.botAttack();
       partie.usePouvJoueur();
       nbPokeMortBot = partie.userAttack();
@@ -39,10 +41,12 @@ public class Main
         partie.usePouvJoueur();
         nbPokeMortBot = partie.userAttack();
         partie.botFillPlayground(nbPokeMortBot);
+        partie.usePouvJoueur();
         nbPokeMortUser = partie.botAttack();
       }
       else {
         partie.botFillPlayground(nbPokeMortBot);
+        partie.usePouvJoueur();
         nbPokeMortUser = partie.botAttack();
         partie.userFillPlayground(nbPokeMortUser);
         partie.usePouvJoueur();

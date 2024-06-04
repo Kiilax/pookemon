@@ -131,7 +131,12 @@ public class Deroulement {
         m_bot.fillHand();
       }
     }
-
+    /**
+     * il reste des pouv ou pas merci SAM
+     * @param p
+     * @param pouv_utiliser
+     * @return
+     */
     private boolean restePouv(Player p, boolean[] pouv_utiliser){
       for(int i=0; i<p.getPlaygroundSize(); i++){
         if(p.hasPower(i) && !pouv_utiliser[i]){
@@ -140,44 +145,65 @@ public class Deroulement {
       }
       return false;
     }
+    /**
+     * le bot peut utiliser un pouvoir par tour si son random le permet.
+     */
+    public void usePouvBot() {
+      boolean[] pouv_utiliser = new boolean[3]; // met tout a false
+      Random rd = new Random();
+      while(restePouv(m_bot, pouv_utiliser)) {
+        int index = rd.nextInt(3);
+        if(m_bot.hasPower(index)) {
+          pouv_utiliser[index] = false;
+          m_bot.usePouv(index, m_bot, m_user);
+          System.out.println("Pouvoir utilisé");
+        }
+        m_bot.cleanPlayground();
+        m_user.cleanPlayground();
+        Affichage.afficheJeu(m_user, m_bot);
+      }
+    }
 
+    /**
+     * echange entre joueur et jeu pour utiliser ses pouvoirs
+     */
     public void usePouvJoueur(){
       Affichage.afficheJeu(m_user, m_bot);
       boolean[] pouv_utiliser = new boolean[3]; // met tout a false
       //demande le num d'un pouvoir (le poke qui va utiliser son pouv)
       if(restePouv(m_user, pouv_utiliser)){
       boolean indexValide = false;
-      int poke = -2;
-      System.out.println("veut tu utiliser un pouv ? (oui 1, non 2)");
-      int rep = getIndexValide(2);
-      while(rep==0){
-        System.out.println("choisi le poke qui a le pouvoir que tu veux jouer");
-        indexValide = false;
-        while (!indexValide) {
-          poke = getIndexValide(m_user.getPlaygroundSize());
-          // regarde si le pouvoir n'est pas nul
-          if(m_user.hasPower(poke)){
-            indexValide = true;
-            pouv_utiliser[poke] = false;
+        int poke = -2;
+        System.out.println("Veux-tu utiliser un pouvoir ? [1]oui [2]non");
+        int rep = getIndexValide(2);
+        while(rep==0){
+          System.out.println("Choisi le pouvoir du pokemoon que tu veux jouer !");
+          indexValide = false;
+          while (!indexValide) {
+            poke = getIndexValide(m_user.getPlaygroundSize());
+            // regarde si le pouvoir n'est pas nul
+            if(m_user.hasPower(poke)){
+              indexValide = true;
+              pouv_utiliser[poke] = false;
+            }
+            else{
+              System.out.println("Il a pas de pouvoir connard (c sam qui a écrit ça)");
+            }
+          }
+          // utilise le pouv du poke
+          m_user.usePouv(poke, m_user, m_bot);
+          if(restePouv(m_user, pouv_utiliser)){
+            System.out.println("tu veut rejouer un pouv?");
+            rep = getIndexValide(2);
           }
           else{
-            System.out.println("il a pas de pouvoir connard");
+            rep = 1;
           }
         }
-        // utilise le pouv du poke
-        m_user.usePouv(poke, m_user, m_bot);
-        if(restePouv(m_user, pouv_utiliser)){
-          System.out.println("tu veut rejouer un pouv?");
-          rep = getIndexValide(2);
-        }
-        else{
-          rep = 1;
-        }
       }
-    }
-    m_bot.cleanPlayground();
-    m_user.cleanPlayground();
-    Affichage.afficheJeu(m_user, m_bot);
+      m_bot.cleanPlayground();
+      m_user.cleanPlayground();
+      Affichage.afficheJeu(m_user, m_bot);
     }
 
     /**
