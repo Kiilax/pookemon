@@ -16,4 +16,8 @@ public class FindPoke implements GetPoke{
         int poke = Deroulement.getIndexValide(m_joueur.getPlaygroundSize());
         return m_joueur.m_playground.getPokemoonByIndex(poke);
     }
+
+    public Pokemoon getPoke(int numPoke){
+        return m_joueur.m_playground.getPokemoonByIndex(numPoke);
+    }
 }

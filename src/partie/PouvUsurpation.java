@@ -1,8 +1,10 @@
 package partie;
+import java.util.Random;
+
 import player.FindPoke;
 import player.Player;
-import pokemoon.Pokemoon;
-import pouvoir.*;
+import pokemoon.*;
+import pouvoir.Pouvoir;
 
 public class PouvUsurpation extends Pouvoir {
     public PouvUsurpation() {
@@ -11,8 +13,16 @@ public class PouvUsurpation extends Pouvoir {
 
     @Override
     public Pokemoon getPokemoon(Player joueur, Player other){
-        FindPoke find = new FindPoke(other);
-        return find.getPoke("quel poke voulez vous volé comme un arabe");
+        if(joueur.getPlayerName().equals("albert")){
+            FindPoke find = new FindPoke(other);
+            Random rd = new Random();
+            return find.getPoke(rd.nextInt(0,2));  
+        }
+        else{
+            FindPoke find = new FindPoke(other);
+            return find.getPoke("vsy l'arabe");
+        }
+        
     }
 
     public void utiliser(Pokemoon myPoke, Pokemoon other, Player player) {

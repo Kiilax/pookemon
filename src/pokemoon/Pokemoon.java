@@ -93,10 +93,10 @@ public class Pokemoon {
 
     public String getPouvoir(){
         if(m_pouv == null){
-            return "rien";
+            return "rien\t\t";
         }
         else{
-            return m_pouv.toString();
+            return m_pouv.getNom();
         }
     }
 
@@ -121,7 +121,7 @@ public class Pokemoon {
         Pokemoon poke = m_pouv.getPokemoon(joueur, other);
         if(m_pouv != null){
             m_pouv.utiliser(this, poke, joueur);
-            if(m_pouv != null && !m_pouv.getUnique()){
+            if(m_pouv != null && m_pouv.getUnique()){
                 m_pouv = null;
             }
             return true;
