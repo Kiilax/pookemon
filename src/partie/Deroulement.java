@@ -186,8 +186,17 @@ public class Deroulement {
         Affichage.afficheJeu(m_user, m_bot);
         boolean indexValide = false;
         int poke = -2;
-        System.out.println("Veux-tu utiliser un pouvoir ? [1]oui [2]non");
+        System.out.print("Veux-tu afficher l'explication de chaque pouvoir ? [1]oui [2]non : ");
         int rep = getIndexValide(2);
+        if(rep==0) {
+          for(int i = 0; i < m_user.getPlaygroundSize(); i++) {
+            if(m_user.hasPower(i)) {
+              System.out.println(m_user.getDescPouvoir(i));
+            }
+          }
+        }
+        System.out.print("Veux-tu utiliser un pouvoir ? [1]oui [2]non : ");
+        rep = getIndexValide(2);
         while(rep==0){
           System.out.print("Numéro du pokemoon avec un pouvoir : ");
           indexValide = false;

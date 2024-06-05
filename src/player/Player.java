@@ -120,6 +120,10 @@ public class Player {
         m_playground.getPokemoonByIndex(poke).utilise(joueur, other);
     }
 
+    public String getDescPouvoir(int poke) {
+        return m_playground.getPokemoonByIndex(poke).getDescPouvoir();
+    }
+
     public boolean hasPower(int poke){
         return m_playground.getPokemoonByIndex(poke).hasPower();
     }

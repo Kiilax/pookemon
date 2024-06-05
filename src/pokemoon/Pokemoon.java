@@ -100,6 +100,14 @@ public class Pokemoon {
         }
     }
 
+    public String getDescPouvoir() {
+        if(m_pouv == null) {
+            return "Pas de pouvoir";
+        }
+        else {
+            return m_pouv.getNom()+" : "+m_pouv.getDesc();
+        }
+    }
     /**
      * @param other le pokemoon qui est attaquer
      */
