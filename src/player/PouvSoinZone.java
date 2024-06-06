@@ -5,12 +5,7 @@ import pouvoir.Pouvoir;
 
 public class PouvSoinZone extends Pouvoir {
     public PouvSoinZone() {
-        super("Soin de zone", "Soigne 10 points de vie de chaque Pokemon sur son terrain, lui compris. Pouvoir réutilisable.", false);
-    }
-
-    @Override
-    public Pokemoon getPokemoon(Player joueur, Player other){
-        return null;
+        super("Soin de zone", "Soigne 10 points de vie de chaque Pokemon sur son terrain, lui compris. Pouvoir réutilisable.", false, false);
     }
 
     @Override

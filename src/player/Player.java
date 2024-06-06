@@ -24,11 +24,6 @@ public class Player {
         fillHand();
     }
 
-    /*public void removePokeFromHan(int index){
-        Pokemoon poke = m_hand.getPokemoonByIndex(index);
-        m_deck.add(poke);
-    }*/
-
     /**
      * Permet de remplir la main (action a faire en début de tour)
      */
@@ -57,6 +52,14 @@ public class Player {
         }
         return pokedead.size();
     }
+
+    //todo retourne le poke qu'on veut du terrain
+
+
+    public Pokemoon findPokeFromPlayground(int numPoke){
+        return m_playground.getPokemoonByIndex(numPoke);
+    }
+
 
     /**
      * Attaque un pokemon de du joueur d'en face en fonction de l'affinité de son pokemon et de la vie des pokemons adverses
@@ -116,12 +119,16 @@ public class Player {
         return res;
     }
 
-    public void usePouv(int poke, Player joueur, Player other){
-        m_playground.getPokemoonByIndex(poke).utilise(joueur, other);
+    public void usePouv(int poke, GetPoke chercher){
+        m_playground.getPokemoonByIndex(poke).utilise(chercher, this);
     }
 
     public boolean hasPower(int poke){
         return m_playground.getPokemoonByIndex(poke).hasPower();
+    }
+
+    public boolean isOffencif(int poke){
+        return m_playground.getPokemoonByIndex(poke).isOffencif();
     }
 
     public String getHand(){

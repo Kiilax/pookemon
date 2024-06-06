@@ -4,8 +4,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 import partie.affichage.Affichage;
+import player.GetPoke;
 import player.Player;
 import player.User;
+import pokemoon.Pokemoon;
 
 public class Deroulement {
     private User m_user;
@@ -151,11 +153,12 @@ public class Deroulement {
     public void usePouvBot() {
       boolean[] pouv_utiliser = new boolean[3]; // met tout a false
       Random rd = new Random();
+      FindPoke trouve = new FindPoke(m_bot, m_user);
       while(restePouv(m_bot, pouv_utiliser)) {
         int index = rd.nextInt(3);
         if(m_bot.hasPower(index)) {
           pouv_utiliser[index] = false;
-          m_bot.usePouv(index, m_bot, m_user);
+          m_bot.usePouv(index, trouve);
           System.out.println("Pouvoir utilisé");
         }
         m_bot.cleanPlayground();
@@ -163,6 +166,20 @@ public class Deroulement {
         Affichage.afficheJeu(m_user, m_bot);
       }
     }
+
+    // todo trouve le poke du joueur que l'on veut 
+    static Pokemoon findPokePlayer(Player joueur){
+      int index = getIndexValide(joueur.getPlaygroundSize());
+      return joueur.findPokeFromPlayground(index);
+    }
+
+    static Pokemoon findPokeBot(Player joueur){
+      Random rd = new Random();
+      int index = rd.nextInt(joueur.getPlaygroundSize());
+      return joueur.findPokeFromPlayground(index);
+    }
+
+
 
     /**
      * echange entre joueur et jeu pour utiliser ses pouvoirs
@@ -191,8 +208,9 @@ public class Deroulement {
               System.out.println("il a pas de pouvoir connard");
             }
           }
+          GetPoke cherche = new FindPoke(m_user, m_bot);
           // utilise le pouv du poke
-          m_user.usePouv(poke, m_user, m_bot);
+          m_user.usePouv(poke, cherche);
           if(restePouv(m_user, pouv_utiliser)){
             System.out.println("tu veut rejouer un pouv?");
             rep = getIndexValide(2);
