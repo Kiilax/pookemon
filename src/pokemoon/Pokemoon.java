@@ -59,6 +59,10 @@ public class Pokemoon {
         return !(m_pouv==null);
     }
 
+    public boolean isOffencif(){
+        return m_pouv.getOffencif();
+    }
+
     public void newPouvoir(Pouvoir pouv){
         m_pouv = pouv;
     }
@@ -100,6 +104,10 @@ public class Pokemoon {
         }
     }
 
+    public Boolean getOffencif(){
+        return m_pouv.getOffencif();
+    }
+
     public String getDescPouvoir() {
         if(m_pouv == null) {
             return "Pas de pouvoir";
@@ -108,6 +116,7 @@ public class Pokemoon {
             return m_pouv.getNom()+" : "+m_pouv.getDesc();
         }
     }
+
     /**
      * @param other le pokemoon qui est attaquer
      */
@@ -125,15 +134,12 @@ public class Pokemoon {
         m_powerAtt.increasePower(increase);
     }
 
-    public boolean utilise(Player joueur, Player other){
-        Pokemoon poke = m_pouv.getPokemoon(joueur, other);
-        if(m_pouv != null){
-            m_pouv.utiliser(this, poke, joueur);
-            if(m_pouv != null && m_pouv.getUnique()){
-                m_pouv = null;
+    public void utilise(Player joueur, Pokemoon other){
+            if(m_pouv != null){
+                m_pouv.utiliser(this, other, joueur);
+                if(m_pouv.getUnique()){
+                    m_pouv = null;
+                }
             }
-            return true;
-        }
-        return false;
     }
 }

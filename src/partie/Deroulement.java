@@ -157,9 +157,19 @@ public class Deroulement {
         int index = rd.nextInt(3);
         if(m_bot.hasPower(index)) {
           pouv_utiliser[index] = false;
-          m_bot.usePouv(index, m_bot, m_user);
+          // en fonction du type de pouvoir utilise le pouvoir en cherchant qui va le subire
+          if(m_bot.pouvIsOffencif(index)==null){
+            m_bot.usePouv( index,0, m_bot);
+          }
+          else if(m_bot.pouvIsOffencif(index)){
+            int other = rd.nextInt(m_user.getPlaygroundSize());
+            m_bot.usePouv(index, other, m_user);
+          }
+          else{
+            int other = rd.nextInt(m_bot.getPlaygroundSize());
+            m_bot.usePouv(index, other, m_bot);
+          }
           pouvUtil = true;
-          
         }
         m_bot.cleanPlayground();
         m_user.cleanPlayground();
@@ -173,6 +183,8 @@ public class Deroulement {
       }
       Affichage.continuer();
     }
+
+
 
     /**
      * Demande à l'utilisateur s'il veut utiliser un pouvoir puis demande lequel.
@@ -211,8 +223,20 @@ public class Deroulement {
               System.out.println("Il a pas de pouvoir connard (c'est Sam qui a mis ça, je suis désolé)");
             }
           }
-          // utilise le pouv du poke
-          m_user.usePouv(poke, m_user, m_bot);
+          // en fonction du type de pouvoir utilise le pouvoir en cherchant qui va le subire
+          if(m_user.pouvIsOffencif(poke)==null){
+            m_user.usePouv(poke,0, m_user);
+          }
+          else if(m_user.pouvIsOffencif(poke)){
+            System.out.println("quel poke veux tu attaquer");
+            int other = getIndexValide(m_bot.getPlaygroundSize());
+            m_user.usePouv(poke, other, m_bot);
+          }
+          else{ 
+            System.out.println("quel poke veux tu aider ?");
+            int other = getIndexValide(m_user.getPlaygroundSize());
+            m_user.usePouv(poke, other, m_user);
+          }
           if(restePouv(m_user, pouv_utiliser)){
             System.out.println("Veux-tu utiliser un autre pouvoir ? [1]oui [2]non");
             rep = getIndexValide(2);

@@ -5,12 +5,14 @@ package pouvoir {
         -m_nom: String
         -m_desc: String
         -m_unique: Boolean
-        #«create»Pouvoir(nom: String, desc: String, unique: Boolean)
+        -m_offencif: Boolean
+        #«create»Pouvoir(nom: String, desc: String, unique: Boolean, offencif: Boolean)
         +{abstract} utiliser(Poke: Pokemoon, other: Pokemoon, joeur: Player):
-        +{abstract} getPokemoon(joueur: Player, other: Player): Pokemoon
         +getNom(): String
         +getDesc(): String
         +getUnique(): Boolean
+        +getOffencif(): Boolean
+        +toString(): String
     }
 }
 
@@ -31,10 +33,12 @@ package partie{
             +{static}afficherJeu(p1: Player, p2: Player):
             +{static}afficherFinJeu(p: Player):
         }
+    }
 
-        interface GetPoke{
-            getPoke(question: String): Pokemoon
-        }
+    class FindPoke implements GetPoke{
+        -getPokeJoueur(offencif: boolean): Pokemoon
+        -getPokeBot(offencif: boolean): Pokemoon
+        +find(offencif: boolean): Pokemoon
     }
 
     class Deroulement{
@@ -97,10 +101,10 @@ package player{
        -m_firstPlayer: boolean
        +«create»Player(nom: String, firstPlayer: boolean)
        +fillHand(): void
-       +choosePoke(index: Integer): void
+       +choosePoke(index: Integer)
        +cleanPlayground(): Integer
        +autoAttack(other: Player, indexPoke: Integer): String
-       +usePouv(poke: Integer, joueur: Player, other: Player):
+       +usePouv(poke: Integer, GetPoke cherche):
        +hasPower(poke: Integer): Boolean
        +getHand(): String
        +getHandSize(): Integer
@@ -126,7 +130,6 @@ package player{
 
     class PouvSoinZone extends pouvoir.Pouvoir {
         +<<create>>PouvSoinZone()
-        +getPokemoon(joueur: Player, other: Player): Pokemoon
         +utiliser(poke: Pokemoon, other: Pokemoon, joueur: Player):
     }
 
@@ -151,6 +154,10 @@ package pokemoon{
         +toString(): String
         ~getAvantage(): String
         ~getDesavantage(): String
+    }
+
+    interface GetPoke{
+        +find(offencif: boolean) : Pokemoon
     }
 
     class ListPokemoon{
@@ -182,11 +189,11 @@ package pokemoon{
         +«create»Pokemoon()
         +«create»Pokemoon(pouv: Pouvoir)
         +toString(): String
-        +heal(heal: Integer):
+        +heal(heal: Integer)
         +setAffinite(type: Element): 
         +noPouvoir(): Pouvoir
         +hasPower(): Boolean
-        +newPouvoir(): 
+        +newPouvoir()
         +getName(): String
         +getPower(): Integer
         +getLife(): Integer
@@ -196,9 +203,9 @@ package pokemoon{
         +getDesavantage(): String
         +getPouvoir(): String
         +fight(other: Pokemoon): void
-        ~protec(protec: Integer):
-        ~increasePower(increase: Integer):
-        +utilise(joueur: Player, other: Player): Boolean
+        ~protec(protec: Integer)
+        ~increasePower(increase: Integer)
+        +utilise(GetPoke cherche, Player joueur): Boolean
     }
 
     class PokePower{
@@ -208,45 +215,38 @@ package pokemoon{
         ~getAttackPower(element: Element, elementEnemi: Element): Integer
     }
 
-    class PouvEther extends Pouvoir{
+    class PouvEther extends pouvoir.Pouvoir{
         +«create»PouvEther()
-        +getPokemoon(joueur: Player, other: Player): Pokemoon
         +utiliser(poke: Pokemoon, other: Pokemoon, joueur: Player):
     }
 
-    class PouvFerveurGuerriere extends Pouvoir{
+    class PouvFerveurGuerriere extends pouvoir.Pouvoir{
         +«create»PouvEther()
-        +getPokemoon(joueur: Player, other: Player): Pokemoon
         +utiliser(poke: Pokemoon, other: Pokemoon, joueur: Player):
     }
 
-    class PouvKamikaz extends Pouvoir{
+    class PouvKamikaz extends pouvoir.Pouvoir{
         +«create»PouvEther()
-        +getPokemoon(joueur: Player, other: Player): Pokemoon
         +utiliser(poke: Pokemoon, other: Pokemoon, joueur: Player):
     }
 
-    class PouvPlomb extends Pouvoir{
+    class PouvPlomb extends pouvoir.Pouvoir{
         +«create»PouvEther()
-        +getPokemoon(joueur: Player, other: Player): Pokemoon
         +utiliser(poke: Pokemoon, other: Pokemoon, joueur: Player):
     }
 
-    class PouvResistance extends Pouvoir{
+    class PouvResistance extends pouvoir.Pouvoir{
         +«create»PouvEther()
-        +getPokemoon(joueur: Player, other: Player): Pokemoon
         +utiliser(poke: Pokemoon, other: Pokemoon, joueur: Player):
     }
 
-    class PouvSoinSimple extends Pouvoir{
+    class PouvSoinSimple extends pouvoir.Pouvoir{
         +«create»PouvEther()
-        +getPokemoon(joueur: Player, other: Player): Pokemoon
         +utiliser(poke: Pokemoon, other: Pokemoon, joueur: Player):
     }
 
-    class PouvSoinTotal extends Pouvoir{
+    class PouvSoinTotal extends pouvoir.Pouvoir{
         +«create»PouvEther()
-        +getPokemoon(joueur: Player, other: Player): Pokemoon
         +utiliser(poke: Pokemoon, other: Pokemoon, joueur: Player):
     }
 }
@@ -255,8 +255,8 @@ class Main{
     +main(args: String[]):
 }
 
-Main .> Deroulement: instaciate
-Main .> Affichage: uses
+Main .> Deroulement: «instaciate»
+Main .> Affichage: «uses»
 
 Affichage o-> "1\nm_scanf"Scanner
 
@@ -278,7 +278,7 @@ Player "1" *---> "-m_deck\n1"Deck : possède >
 Player "1" *---> "-m_hand\n1" Hand : possède >
 Player "1" *---> "-m_discard\n1" Discard: possède >
 Player "1" *---> "-m_playground\n1"Playground : possède >
-Player .> Random : uses
+Player .> Random : «uses»
 
 Playground "3" o---> "-m_pokemoon\n[0..3]"Pokemoon : est constitué de >
 
@@ -287,21 +287,13 @@ ListPokemoon "1" o->"-m_pouvPokeAvailable\n0..8"Pouvoir: est faite de >
 ListPokemoon "1" o->"-m_pouvPokeTaken\n0..8"Pouvoir: est faite de >
 ListPokemoon "1" o->"-m_PokeAvailable\n0..21"Pokemoon: est faite de >
 ListPokemoon "1" o->"-m_PokeAvailable\n0..21"Pokemoon: est faite de >
-ListPokemoon .> Random : uses
+ListPokemoon .> Random : «uses»
 
 Pokemoon "1" *-> "-m_life\n1"PokeLife : possède >
 Pokemoon "1" *-> "-m_powerAtt\n1"PokePower : possède >
 Pokemoon "0..*" *-> "-m_affinite\n1"Element : type >
 Pokemoon "1" o-> "-m_pouv\n0..1"Pouvoir : possède >
-Pokemoon .> Random : uses
+Pokemoon .> Random : «uses»
 Pokemoon .> ListPokemoon : <<uses>>
-
-
-PouvFerveurGuerriere .> FindPoke : uses
-PouvKamikaz .> FindPoke : uses
-PouvPlomb .> FindPoke : uses
-PouvSoinSimple .> FindPoke : uses
-PouvSoinTotal .> FindPoke : uses
-PouvSoinZone .> FindPoke : uses
-PouvUsurpation .> FindPoke : uses
+Pokemoon .> partie.FindPoke : «uses»
 @enduml
