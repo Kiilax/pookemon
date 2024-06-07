@@ -163,7 +163,6 @@ public class Deroulement {
         }
         m_bot.cleanPlayground();
         m_user.cleanPlayground();
-        Affichage.afficheJeu(m_user, m_bot);
       }
       if(pouvUtil) {
         System.out.println("Le bot a utilisé un pouvoir !");
@@ -257,7 +256,7 @@ public class Deroulement {
       Affichage.clearScreen();
       System.out.println(m_bot.getPlayerName()+ " attaque !");
       for(int i=0; i<m_bot.getPlaygroundSize() && !m_gameOver; i++){
-        System.out.println(m_bot.autoAttack(m_user, i));
+        System.out.println(m_bot.autoAttack(m_user, i)+"\n");
         nbDeMort += m_user.cleanPlayground();
         gameOver();
       }
