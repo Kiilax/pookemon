@@ -2,7 +2,6 @@ package pokemoon;
 
 import java.util.Random;
 
-import player.GetPoke;
 import player.Player;
 import pouvoir.Pouvoir;
 
@@ -105,6 +104,10 @@ public class Pokemoon {
         }
     }
 
+    public Boolean getOffencif(){
+        return m_pouv.getOffencif();
+    }
+
     /**
      * @param other le pokemoon qui est attaquer
      */
@@ -123,28 +126,12 @@ public class Pokemoon {
     }
 
 // todo il faut que le poke est un arg de type demande poke (et lui il dit a qui on demande et quesqu'on demande)
-    public boolean utilise(GetPoke cherche, Player joueur){
-        if(m_pouv.getOffencif()){
-            Pokemoon poke = cherche.find(m_pouv.getOffencif());
+    public void utilise(Player joueur, Pokemoon other){
             if(m_pouv != null){
-                m_pouv.utiliser(this, poke, joueur);
-                if(m_pouv != null && m_pouv.getUnique()){
+                m_pouv.utiliser(this, other, joueur);
+                if(m_pouv.getUnique()){
                     m_pouv = null;
                 }
-                return true;
             }
-            return false;
-        }
-        else{
-            Pokemoon poke = cherche.find(m_pouv.getOffencif());
-            if(m_pouv != null){
-                m_pouv.utiliser(this, poke, joueur);
-                if(m_pouv != null && m_pouv.getUnique()){
-                    m_pouv = null;
-                }
-                return true;
-            }
-            return false;
-        }
     }
 }

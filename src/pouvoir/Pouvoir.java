@@ -7,9 +7,9 @@ public abstract class Pouvoir {
     private String m_nom;
     private String m_desc;
     private boolean m_unique;
-    private boolean m_offencif;
+    private Boolean m_offencif;
 
-    protected Pouvoir(String nom, String desc, boolean unique, boolean offencif){
+    protected Pouvoir(String nom, String desc, boolean unique, Boolean offencif){
         m_nom = nom;
         m_desc = desc;
         m_unique = unique;
@@ -30,7 +30,7 @@ public abstract class Pouvoir {
         return m_unique;
     }
 
-    public boolean getOffencif(){
+    public Boolean getOffencif(){
         return m_offencif;
     }
 

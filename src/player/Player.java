@@ -55,9 +55,8 @@ public class Player {
 
     //todo retourne le poke qu'on veut du terrain
 
-
-    public Pokemoon findPokeFromPlayground(int numPoke){
-        return m_playground.getPokemoonByIndex(numPoke);
+    public Boolean pouvIsOffencif(int numPoke){
+        return m_playground.getPokemoonByIndex(numPoke).getOffencif();
     }
 
 
@@ -119,8 +118,15 @@ public class Player {
         return res;
     }
 
-    public void usePouv(int poke, GetPoke chercher){
-        m_playground.getPokemoonByIndex(poke).utilise(chercher, this);
+    private Pokemoon getPokeFromPlayground(int poke){
+        return m_playground.getPokemoonByIndex(poke);
+    }
+
+
+    // fonctionne en mode deffencif
+    public void usePouv(int numPoke, int numOther, Player pOther){
+        Pokemoon other = pOther.getPokeFromPlayground(numOther);
+        m_playground.getPokemoonByIndex(numPoke).utilise(this, other);
     }
 
     public boolean hasPower(int poke){
