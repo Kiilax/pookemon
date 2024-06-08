@@ -11,6 +11,6 @@ public class PouvEther extends Pouvoir{
 
     @Override
     public void utiliser(Pokemoon poke, Pokemoon other, Player joueur){
-        poke.setAffinite(Element.ETHER);
+        other.setAffinite(Element.ETHER);
     }
 }
