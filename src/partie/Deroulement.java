@@ -90,28 +90,18 @@ public class Deroulement {
      * Rempli le plateau du joueur
      * @param nbPoke le nombre de poke que le joeur doit mettre
      */
-    public void userFillPlayground(int nbPoke){
+    public void userFillPlayground(){
       if(m_user.getPlaygroundSize() != 3){
         Affichage.continuer();
         System.out.println(Affichage.getPlayground(m_user, m_bot));
         System.out.println(m_user.getHand());
-        if(nbPoke == 1){
-          System.out.print("Donne le numéro du dernier Pokemoon à prendre : ");
-        }
-        else{
-          System.out.print("Donne le numéro des "+nbPoke+" Pokemoons que tu veux prendre : ");
-        }
+        System.out.print("Donne le numéro du Pokemoon que tu veux prendre : ");
         while (m_user.getPlaygroundSize()<3 && m_user.getHandSize()>0) {
           m_user.choosePoke(getIndexValide(m_user.getHandSize()));
           Affichage.clearScreen();
           System.out.println(Affichage.getPlayground(m_user, m_bot));
           System.out.println(m_user.getHand());
-          if(nbPoke == 1){
-            System.out.print("Donne le numéro du Pokemoon que tu veux prendre : ");
-          }
-          else{
-            System.out.print("Donne le numéro des "+nbPoke+" Pokemoons que tu veux prendre : ");
-          }
+          System.out.print("Donne le numéro du Pokemoon que tu veux prendre : ");
         }
         m_user.fillHand();
       }
@@ -122,7 +112,7 @@ public class Deroulement {
      * @param player le bot qui doit remplir son plateau
      * @param nbPoke le nombre de poke que le bot doit mettre 
      */
-    public void botFillPlayground(int nbPoke){
+    public void botFillPlayground(){
       if(m_bot.getPlaygroundSize() != 3){
         while (m_bot.getPlaygroundSize() < 3 && m_bot.getHandSize()>0) {
           m_bot.choosePoke(0);
@@ -173,6 +163,7 @@ public class Deroulement {
         }
         m_bot.cleanPlayground();
         m_user.cleanPlayground();
+        Affichage.afficheJeu(m_user, m_bot);
       }
       if(pouvUtil) {
         System.out.println("Le bot a utilisé un pouvoir !");
@@ -280,7 +271,7 @@ public class Deroulement {
       Affichage.clearScreen();
       System.out.println(m_bot.getPlayerName()+ " attaque !");
       for(int i=0; i<m_bot.getPlaygroundSize() && !m_gameOver; i++){
-        System.out.println(m_bot.autoAttack(m_user, i)+"\n");
+        System.out.println(m_bot.autoAttack(m_user, i));
         nbDeMort += m_user.cleanPlayground();
         gameOver();
       }

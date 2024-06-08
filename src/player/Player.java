@@ -137,10 +137,6 @@ public class Player {
         return m_playground.getPokemoonByIndex(poke).hasPower();
     }
 
-    public boolean isOffencif(int poke){
-        return m_playground.getPokemoonByIndex(poke).isOffencif();
-    }
-
     public String getHand(){
         return m_hand.toString();
     }

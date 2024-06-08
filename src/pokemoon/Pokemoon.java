@@ -49,22 +49,8 @@ public class Pokemoon {
         m_affinite = type;
     }
 
-    public Pouvoir noPouvoir(){
-        Pouvoir ciao = m_pouv;
-        m_pouv = null;
-        return ciao;
-    }
-
     public boolean hasPower(){
         return !(m_pouv==null);
-    }
-
-    public boolean isOffencif(){
-        return m_pouv.getOffencif();
-    }
-
-    public void newPouvoir(Pouvoir pouv){
-        m_pouv = pouv;
     }
 
     public String getName(){

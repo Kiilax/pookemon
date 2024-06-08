@@ -15,15 +15,7 @@ public class Deck {
             m_pokemoons.push(ListPokemoon.getPoke());
         }
     }
-
-    /*void add(Pokemoon poke){
-        m_pokemoons.push(poke);
-    }
-
-    void melange(){
-        Collections.shuffle(m_pokemoons);
-    } */
-
+    
     // /!\ attention ne fait pas attention ne gère pas les pilles vide
     Pokemoon takePokemoon() {
         return m_pokemoons.pop();

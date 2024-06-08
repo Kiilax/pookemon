@@ -12,45 +12,43 @@ public class Main
     Affichage.clearScreen();
     Affichage.getTitre();
     partie.createPlayer();
-    int nbPokeMortUser = 3;
-    int nbPokeMortBot = 3;
 
     //Debut de la partie en fonction du premier joueur :
     if(partie.playerIsFirst()) {
       System.out.println("\nC'est toi qui commence !\n");
-      partie.userFillPlayground(nbPokeMortUser);
-      partie.botFillPlayground(nbPokeMortBot);
+      partie.userFillPlayground();
+      partie.botFillPlayground();
       partie.usePouvJoueur();
-      nbPokeMortBot = partie.userAttack();
+      partie.userAttack();
       partie.usePouvBot();
-      nbPokeMortUser = partie.botAttack();
+      partie.botAttack();
     }
     else {
       System.out.println("\nAlbert l'ordinateur commence !\n");
-      partie.botFillPlayground(nbPokeMortBot);
-      partie.userFillPlayground(nbPokeMortUser);
+      partie.botFillPlayground();
+      partie.userFillPlayground();
       partie.usePouvBot();
-      nbPokeMortUser = partie.botAttack();
+      partie.botAttack();
       partie.usePouvJoueur();
-      nbPokeMortBot = partie.userAttack();
+      partie.userAttack();
     }
     //Deroulement du jeu en fonction du premier joueur :
     while(!partie.getGameOver()) {
       if(partie.playerIsFirst()) {
-        partie.userFillPlayground(nbPokeMortUser);
+        partie.userFillPlayground();
         partie.usePouvJoueur();
-        nbPokeMortBot = partie.userAttack();
-        partie.botFillPlayground(nbPokeMortBot);
+        partie.userAttack();
+        partie.botFillPlayground();
         partie.usePouvBot();
-        nbPokeMortUser = partie.botAttack();
+        partie.botAttack();
       }
       else {
-        partie.botFillPlayground(nbPokeMortBot);
+        partie.botFillPlayground();
         partie.usePouvBot();
-        nbPokeMortUser = partie.botAttack();
-        partie.userFillPlayground(nbPokeMortUser);
+        partie.botAttack();
+        partie.userFillPlayground();
         partie.usePouvJoueur();
-        nbPokeMortBot = partie.userAttack();
+        partie.userAttack();
       }
       if(partie.getGameOver()){
         Affichage.afficheFinJeu(partie.gameOver());
