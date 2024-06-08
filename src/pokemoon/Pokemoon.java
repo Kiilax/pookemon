@@ -83,7 +83,7 @@ public class Pokemoon {
 
     public String getPouvoir(){
         if(m_pouv == null){
-            return "rien\t\t";
+            return "----";
         }
         else{
             return m_pouv.getNom();

@@ -5,7 +5,7 @@ import pouvoir.Pouvoir;
 
 public class PouvFerveurGuerriere extends Pouvoir{
     public PouvFerveurGuerriere(){
-        super("Ferveur guerrière", "augmente de 10 l'attaque", true, false);
+        super("Ferveur guerrière", "Augmente de 10 l'attaque d'un Pokemoon allié ou lui-même. Utilisation unique", true, false);
     }
 
     @Override

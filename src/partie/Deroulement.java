@@ -163,7 +163,7 @@ public class Deroulement {
         }
         m_bot.cleanPlayground();
         m_user.cleanPlayground();
-        Affichage.afficheJeu(m_user, m_bot);
+        Affichage.clearScreen();
       }
       if(pouvUtil) {
         System.out.println("Le bot a utilisé un pouvoir !");
@@ -218,15 +218,18 @@ public class Deroulement {
             m_user.usePouv(poke,0, m_user);
           }
           else if(m_user.pouvIsOffencif(poke)){
-            System.out.println("quel poke veux tu attaquer");
+            System.out.print("Numéro du Pokemoon à attaquer avec ce pouvoir : ");
             int other = getIndexValide(m_bot.getPlaygroundSize());
             m_user.usePouv(poke, other, m_bot);
           }
           else{ 
-            System.out.println("quel poke veux tu aider ?");
+            System.out.print("Numéro du Pokemoon à aider avec ce pouvoir : ");
             int other = getIndexValide(m_user.getPlaygroundSize());
             m_user.usePouv(poke, other, m_user);
           }
+          m_bot.cleanPlayground();
+          m_user.cleanPlayground();
+          Affichage.afficheJeu(m_user, m_bot);
           if(restePouv(m_user, pouv_utiliser)){
             System.out.println("Veux-tu utiliser un autre pouvoir ? [1]oui [2]non");
             rep = getIndexValide(2);
@@ -248,6 +251,7 @@ public class Deroulement {
      * @return le nombre de mort que l'attaquant a tué chez others
      */
     public int userAttack(){
+      String historique = "";
       int nbDeMort = 0;
       boolean[] indexValide = new boolean[m_user.getPlaygroundSize()];
       for(int i=0; i<m_user.getPlaygroundSize() && !m_gameOver; i++) {
@@ -258,12 +262,15 @@ public class Deroulement {
         int monPoke = getIndexValideSansRep(m_user.getPlaygroundSize(),indexValide);
         System.out.print("Numéro du Pokemoon à attaquer : ");
         int autrePoke = getIndexValide(m_bot.getPlaygroundSize());
-        System.out.println(m_user.userAttack(m_bot,monPoke,autrePoke));
+        historique += m_user.userAttack(m_bot,monPoke,autrePoke)+"\n";
         nbDeMort += m_bot.cleanPlayground();
         gameOver();
       }
+      Affichage.clearScreen();
+      System.out.println(historique);
+      Affichage.continuer();
       return nbDeMort;
-      }
+    }
 
 
     public int botAttack(){
