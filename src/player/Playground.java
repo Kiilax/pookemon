@@ -73,10 +73,9 @@ public class Playground {
         for (int i = 0; i < getSize(); i++) {
             String name = m_pokemoons.get(i).getName();
             res += "| Nom : " + name;
-            for(int y = name.length(); y<10; y++) {
+            for(int y = name.length(); y<24; y++) {
                 res+=" ";
             }
-            res+="\t\t";
         }
         res += "\n";
 
@@ -109,7 +108,10 @@ public class Playground {
 
         for (int i = 0; i < getSize(); i++) {
             String pouv = m_pokemoons.get(i).getPouvoir();
-            res += "| Pouvoir : " + pouv +"  \t";
+            res += "| Pouvoir : " + pouv;
+            for(int y = pouv.length(); y<20; y++) {
+                res+=" ";
+            }
         }
         res += "\n";
 

@@ -5,11 +5,11 @@ import pouvoir.Pouvoir;
 
 public class PouvKamikaz extends Pouvoir{
     protected PouvKamikaz(){
-        super("kamikaz", "se suicide pour tué un adversaire", true, true);
+        super("Kamikaz", "Se suicide pour tuer un adversaire. Utilisation unique.", true, true);
     }
 
     public void utiliser(Pokemoon poke, Pokemoon other, Player player){
-        poke.increasePower(poke.getLifeMax());
+        poke.increasePower(1000);
         poke.fight(other);
         poke.fight(poke);
     }

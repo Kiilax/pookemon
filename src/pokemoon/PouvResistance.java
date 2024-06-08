@@ -5,7 +5,7 @@ import pouvoir.Pouvoir;
 
 public class PouvResistance extends Pouvoir{
     public PouvResistance(){
-        super("Résistance", "-10 dégat au attaque subit",true, false);
+        super("Résistance", "Permet à un allié ou à lui-même de réduire chaque attaque reçu de 10 dégats. Utilisation unique.",true, false);
     }
 
     @Override

@@ -6,11 +6,11 @@ import pouvoir.Pouvoir;
 
 public class PouvEther extends Pouvoir{
     public PouvEther(){
-        super("Ether", "donne un nouveau type qui a un avantage sur tout les autres", true, false);
+        super("Ether", "Donne un nouveau type à un allié ou à lui-même qui a un avantage sur tout les autres. Utilisation unique", true, false);
     }
 
     @Override
     public void utiliser(Pokemoon poke, Pokemoon other, Player joueur){
-        poke.setAffinite(Element.ETHER);
+        other.setAffinite(Element.ETHER);
     }
 }

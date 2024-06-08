@@ -5,7 +5,7 @@ import pouvoir.Pouvoir;
 
 public class PouvPlomb extends Pouvoir{
     public PouvPlomb(){
-        super("Plomb", "donne un nouveau type qui a un désavantage sur tout les autres", true, true);
+        super("Plomb", "Donne un nouveau type à un Pokemoon adverse qui a un désavantage sur tout les autres. Utilisation unique.", true, true);
     }
 
     @Override
