@@ -104,5 +104,6 @@ public class Affichage {
     public static void afficheFinJeu(Player p){
       clearScreen();
       System.out.println(p.getPlayerName().toUpperCase() + " EST LE GRAND GAGNANT !!!");
+      m_scanf.close();
     }
 }
