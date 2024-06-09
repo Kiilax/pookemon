@@ -16,6 +16,7 @@ public class Main
     //Debut de la partie en fonction du premier joueur :
     if(partie.playerIsFirst()) {
       System.out.println("\nC'est toi qui commence !\n");
+      Affichage.continuer();
       partie.userFillPlayground();
       partie.botFillPlayground();
       partie.usePouvJoueur();
@@ -24,7 +25,8 @@ public class Main
       partie.botAttack();
     }
     else {
-      System.out.println("\nAlbert l'ordinateur commence !\n");
+      System.out.println("\nL'ordinateur commence !\n");
+      Affichage.continuer();
       partie.botFillPlayground();
       partie.userFillPlayground();
       partie.usePouvBot();

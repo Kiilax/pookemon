@@ -92,7 +92,7 @@ public class Deroulement {
      */
     public void userFillPlayground(){
       if(m_user.getPlaygroundSize() != 3){
-        Affichage.continuer();
+        Affichage.clearScreen();
         System.out.println(Affichage.getPlayground(m_user, m_bot));
         System.out.println(m_user.getHand());
         System.out.print("Donne le numéro du Pokemoon que tu veux prendre : ");
