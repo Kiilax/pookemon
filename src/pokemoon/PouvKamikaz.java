@@ -4,7 +4,7 @@ import player.Player;
 import pouvoir.Pouvoir;
 
 public class PouvKamikaz extends Pouvoir{
-    protected PouvKamikaz(){
+    public PouvKamikaz(){
         super("Kamikaz", "Se suicide pour tuer un adversaire. Utilisation unique.", true, true);
     }
 
