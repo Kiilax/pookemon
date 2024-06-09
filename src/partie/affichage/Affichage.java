@@ -15,15 +15,6 @@ public class Affichage {
             "";
     private static String m_separation = "----------------------------------------------------------------------------------------------------------\n";
     private static Scanner m_scanf = new Scanner(System.in);
-
-    public static void dodo(){
-      try {
-        Thread.sleep(2000);
-      } 
-      catch (InterruptedException ie) {
-        System.out.println(ie.getMessage());
-      }
-    }
     /**
      * Reinitialise le terminal
      */
@@ -36,7 +27,7 @@ public class Affichage {
     * Demande d'appuyer sur Enter pour continuer (pour mettre des temps de pause dans le jeu)
     */
     public static void continuer() {
-      System.out.print("Appuye sur Enter pour continuer -");
+      System.out.print("Appuie sur [enter] pour continuer : ");
       m_scanf.nextLine();
       clearScreen();
     }
@@ -113,5 +104,6 @@ public class Affichage {
     public static void afficheFinJeu(Player p){
       clearScreen();
       System.out.println(p.getPlayerName().toUpperCase() + " EST LE GRAND GAGNANT !!!");
+      m_scanf.close();
     }
 }
