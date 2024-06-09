@@ -16,7 +16,7 @@ public abstract class Pouvoir {
         m_offencif = offencif;
     }
 
-    abstract public void utiliser(Pokemoon poke, Pokemoon other, Player joeur);
+    abstract public void utiliser(Pokemoon poke, Pokemoon other, Player joueur);
 
     public String getNom(){
         return m_nom;

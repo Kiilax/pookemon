@@ -68,11 +68,4 @@ public class ListPokemoon {
         m_pokeAvailable.remove(index);
         return poke;
     }
-
-    public static void reset(){
-        for(String nom : m_namePokemoonTaken){
-            m_namePokemoonAvailable.add(nom);
-        }
-        m_namePokemoonTaken.clear();
-    }
 }

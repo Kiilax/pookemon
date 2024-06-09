@@ -7,7 +7,7 @@ package pouvoir {
         -m_unique: Boolean
         -m_offencif: Boolean
         #«create»Pouvoir(nom: String, desc: String, unique: Boolean, offencif: Boolean)
-        +{abstract} utiliser(Poke: Pokemoon, other: Pokemoon, joeur: Player):
+        +{abstract} utiliser(Poke: Pokemoon, other: Pokemoon, joueur: Player):
         +getNom(): String
         +getDesc(): String
         +getUnique(): Boolean
@@ -151,7 +151,6 @@ package pokemoon{
         -{static}getPouv(): Pouvoir
         +{static}getName(): String
         +{static}getPoke(): Pokemoon
-        +{static}reset()
     }
 
     class PokeLife{
@@ -187,12 +186,13 @@ package pokemoon{
         +fight(other: Pokemoon)
         ~protec(protec: Integer)
         ~increasePower(increase: Integer)
-        +utilise(Player joueur, other: Pokemoo): Boolean
+        +utilise(Player joueur, other: Pokemoo)
     }
 
     class PokePower{
         -m_power: Integer
         ~«create»PokePower(power: Integer)
+        ~increasePower(increase: Integer)
         ~getPower(): Integer
         ~getAttackPower(element: Element, elementEnemi: Element): Integer
     }
@@ -241,6 +241,7 @@ Main .> Deroulement: <<instaciate>>
 Main .> Affichage: <<uses>>
 
 Affichage o-> "1\nm_scanf"Scanner
+Affichage .> player.Player : <<uses>>
 
 Deroulement "1" *---> "-m_user\n1"User : possède >
 Deroulement "1" *---> "-m_bot\n1"Player : possède >
